@@ -1,0 +1,25 @@
+import Image from "next/image";
+
+export default function FeatCard({ title, description, imageUrl, price }: { title: string; description: string; imageUrl: string; price: string }) {
+    return (
+        <article className="h-full group flex flex-col rounded-2xl bg-white shadow-sm ring-1 ring-black/5 overflow-hidden transition-all duration-300 ease-out hover:scale-[1.03] hover:bg-background active:scale-[0.98] hover:-translate-y-1">
+            <Image
+                src={imageUrl}
+                alt={title}
+                className="h-44 w-lg object-cover"
+                width={250}
+                height={250}
+            />
+            <div className="p-5">
+                <h4 className="font-display inline-block text-4xl text-foreground">{title}</h4>
+                <p className="mt-2 text-sm text-foreground/70 leading-relaxed line-clamp-3">
+                {description}
+                </p>
+                <div className="md:mt-6 flex items-center justify-end">
+                <span className="font-display text-5xl text-thirdary">{price}</span>
+                </div>
+            </div>
+        </article>
+
+    );
+}
