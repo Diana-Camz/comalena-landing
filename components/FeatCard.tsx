@@ -1,6 +1,8 @@
 import Image from "next/image";
 
-export default function FeatCard({ title, description, imageUrl, price }: { title: string; description: string; imageUrl: string; price: string }) {
+type FeatCardProps = { title: string; description: string; imageUrl: string; price: string }
+
+export default function FeatCard({ title, description, imageUrl, price }: FeatCardProps) {
     return (
         <article className="h-full group flex flex-col rounded-2xl bg-white shadow-sm ring-1 ring-black/5 overflow-hidden transition-all duration-300 ease-out hover:scale-[1.03] hover:bg-background active:scale-[0.98] hover:-translate-y-1">
             <Image
