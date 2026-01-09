@@ -11,7 +11,7 @@ type MenuCardProps = {
 
 export default function MenuCard({id, title, ingredients, imageUrl, prices, tags}: MenuCardProps) {
   return (
-    <div className="flex border justify-start p-3 items-center rounded-lg ">
+    <div className="flex border justify-start p-3 items-center rounded-lg hover:shadow-md hover:bg-ring/5 transition-shadow duration-200 ease-in-out ">
       <div className="">
         <Image src={imageUrl} alt={title} width={100} height={100} className="rounded-lg object-cover h-36 w-44"/>
       </div>
