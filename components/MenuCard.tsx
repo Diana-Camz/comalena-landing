@@ -5,7 +5,7 @@ type MenuCardProps = {
   title: string;
   ingredients: string;
   imageUrl: string;
-  prices: string[];
+  prices: {sm: number, md: number, lg: number};
   tags?: string[];
 }
 
@@ -16,12 +16,12 @@ export default function MenuCard({id, title, ingredients, imageUrl, prices, tags
         <Image src={imageUrl} alt={title} width={100} height={100} className="rounded-lg object-cover h-36 w-44"/>
       </div>
       <div className="w-110">
-        <h3 className="font-display text-2xl ml-4">{title}</h3>
+        <h3 className="font-display text-2xl ml-4 tracking-wide">{title}</h3>
         <p className="text-foreground/80 mt-2 ml-4">{ingredients}</p>
-        <div className="flex w-50 justify-between mt-4 ml-4">
-          {prices.map((price, index) => (
-            <span key={index} className="text-xl">{price}</span>
-          ))}
+        <div className="flex w-80 justify-evenly mt-4">
+          <p>ch <span className="text-lg">${prices.sm}</span></p>
+          <p>med <span className="text-lg">${prices.md}</span></p>
+          <p>gde <span className="text-lg">${prices.lg}</span></p>
         </div>
       </div>
     </div>
