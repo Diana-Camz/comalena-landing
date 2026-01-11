@@ -1,9 +1,7 @@
 'use client';
 import Layout from "@/components/Layout";
 import MenuCard from "@/components/MenuCard";
-import { pizzasMenu } from "@/components/data/data";
-import { Checkbox } from "@/components/ui/checkbox";
-import { Label } from "@/components/ui/label"
+import { pizzasMenu } from "@/data/data";
 import Image from "next/image";
 import { useMemo, useState } from "react";
 
@@ -12,6 +10,15 @@ type TagButtonProps = {
   active: boolean;
   onClick: () => void;
 };
+
+export type Pizza = {
+    id: number;
+    title: string;
+    ingredients: string;
+    imageUrl: string;
+    prices: {sm: number, md: number, lg: number};
+    tags?: string[];
+}
 
 function TagButton({ label, active, onClick }: TagButtonProps) {
   return (
@@ -44,9 +51,8 @@ export default function MenuPage() {
 
    const filteredPizzas = useMemo(() => {
     if (tagsSelected.length === 0) return pizzasMenu;
-
-    // OR: si la pizza tiene AL MENOS 1 tag seleccionado, se muestra
-    return pizzasMenu.filter((pizza: any) =>
+    // si la pizza tiene AL MENOS 1 tag seleccionado, se muestra
+    return pizzasMenu.filter((pizza: Pizza) =>
       pizza.tags?.some((t: string) => tagsSelected.includes(t))
     );
   }, [tagsSelected]);
@@ -71,11 +77,11 @@ export default function MenuPage() {
                                 />
                             <TagButton
                                 label="Especialidades"
-                                active={tagsSelected.includes("especialidades")}
+                                active={tagsSelected.includes("especial")}
                                 onClick={() =>
                                     toggleTag(
-                                    "especialidades",
-                                    !tagsSelected.includes("especialidades")
+                                    "especial",
+                                    !tagsSelected.includes("especial")
                                     )
                                 }
                                 />
@@ -121,11 +127,11 @@ export default function MenuPage() {
                             />
                             <TagButton
                                 label="Carnes frias"
-                                active={tagsSelected.includes("carnes frias")}
+                                active={tagsSelected.includes("carnes")}
                                 onClick={() =>
                                     toggleTag(
-                                    "carnes frias",
-                                    !tagsSelected.includes("carnes frias")
+                                    "carnes",
+                                    !tagsSelected.includes("carnes")
                                     )
                                 }
                             />
@@ -143,7 +149,7 @@ export default function MenuPage() {
                     </div>
                 </div>
                 <div className="lg:mt-12 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-                     {filteredPizzas.map((pizza: any, index: number) => (
+                     {filteredPizzas.map((pizza: Pizza, index: number) => (
                         <MenuCard key={index} {...pizza} />
                     ))}
                 </div>

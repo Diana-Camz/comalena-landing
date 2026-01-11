@@ -1,15 +1,7 @@
 import Image from "next/image";
+import type { Pizza } from "@/app/menu/page";
 
-type MenuCardProps = {
-  id: number;
-  title: string;
-  ingredients: string;
-  imageUrl: string;
-  prices: {sm: number, md: number, lg: number};
-  tags?: string[];
-}
-
-export default function MenuCard({id, title, ingredients, imageUrl, prices, tags}: MenuCardProps) {
+export default function MenuCard({id, title, ingredients, imageUrl, prices, tags}: Pizza) {
   return (
     <div className="flex border justify-start p-3 items-center rounded-lg hover:shadow-md hover:bg-ring/5 transition-shadow duration-200 ease-in-out ">
       <div className="">
