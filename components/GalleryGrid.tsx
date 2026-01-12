@@ -50,7 +50,7 @@ export default function GalleryGrid({ items }: { items: GalleryItem[] }) {
           onClick={() => setActive(null)}
         >
           <div
-            className="relative w-full max-w-6xl rounded-2xl bg-black"
+            className="relative w-full max-w-6xl rounded-2xl bg-black "
             onClick={(e) => e.stopPropagation()}
           >
             <div className="relative aspect-auto w-full h-0 pb-[75%]">
@@ -66,7 +66,7 @@ export default function GalleryGrid({ items }: { items: GalleryItem[] }) {
             <button
               type="button"
               onClick={() => setActive(null)}
-              className="absolute right-3 top-2 px-3 text-sm cursor-pointer"
+              className="absolute right-1 top-2 px-1 text-sm cursor-pointer"
             >
               <IoMdCloseCircle size={45} color="#fafafa"/>
             </button>

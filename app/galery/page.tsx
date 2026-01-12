@@ -21,12 +21,9 @@ export default function GaleriaPage() {
   return (
     <Layout>
       <section className="py-10 text-center">
-        <h1 className="font-display lg:text-4xl tracking-wide">
-          Galería
-        </h1>
-        <p className="lg:mt-2 lg:text-xl text-foreground/80">
+        <h1 className="lg:mt-2 lg:text-2xl font-medium text-foreground/80">
           Un vistazo al sabor de Comaleña: pizzas, horno y momentos.
-        </p>
+        </h1>
 
         <div className="mt-8">
           <GalleryGrid items={galleryItems} />
