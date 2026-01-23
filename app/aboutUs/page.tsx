@@ -5,7 +5,7 @@ export default function aboutUsPage() {
     return (
         <Layout>
           <section className="py-10 text-center lg:px-80">
-            <h1 className="lg:mt-2 lg:text-6xl font-medium  text-secondary font-display">
+            <h1 className="lg:mt-2 lg:text-5xl font-medium text-secondary/70 tracking-wide">
                 Un poco de nuestra historia.
             </h1>
             <div className="flex flex-col p-4 gap-6 lg:flex-row mt-6 rounded-xl lg:items-center bg-sidebar-ring/5">

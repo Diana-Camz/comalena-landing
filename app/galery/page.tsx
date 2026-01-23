@@ -21,7 +21,7 @@ export default function GaleriaPage() {
   return (
     <Layout>
       <section className="py-10 text-center">
-        <h1 className="lg:mt-2 lg:text-2xl font-medium text-foreground/80">
+        <h1 className="lg:mt-2 font-medium lg:text-3xl text-red/70 ">
           Un vistazo al sabor de Comaleña: pizzas, horno y momentos.
         </h1>
 

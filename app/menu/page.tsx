@@ -26,11 +26,11 @@ function TagButton({ label, active, onClick }: TagButtonProps) {
       type="button"
       onClick={onClick}
       className={`
-        px-4 py-2 rounded-full text-sm font-medium transition
+        px-4 py-2 rounded-full text-lg transition 
         ${
           active
-            ? "bg-primary text-background"
-            : "bg-background text-foreground ring-1 ring-black/10 hover:bg-foreground/5"
+            ? "bg-secondary/60 text-background"
+            : "bg-background text-card-foreground/75 ring-1 ring-black/10 hover:bg-ring/10"
         }
       `}
     >
@@ -51,7 +51,6 @@ export default function MenuPage() {
 
    const filteredPizzas = useMemo(() => {
     if (tagsSelected.length === 0) return pizzasMenu;
-    // si la pizza tiene AL MENOS 1 tag seleccionado, se muestra
     return pizzasMenu.filter((pizza: Pizza) =>
       pizza.tags?.some((t: string) => tagsSelected.includes(t))
     );
@@ -62,12 +61,12 @@ export default function MenuPage() {
             <section className="py-8">
                 <div className="flex justify-evenly">
                     <div className="flex justify-center items-center flex-col mb-8">
-                        <p className="font-display lg:text-4xl tracking-wide ">Conoce nuestros tamanos</p>
-                    <Image src='/images/tamanos-pizza.jpg' alt='tamanos de pizza' width={600} height={100} className="border rounded-lg object-covermb-8"/>
+                        <p className=" lg:text-3xl tracking-wide text-red/90">Conoce nuestros tamanos</p>
+                    <Image src='/images/tamanos.svg' alt='tamanos de pizza' width={600} height={100} className="object-covermb-8 mt-10"/>
                     </div>
                     <div className="flex items-center flex-col mb-8">
-                        <p className="font-display lg:text-4xl tracking-wide">Filtra segun tu antojo</p>
-                        <div className="gap-4 grid grid-cols-3 items-center mt-4">
+                        <p className="lg:text-3xl tracking-wide text-red/90">Filtra segun tu antojo</p>
+                        <div className="gap-4 grid grid-cols-3 items-center mt-10">
                             <TagButton
                                 label="Todas"
                                 active={tagsSelected.length === 0}
@@ -148,7 +147,7 @@ export default function MenuPage() {
                         </div>
                     </div>
                 </div>
-                <div className="lg:mt-12 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+                <div className="lg:my-12 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
                      {filteredPizzas.map((pizza: Pizza, index: number) => (
                         <MenuCard key={index} {...pizza} />
                     ))}

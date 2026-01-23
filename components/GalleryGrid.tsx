@@ -35,7 +35,7 @@ export default function GalleryGrid({ items }: { items: GalleryItem[] }) {
 
             <div className="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
               <div className="absolute inset-0 bg-black/20" />
-              <span className="absolute bottom-3 left-3 rounded-full bg-white/90 px-3 py-1 text-sm">
+              <span className="absolute bottom-3 left-3 rounded-full bg-white/90 px-3 py-1 text-md font-gothic">
                 Ver foto
               </span>
             </div>
