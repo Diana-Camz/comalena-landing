@@ -61,11 +61,11 @@ export default function MenuPage() {
             <section className="py-8">
                 <div className="flex justify-evenly">
                     <div className="flex justify-center items-center flex-col mb-8">
-                        <p className=" lg:text-3xl tracking-wide text-red/90">Conoce nuestros tamanos</p>
+                        <p className=" lg:text-3xl tracking-wide text-red/90">Conoce nuestros tamaños</p>
                     <Image src='/images/tamanos.svg' alt='tamanos de pizza' width={600} height={100} className="object-covermb-8 mt-10"/>
                     </div>
                     <div className="flex items-center flex-col mb-8">
-                        <p className="lg:text-3xl tracking-wide text-red/90">Filtra segun tu antojo</p>
+                        <p className="lg:text-3xl tracking-wide text-red/90">Filtra según tu antojo</p>
                         <div className="gap-4 grid grid-cols-3 items-center mt-10">
                             <TagButton
                                 label="Todas"
@@ -85,7 +85,7 @@ export default function MenuPage() {
                                 }
                                 />
                             <TagButton
-                                label="Clasicas"
+                                label="Clásicas"
                                 active={tagsSelected.includes("clasica")}
                                 onClick={() =>
                                     toggleTag(
@@ -125,7 +125,7 @@ export default function MenuPage() {
                                 }
                             />
                             <TagButton
-                                label="Carnes frias"
+                                label="Carnes frías"
                                 active={tagsSelected.includes("carnes")}
                                 onClick={() =>
                                     toggleTag(
@@ -135,7 +135,7 @@ export default function MenuPage() {
                                 }
                             />
                             <TagButton
-                                label="Mas pedidas"
+                                label="Más pedidas"
                                 active={tagsSelected.includes("mas pedidas")}
                                 onClick={() =>
                                     toggleTag(

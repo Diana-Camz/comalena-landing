@@ -91,9 +91,9 @@ export default function contactPage() {
 
                  {/* Dudas o sugerencias */}
                 <div className="mb-10 lg:mt-24">
-                    <p className="text-card-foreground/70 lg:text-2xl font-gothic">
+                    <p className="text-card-foreground/80 lg:text-2xl font-gothic">
                     ¿Tienes alguna duda o sugerencia?  
-                    <span className="text-card-foreground/70 lg:text-2xl font-gothic"> Estamos para ayudarte.</span>
+                    <span className="text-card-foreground/80 lg:text-2xl font-gothic"> Estamos para ayudarte.</span>
                     </p>
                     <p className="text-card-foreground/70 lg:text-2xl font-gothic">
                     Envía un WhatsApp o llámanos al

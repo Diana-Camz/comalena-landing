@@ -11,9 +11,9 @@ export default function MenuCard({id, title, ingredients, imageUrl, prices, tags
         <h3 className="text-2xl ml-4 text-red">{title}</h3>
         <p className="text-card-foreground/70 font-gothic text-xl mt-2 ml-4">{ingredients}</p>
         <div className="flex w-80 justify-evenly mt-4">
-          <p className="text-2xl font-gothic">ch <span >${prices.sm}</span></p>
-          <p className="text-2xl font-gothic">med <span >${prices.md}</span></p>
-          <p className="text-2xl font-gothic">gde <span >${prices.lg}</span></p>
+          <p className="text-2xl font-gothic text-card-foreground/80">ch <span className="text-red/90">${prices.sm}</span></p>
+          <p className="text-2xl font-gothic text-card-foreground/80">med <span className="text-red/90">${prices.md}</span></p>
+          <p className="text-2xl font-gothic text-card-foreground/80">gde <span className="text-red/90">${prices.lg}</span></p>
         </div>
       </div>
     </div>
