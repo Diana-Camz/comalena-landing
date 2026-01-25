@@ -1,130 +1,146 @@
 export const pizzasMenu = [
   {
     id: 1,
-    title: "Margarita Clásica",
-    ingredients: "Salsa de tomate, queso mozzarella, albahaca fresca",
-    imageUrl: "/images/margarita.jpg",
-    prices: {sm: 120, md: 160, lg: 200},
-    tags: ["sin carnes", "clásica", "vegetariana"]
+    title: "Pepperoni",
+    ingredients: "Salsa de tomate, queso y pepperoni",
+    imageUrl: "/images/menu/pepperoni.webp",
+    prices: {sm: 69, md: 139, lg: 179},
+    tags: ["carnes", "clasica", "mas-pedida"]
   },
   {
     id: 2,
-    title: "Pepperoni",
-    ingredients: "Salsa de tomate, queso mozzarella, pepperoni",
-    imageUrl: "/images/pepperoni.webp",
-    prices: {sm: 120, md: 160, lg: 200},
-    tags: ["mas pedidas", "carnes frías"]
+    title: "Pepperoni Champiñones",
+    ingredients: "Salsa de tomate, queso, pepperoni y champiñones",
+    imageUrl: "/images/menu/pepperoni-champ.webp",
+    prices: {sm: 79, md: 159, lg: 199},
+    tags: ["mas-pedida", "carnes", "clasica"]
   },
   {
     id: 3,
     title: "Hawaiana",
-    ingredients: "Salsa de tomate, queso mozzarella, jamón, piña",
-    imageUrl: "/images/hawaiana.webp",
-    prices: {sm: 135, md: 175, lg: 215},
-    tags: ["carnes", "dulce-salada"]
+    ingredients: "Salsa de tomate, queso, jamón y piña",
+    imageUrl: "/images/menu/hawaiana.webp",
+    prices: {sm: 79, md: 159, lg: 199},
+    tags: ["carnes", "clasica", "mas-pedida"]
   },
   {
     id: 4,
-    title: "Mexicana",
-    ingredients: "Salsa de tomate, queso, chorizo, jalapeño, cebolla",
-    imageUrl: "/images/mexicana.webp",
-    prices: {sm: 140, md: 180, lg: 220},
-    tags: ["picosa", "carnes", "tradicional"]
+    title: "Red Hawaiana",
+    ingredients: "Salsa de tomate, queso, pepperoni, piña",
+    imageUrl: "/images/menu/red-haw.webp",
+    prices: {sm: 79, md: 159, lg: 199},
+    tags: ["carnes", "clasica"]
   },
   {
     id: 5,
-    title: "Cuatro Quesos",
-    ingredients: "Mozzarella, manchego, parmesano, queso azul",
-    imageUrl: "/images/mexicana.webp",
-    prices: {sm: 135, md: 175, lg: 215},
-    tags: ["sin carnes", "quesos"]
+    title: "Mexicana",
+    ingredients: "Salsa de tomate, queso, chorizo, jitomate, pimiento, jalapeño y cebolla",
+    imageUrl: "/images/menu/mexicana.webp",
+    prices: {sm: 79, md: 169, lg: 209},
+    tags: ["picosa", "carnes", "clasica", "mas-pedida"]
   },
   {
     id: 6,
     title: "Vegetariana",
-    ingredients: "Salsa de tomate, queso, champiñones, pimiento, aceitunas",
-    imageUrl: "/images/margarita.jpg",
-    prices: {sm: 130, md: 170, lg: 210},
-    tags: ["sin carnes", "vegetariana"]
+    ingredients: "Salsa de tomate, queso, champiñones, pimiento, cebolla, jalapeño y piña",
+    imageUrl: "/images/menu/vegetariana.webp",
+    prices: {sm: 79, md: 169, lg: 209},
+    tags: ["vegetariana", "picosa"]
   },
   {
     id: 7,
-    title: "Carnes Frías",
-    ingredients: "Jamón, salami, pepperoni, queso mozzarella",
-    imageUrl: "/images/mexicana.webp",
-    prices: {sm: 145, md: 185, lg: 225},
-    tags: ["carnes frias", "más pedida"]
+    title: "Margarita",
+    ingredients: "Salsa de tomate, queso, jitomate cherry, albahaca y queso parmesano",
+    imageUrl: "/images/menu/margarita.webp",
+    prices: {sm: 79, md: 179, lg: 219},
+    tags: ["vegetariana", "clasica"]
   },
   {
     id: 8,
-    title: "BBQ Chicken",
-    ingredients: "Salsa BBQ, pollo, cebolla morada, queso",
-    imageUrl: "/images/pepperoni.webp",
-    prices: {sm: 145, md: 185, lg: 225},
-    tags: ["pollo", "especial"]
+    title: "Mamma-Mía",
+    ingredients: "Salsa de tomate, queso, jitomate deshidratado, jitomate cherry, champiñones y albahaca fresca",
+    imageUrl: "/images/menu/mamma-mia.webp",
+    prices: {sm: 79, md: 189, lg: 229},
+    tags: ["vegetariana", "especial"]
   },
   {
     id: 9,
-    title: "Frijoles con Chorizo",
-    ingredients: "Frijoles refritos, chorizo, queso, cebolla",
-    imageUrl: "/images/margarita.jpg",
-    prices: {sm: 135, md: 175, lg: 215},
-    tags: ["frijoles", "mexicana"]
+    title: "Diávola",
+    ingredients: "Salsa de tomate, queso, pepperoni, chorizo, jalapeño y pimiento",
+    imageUrl:  "/images/menu/diavola.webp",
+    prices: {sm: 79, md: 189, lg: 229},
+    tags: ["picosa", "carnes", "especial"]
   },
   {
     id: 10,
-    title: "Pastor",
-    ingredients: "Carne al pastor, piña, cebolla, queso",
-    imageUrl:  "/images/margarita.jpg",
-    prices: {sm: 145, md: 185, lg: 225},
-    tags: ["carnes", "más pedida"]
+    title: "Exótica",
+    ingredients: "Salsa de tomate, queso, jamón, salami, aceitunas negras, pimiento y cebolla",
+    imageUrl: "/images/menu/exotica.webp",
+    prices: {sm: 79, md: 189, lg: 229},
+    tags: ["carnes", "especial"]
   },
   {
     id: 11,
-    title: "Diabla",
-    ingredients: "Salsa picante, pepperoni, chorizo, jalapeño",
-    imageUrl:  "/images/margarita.jpg",
-    prices: {sm: 145, md: 185, lg: 225},
-    tags: ["picosa", "carnes"]
+    title: "Frijoleña",
+    ingredients: "Frijoles refritos, queso, chorizo, tocino y jalapeño",
+    imageUrl: "/images/menu/frijolena.webp",
+    prices: {sm: 79, md: 189, lg: 229},
+    tags: ["frijoles", "carnes", "especial"]
   },
   {
     id: 12,
-    title: "Champiñones con Tocino",
-    ingredients: "Champiñones, tocino, queso mozzarella",
-    imageUrl: "/images/hawaiana.webp",
-    prices: {sm: 140, md: 180, lg: 220},
-    tags: ["carnes", "especial"]
+    title: "Carroñera",
+    ingredients: "Salsa de tomate, queso, pepperoni, salami, jamón, tocino, chorizo y salchicha",
+    imageUrl: "/images/menu/carronera.webp",
+    prices: {sm: 89, md: 199, lg: 249},
+    tags: ["carnes", "especial", "mas-pedida"]
   },
   {
     id: 13,
-    title: "Atún",
-    ingredients: "Atún, cebolla, pimiento, queso",
-    imageUrl: "/images/pepperoni.webp",
-    prices: {sm: 140, md: 180, lg: 220},
-    tags: ["mariscos"]
+    title: "Wera",
+    ingredients: "Frijoles refritos, queso, chicharrón de cerdo, chorizo, chile güero, jalapeño y cebolla",
+    imageUrl: "/images/menu/wera.webp",
+    prices: {sm: 89, md: 199, lg: 249},
+    tags: ["frijoles", "carnes", "especial", "picosa"]
   },
   {
     id: 14,
-    title: "Suprema",
-    ingredients: "Pepperoni, jamón, champiñones, pimiento, aceitunas",
-    imageUrl: "/images/pepperoni.webp",
-    prices: {sm: 150, md: 190, lg: 230},
-    tags: ["carnes", "especial"]
+    title: "Boneless Búfalo",
+    ingredients: "Salsa de tomate, queso, boneless búfalo, apio y aderezo ranch",
+    imageUrl: "/images/menu/bufalo.webp",
+    prices: {sm: 89, md: 199, lg: 249},
+    tags: ["carnes", "especial", "mas-pedida", "picosa"]
   },
   {
     id: 15,
-    title: "Pollo con Elote",
-    ingredients: "Pollo, elote, queso mozzarella",
-    imageUrl: "/images/mexicana.webp",
-    prices: {sm: 140, md: 180, lg: 220},
-    tags: ["pollo"]
+    title: "Boneless BBQ",
+    ingredients: "Salsa de tomate, queso, boneless BBQ, champiñones y cebolla",
+    imageUrl: "/images/menu/bbq.webp",
+    prices: {sm: 89, md: 199, lg: 249},
+    tags: ["carnes", "especial", "mas-pedida"]
   },
   {
     id: 16,
-    title: "Especial de la Casa",
-    ingredients: "Jamón, pepperoni, chorizo, pimiento, queso",
-    imageUrl: "/images/hawaiana.webp",
-    prices: {sm: 155, md: 195, lg: 235},
-    tags: ["mas pedida", "especial", "picosa"]
+    title: "Pizza-Dogo",
+    ingredients: "Salsa de tomate, queso, salchicha, salami, tocino, cebolla, champiñones y aderezo ranch",
+    imageUrl: "/images/menu/dogo.webp",
+    prices: {sm: 89, md: 199, lg: 249},
+    tags: ["carnes", "especial", "mas-pedida"]
   }
+];
+
+export const galleryItems = [
+  { src: "/images/gallery/gallery_1.webp", alt: "Horno y preparación" },
+  { src: "/images/gallery/gallery-4.webp", alt: "Mesa con pizzas" },
+  { src: "/images/gallery/gallery-8.webp", alt: "Pizza pepperoni" },
+  { src: "/images/gallery/gallery_3.webp", alt: "Horno y preparación" },
+  { src: "/images/gallery/gallery-10.webp", alt: "Mesa con pizzas" },
+  { src: "/images/gallery/gallery-7.webp", alt: "Mesa con pizzas" },
+  { src: "/images/gallery/gallery-5.webp", alt: "Pizza pepperoni" },
+  { src: "/images/gallery/gallery-12_2.webp", alt: "Mesa con pizzas" },
+  { src: "/images/gallery/gallery-13_2.webp", alt: "Mesa con pizzas" },
+  { src: "/images/gallery/gallery-2.webp", alt: "Pizza pepperoni" },
+  { src: "/images/gallery/gallery-14_2.webp", alt: "Mesa con pizzas" },
+  { src: "/images/gallery/gallery-9.webp", alt: "Horno y preparación" },
+  { src: "/images/gallery/gallery-11.webp", alt: "Mesa con pizzas" },
 ];
