@@ -8,7 +8,7 @@ export default function Features() {
     return (
         <div className='lg:mt-50'>
             <div className="text-center mb-4"> {/* Presentacion de Comalena */}
-                <h2 className="lg:text-8xl text-red">CONOCE EL SABOR DE COMALENA</h2>
+                <h2 className="lg:text-8xl text-red">CONOCE EL SABOR DE COMALEÑA</h2>
             </div>
             <div className="flex justify-end lg:items-center lg:px-40  lg:mt-40">
                <div className='lg:mr-8'>
@@ -38,7 +38,7 @@ export default function Features() {
                     </div>
                     <div  className="flex gap-4 items-center justify-center mt-24">
                         <Button className="cursor-pointer h-12 hover:bg-secondary/80">
-                            <Link href="/menu" className="lg:text-lg">Ver Menu Completo</Link>
+                            <Link href="/menu" className="lg:text-lg">Ver Menú Completo</Link>
                         </Button>
                     </div>
                 </div>

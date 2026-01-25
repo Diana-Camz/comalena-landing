@@ -6,8 +6,8 @@ import Link from "next/link";
 export default function Navbar () {
     const navLabels = [
         {label: 'Inicio', href: '/'},
-        {label: 'Menu', href: '/menu'},
-        {label: 'Galeria', href: '/galery'},
+        {label: 'Menú', href: '/menu'},
+        {label: 'Galería', href: '/galery'},
         {label: 'Nosotros', href: '/aboutUs'},
         {label: 'Contacto', href: '/contact'},
     ];
