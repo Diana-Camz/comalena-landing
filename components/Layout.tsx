@@ -4,7 +4,7 @@ type LayoutProps = {
 
 export default function Layout ({children}: LayoutProps) {
     return (
-        <div className="mx-auto w-full px-4 sm:px-6 lg:px-8">
+        <div className="mx-auto w-full px-4 sm:px-6 lg:px-8 flex flex-col">
             {children}
         </div>
     )

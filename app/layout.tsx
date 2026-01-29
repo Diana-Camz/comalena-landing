@@ -35,6 +35,14 @@ export const metadata: Metadata = {
   description: "Pizza artesanal al horno de leña",
 };
 
+const navLabels = [
+    {label: 'Inicio', href: '/'},
+    {label: 'Menú', href: '/menu'},
+    {label: 'Galería', href: '/galery'},
+    {label: 'Nosotros', href: '/aboutUs'},
+    {label: 'Contacto', href: '/contact'},
+];
+
 export default function RootLayout({
   children,
 }: Readonly<
@@ -44,7 +52,7 @@ export default function RootLayout({
     <html lang="en" className={`${geistChicle.variable} ${geistMono.variable} ${anton.variable} ${gothic.variable}`}>
       <body
       className="bg-background text-card-foreground font-sans antialiased">
-        <Navbar/>
+        <Navbar navLabels={navLabels} />
         {children}
         <Footer />
       </body>
