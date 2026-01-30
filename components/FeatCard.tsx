@@ -12,9 +12,9 @@ export default function FeatCard({ title, description, imageUrl, price }: FeatCa
                 width={250}
                 height={250}
             />
-            <div className="p-5">
-                <h4 className="inline-block text-4xl text-card-foreground/80 ">{title}</h4>
-                <p className="mt-2 text-md lg:text-xl text-card-foreground/50 font-gothic line-clamp-3">
+            <div className="p-2 lg:p-5 text-center md:text-start">
+                <h4 className="inline-block text-center text-2xl md:text-4xl text-card-foreground/80 ">{title}</h4>
+                <p className="md:mt-2 text-md md:text-lg lg:text-xl text-card-foreground/50 font-gothic line-clamp-3">
                     {description}
                 </p>
                 <div className="md:mt-6 flex items-center justify-end">
