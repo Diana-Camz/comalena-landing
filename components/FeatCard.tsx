@@ -4,15 +4,26 @@ type FeatCardProps = { title: string; description: string; imageUrl: string; pri
 
 export default function FeatCard({ title, description, imageUrl, price }: FeatCardProps) {
     return (
-        <article className="h-full group flex flex-col rounded-2xl bg-white shadow-sm ring-1 ring-black/5 overflow-hidden transition-all duration-300 ease-out hover:scale-[1.03] hover:bg-background active:scale-[0.98] hover:-translate-y-1">
-            <Image
+        <article className="mx-auto
+            w-full max-w-[320px] md:max-w-[400px] lg:max-w-none
+            group flex flex-col
+            rounded-2xl bg-white
+            shadow-sm ring-1 ring-black/5
+            overflow-hidden
+            transition-all duration-300 ease-out
+            hover:scale-[1.03] hover:bg-background
+            active:scale-[0.98] hover:-translate-y-1"
+        >
+            <div className="relative aspect-[4/3] overflow-hidden">
+                <Image
                 src={imageUrl}
                 alt={title}
-                className="h-44 w-lg object-cover"
-                width={250}
-                height={250}
+                fill
+                sizes="(max-width: 640px) 280vw,  (max-width: 768px) 320px, (max-width: 1024px) 50vw, 25vw"
+                className="object-cover transition-transform duration-300 group-hover:scale-105"
             />
-            <div className="p-2 lg:p-5 text-center md:text-start">
+            </div>
+            <div className="p-3 lg:p-5 text-center md:text-start">
                 <h4 className="inline-block text-center text-2xl md:text-4xl text-card-foreground/80 ">{title}</h4>
                 <p className="md:mt-2 text-md md:text-lg lg:text-xl text-card-foreground/50 font-gothic line-clamp-3">
                     {description}
