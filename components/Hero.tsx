@@ -3,8 +3,8 @@ import Image from "next/image";
 
 export function Hero () {
     return (
-        <div className="max-h-[350px]">
-            <Image src="/images/hero3.jpg" alt="Hero Image Comaleña Pizza" width={2000} height={100} objectFit="cover" className="rounded-4xl overflow-hidden"/>
+        <div className="w-full min-[600px]:w-[full] relative mt-8 aspect-25/9 shrink-0 overflow-hidden">
+            <Image src="/images/margarita.jpg" alt="Hero Image Comaleña Pizza" fill sizes="(max-width: 600px) 100vw, 600px"  className="rounded-4xl object-cover" priority/>
         </div>
     )
 }

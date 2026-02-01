@@ -29,7 +29,7 @@ function TagButton({ label, active, onClick }: TagButtonProps) {
       type="button"
       onClick={onClick}
       className={`
-        px-4 py-2 rounded-full text-lg transition 
+        px-3 lg:px-4 py-2 rounded-full text-[clamp(0.85rem,1.2vw,1.2rem)] transition 
         ${
           active
             ? "bg-secondary/70 text-background"
@@ -75,14 +75,16 @@ export default function MenuPage() {
     return (
         <Layout>
             <section className="py-8">
-                <div className="flex justify-evenly">
-                    <div className="flex justify-center items-center flex-col mb-8">
-                        <p className=" lg:text-3xl tracking-wide text-red/90">Conoce nuestros tamaños</p>
-                    <Image src='/images/tamanos.svg' alt='tamanos de pizza' width={600} height={100} className="object-covermb-8 mt-10"/>
+                <div className="flex justify-center flex-col md:flex-row mb-8">
+                    <div className="w-full flex justify-center items-center flex-col mb-8 ">
+                        <p className="lg:mt-2 font-medium text-lg sm:text-2xl md:text-3xl lg:text-4xl text-red/90 ">Conoce nuestros tamaños</p>
+                        <div className="relative md:mt-6 w-full max-w-[370px] md:max-w-[360px] lg:max-w-[460px] aspect-[3.5/2]">
+                            <Image src='/images/tamanos.svg' alt='tamanos de pizza' fill sizes="(max-width: 640px) 220px, (max-width: 768px) 280px, (max-width: 1024px) 500px, 420px" className="object-contain"/>
+                        </div>
                     </div>
-                    <div className="flex items-center flex-col mb-8">
-                        <p className="lg:text-3xl tracking-wide text-red/90">Filtra según tu antojo</p>
-                        <div className="gap-4 grid grid-cols-3 items-center mt-10">
+                    <div className="w-full flex items-center flex-col">
+                        <p className="lg:mt-2 font-medium text-lg sm:text-2xl md:text-3xl lg:text-4xl text-red/90">Filtra según tu antojo</p>
+                        <div className="mt-3 md:mt-8 flex flex-wrap gap-3 justify-center md:justify-start max-w-[720px] border">
                             <TagButton
                                 label="Todas"
                                 active={tagsSelected.length === 0}
@@ -163,7 +165,7 @@ export default function MenuPage() {
                         </div>
                     </div>
                 </div>
-                <div className="lg:my-12 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+                <div className="grid max-[730px]:grid-cols-2 gap-4 max-[1130px]:grid-cols-3 max-[1580px]:grid-cols-4 min-[1580px]:grid-cols-3">
                      {filteredPizzas.map((pizza: PizzaItem, index: number) => (
                         <button
                         key={pizza.id}
@@ -171,7 +173,7 @@ export default function MenuPage() {
                         onClick={() => setActive(pizza)}
                         className="cursor-pointer"
                         >
-                            <MenuCard key={index} {...pizza} />
+                          <MenuCard key={index} {...pizza} />
                         </button>
                     ))}
                 </div>
@@ -179,35 +181,66 @@ export default function MenuPage() {
             </section>
             {active && (
                 <div
-                    className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4"
+                    className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 sm:p-4"
                     onClick={() => setActive(null)}
                 >
                     <div
-                    className="relative flex w-full max-w-6xl rounded-2xl bg-input p-10"
+                    className="relative flex flex-col w-4/5 max-w-[420px] sm:max-w-[640px] lg:max-w-4xl xl:max-w-6xl rounded-2xl bg-input p-4 sm:p-6 md:p-8 lg:p-10 overflow-hidden"
                     onClick={(e) => e.stopPropagation()}
                     >
-                    <div className="relative w-1/2  pb-[50%] overflow-hidden rounded-2xl">
-                        <Image
+                     <div className="flex flex-col gap-4 md:gap-6 lg:flex-row lg:items-start mt-8">
+        
+                    {/* Imagen (fill) */}
+                    <div
+                    className="
+                        relative w-full
+                        max-w-[320px] sm:max-w-[420px] md:max-w-none
+                        aspect-[4/3] sm:aspect-square lg:aspect-square
+                        overflow-hidden rounded-xl
+                        mx-auto lg:mx-0
+                        lg:w-[480px] xl:w-[580px]
+                        shrink-0
+                    "
+                    >
+                    <Image
                         src={active.imageUrl}
                         alt={active.title}
                         fill
+                        sizes="(max-width: 640px) 320px, (max-width: 1024px) 420px, (max-width: 1280px) 320px, 380px"
                         className="object-cover"
-                        priority
-                        />
+                    />
                     </div>
 
-                    <div className="w-1/2 pl-6 mt-20 flex flex-col justify-start items-start">
-                        <h3 className="text-6xl mt-4 text-red">{active.title}</h3>
-                        <p className="text-card-foreground/70 font-gothic text-2xl mt-4">{active.ingredients}</p>
-                        <div className="mt-12">
-                            {active.tags && active.tags.map((tag, idx) => (
-                                <span key={idx} className="inline-block text-card-foreground/70 md:text-2xl font-gothic mr-2 mb-2 px-3 py-1 rounded-full border-red/60 border-2">
-                                    <FaCheck className="inline-block mr-2 text-secondary"/>
-                                    {TAG_LABELS[tag] || tag}
-                                </span>
-                            ))}
-                        </div>
+                    {/* Texto */}
+                    <div className="w-full lg:mt-10">
+                    <h3 className="text-[clamp(1.5rem,3.5vw,4rem)] text-red">
+                        {active.title}
+                    </h3>
+
+                    <p className="mt-2 sm:mt-3 text-card-foreground/70 font-gothic text-[clamp(0.95rem,2.2vw,1.4rem)] leading-snug">
+                        {active.ingredients}
+                    </p>
+
+                     <div className="mt-4 sm:mt-6 flex flex-wrap gap-2 justify-end md:justify-start">
+                        {active.tags &&
+                        active.tags.map((tag, idx) => (
+                            <span
+                            key={idx}
+                            className="
+                                inline-flex items-center
+                                rounded-full border-2 border-red/60
+                                px-2.5 py-1
+                                text-[clamp(0.75rem,1.6vw,1.1rem)]
+                                text-card-foreground/70 font-gothic
+                            "
+                            >
+                            <FaCheck className="mr-2 text-secondary" />
+                            {TAG_LABELS[tag] || tag}
+                            </span>
+                        ))}
                     </div>
+                </div>
+            </div>
 
                     <button
                         type="button"

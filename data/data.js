@@ -129,6 +129,72 @@ export const pizzasMenu = [
   }
 ];
 
+export const featuredPizzas = [
+  {
+    id: "margarita",
+    title: "Margarita",
+    description: "Salsa de tomate, queso, albahaca fresca y queso parmesano.",
+    imageUrl: "/images/menu/margarita.webp",
+    price: "$159",
+  },
+  {
+    id: "pepperoni",
+    title: "Pepperoni",
+    description: "Salsa de tomate, queso y pepperoni.",
+    imageUrl: "/images/menu/pepperoni.webp",
+    price: "$179",
+  },
+  {
+    id: "hawaiana",
+    title: "Hawaiana",
+    description: "Salsa de tomate, queso, jamón y piña.",
+    imageUrl: "/images/menu/hawaiana.webp",
+    price: "$169",
+  },
+  {
+    id: "mexicana",
+    title: "Mexicana",
+    description: "Salsa de tomate, queso, chorizo, jitomate, cebolla, pimiento y jalapeño, .",
+    imageUrl: "/images/menu/mexicana.webp",
+    price: "$169",
+  },
+];
+
+export const testimonials = [
+  {
+    id: "guillermo-2024-05-15",
+    client: "Guillermo",
+    testimonial:
+      "Excelente variedad!! Mi favorita la pizza es doggo. Mil veces mejor que la de Adobe Pizza.",
+    rate: 5,
+    date: "2024-05-15",
+  },
+  {
+    id: "luis-2024-05-15",
+    client: "Luis",
+    testimonial:
+      "Muy buen sabor de la pizza y un excelente servicio!",
+    rate: 5,
+    date: "2024-05-15",
+  },
+  {
+    id: "melina-2024-05-15",
+    client: "Melina",
+    testimonial:
+      "Están super ricas las pizzas. Siempre son muy amables, de momento el servicio es solo para llevar, nos encanta pedir cada domingo.",
+    rate: 5,
+    date: "2024-05-15",
+  },
+  {
+    id: "gariel-2024-05-15",
+    client: "Gariel",
+    testimonial:
+      "Completamente y totalmente la mejor Pizza de Comala que he probado, excelente sabor, textura, super deliciosa, hemos ordenado 8 veces y 0 problemas. 10 de 10.",
+    rate: 5,
+    date: "2024-05-15",
+  },
+];
+
 export const galleryItems = [
   { src: "/images/gallery/gallery_1.webp", alt: "Horno y preparación" },
   { src: "/images/gallery/gallery-4.webp", alt: "Mesa con pizzas" },

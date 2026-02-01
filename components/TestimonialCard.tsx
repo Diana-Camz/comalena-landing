@@ -3,7 +3,7 @@ type TestimonialCardProps = {
     client: string;
     testimonial: string;
     rate: number;
-    date: string;
+    date?: string;
 }
 
 export default function TestimonialCard({client, testimonial, rate, date}:TestimonialCardProps) {
@@ -41,7 +41,7 @@ export default function TestimonialCard({client, testimonial, rate, date}:Testim
             <div className="p-5 flex flex-col justify-between w-full">
                 <h4 className="inline-block text-3xl text-red">{client}</h4>
                 <div className="h-50%" >
-                    <p tabIndex={0} className="mt-2 text-md lg:text-xl text-card-foreground/70 font-gothic line-clamp-3">
+                    <p tabIndex={0} className="mt-2 text-md md:text-xl text-card-foreground/70 font-gothic line-clamp-5">
                     {testimonial}
                     </p>
                 </div>
