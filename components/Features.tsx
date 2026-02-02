@@ -3,6 +3,7 @@ import Image from "next/image"
 import FeatCard from "./FeatCard"
 import TestimonialCard from "./TestimonialCard"
 import Reveal from "@/components/Reveal";
+import {FeatCarousel} from "./FeatCarousel";
 import Link from "next/link"
 import { featuredPizzas, testimonials } from "@/data/data";
 
@@ -39,13 +40,13 @@ export default function Features() {
                 <Image src='/images/hero2.jpg' alt='Pizza Comalena'  fill sizes="(max-width: 640px) 260px, (max-width: 768px) 420px, (max-width: 1024px) 520px, 900px" className="object-cover rounded-xl shadow-lg "/>
                </div>
             </Reveal>
-            <Reveal className="mb-12 mt-8 md:mt-12 lg:mt-30 min-[1560px]:mt-40"> {/* Las pizzas mas pedidas */}
+            <Reveal className="mb-12 mt-18 lg:mt-30 min-[1560px]:mt-40"> {/* Las pizzas mas pedidas */}
                 <div className="text-center">
                     <h2 className="text-4xl sm:text-5xl lg:text-7xl md:text-6xl text-secondary/60 ">Las más pedidas</h2>
                     <p className="lg:mt-2 lg:text-3xl text-lg sm:text-xl md:text-2xl mb-4 md:mb-10 lg:mb-12 text-card-foreground/50 font-gothic">Ingredientes frescos y recetas que conquistan desde la primera rebanada.</p>
                 </div>
                 <div className="lg:mt-12">
-                    <div className="grid gap-6 grid-cols-1 min-[500px]:grid-cols-2 lg:grid-cols-4">
+                    <div className="hidden min-[760px]:grid gap-6 grid-cols-1 min-[500px]:grid-cols-2 lg:grid-cols-4 ">
                         {featuredPizzas.map((pizza) => (
                             <FeatCard
                             key={pizza.id}
@@ -56,6 +57,9 @@ export default function Features() {
                             />
                         ))}
                     </div>
+                    <div className="min-[760px]:hidden">
+                        <FeatCarousel />
+                    </div>
                     <div  className="flex gap-4 items-center justify-center mt-10 lg:mt-24">
                         <Button className="cursor-pointer h-12 hover:bg-secondary/80">
                             <Link href="/menu" className="text-md md:text-lg">Ver Menú Completo</Link>
@@ -63,7 +67,7 @@ export default function Features() {
                     </div>
                 </div>
             </Reveal>
-            <Reveal className="mb-4 mt-8 md:mt-12 lg:mt-30 min-[1560px]:mt-40"> {/* Testimonios de clientes */}
+            <Reveal className="mb-4 mt-18 lg:mt-30 min-[1560px]:mt-40"> {/* Testimonios de clientes */}
                 <div className="text-center">
                     <h2 className="text-4xl sm:text-5xl lg:text-7xl md:text-6xl text-secondary/60">Opiniones de nuestros clientes</h2>
                 </div>
