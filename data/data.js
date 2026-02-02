@@ -37,7 +37,7 @@ export const pizzasMenu = [
     ingredients: "Salsa de tomate, queso, chorizo, jitomate, pimiento, jalapeño y cebolla",
     imageUrl: "/images/menu/mexicana.webp",
     prices: {sm: 79, md: 169, lg: 209},
-    tags: ["picosa", "carnes", "clasica", "mas-pedida"]
+    tags: ["picante", "carnes", "clasica", "mas-pedida"]
   },
   {
     id: 6,
@@ -45,7 +45,7 @@ export const pizzasMenu = [
     ingredients: "Salsa de tomate, queso, champiñones, pimiento, cebolla, jalapeño y piña",
     imageUrl: "/images/menu/vegetariana.webp",
     prices: {sm: 79, md: 169, lg: 209},
-    tags: ["vegetariana", "picosa"]
+    tags: ["vegetariana", "picante"]
   },
   {
     id: 7,
@@ -69,7 +69,7 @@ export const pizzasMenu = [
     ingredients: "Salsa de tomate, queso, pepperoni, chorizo, jalapeño y pimiento",
     imageUrl:  "/images/menu/diavola.webp",
     prices: {sm: 79, md: 189, lg: 229},
-    tags: ["picosa", "carnes", "especial"]
+    tags: ["picante", "carnes", "especial"]
   },
   {
     id: 10,
@@ -101,7 +101,7 @@ export const pizzasMenu = [
     ingredients: "Frijoles refritos, queso, chicharrón de cerdo, chorizo, chile güero, jalapeño y cebolla",
     imageUrl: "/images/menu/wera.webp",
     prices: {sm: 89, md: 199, lg: 249},
-    tags: ["frijoles", "carnes", "especial", "picosa"]
+    tags: ["frijoles", "carnes", "especial", "picante"]
   },
   {
     id: 14,
@@ -109,7 +109,7 @@ export const pizzasMenu = [
     ingredients: "Salsa de tomate, queso, boneless búfalo, apio y aderezo ranch",
     imageUrl: "/images/menu/bufalo.webp",
     prices: {sm: 89, md: 199, lg: 249},
-    tags: ["carnes", "especial", "mas-pedida", "picosa"]
+    tags: ["carnes", "especial", "mas-pedida", "picante"]
   },
   {
     id: 15,
@@ -154,7 +154,7 @@ export const featuredPizzas = [
   {
     id: "mexicana",
     title: "Mexicana",
-    description: "Salsa de tomate, queso, chorizo, jitomate, cebolla, pimiento y jalapeño, .",
+    description: "Salsa de tomate, queso, chorizo, jitomate, cebolla, pimiento y jalapeño.",
     imageUrl: "/images/menu/mexicana.webp",
     price: "$169",
   },

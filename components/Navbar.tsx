@@ -2,7 +2,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { IoMenuSharp } from "react-icons/io5";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { Sheet, SheetClose, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 
 
 type NavItem = { href: string; label: string };
@@ -52,7 +52,7 @@ export default function Navbar ({ navLabels }: { navLabels: NavItem[] }) {
             <div className="min-[900px]:hidden">
             <Sheet>
               <SheetTrigger asChild>
-                <button type="button" className=" cursor-pointer border-1 rounded-sm text-card-foreground">
+                <button type="button" className="cursor-pointer text-card-foreground">
                   <IoMenuSharp size={30}/>
                 </button>
               </SheetTrigger>
@@ -60,13 +60,15 @@ export default function Navbar ({ navLabels }: { navLabels: NavItem[] }) {
               <SheetContent side="right" className="w-72">
                 <nav className="mt-10 flex flex-col gap-6">
                   {navLabels.map((navItem) => (
-                    <Link
-                      key={navItem.href}
-                      href={navItem.href}
-                      className="text-2xl text-card-foreground/70 pl-6"
-                    >
-                      {navItem.label}
-                    </Link>
+                    <SheetClose asChild key={navItem.href}>
+                      <Link
+                        key={navItem.href}
+                        href={navItem.href}
+                        className="text-2xl text-card-foreground/70 pl-6"
+                      >
+                        {navItem.label}
+                      </Link>
+                    </SheetClose>
                   ))}
                 </nav>
 
