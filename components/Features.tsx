@@ -12,18 +12,31 @@ export default function Features() {
             <Reveal className="text-center mt-10"> {/* Presentacion de Comalena */}
                 <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl text-red">CONOCE EL SABOR DE COMALEÑA</h2>
             </Reveal>
-            <Reveal className="flex flex-col min-[1560px]:flex-row items-center mt-8 md:mt-12 lg:mt-30 min-[1560px]:mt-40">
+            <Reveal className="flex flex-col min-[1560px]:flex-row xl:px-20 items-center mt-8 md:mt-12 lg:mt-30 min-[1560px]:mt-40">
                <div className=' lg:mt-0 lg:mx-0 min-[1560px]:mr-8'>
-                 <p className="lg:text-3xl text-lg sm:text-xl md:text-2xl text-center text-wrap min-[1560px]:text-justify text-card-foreground/70 font-gothic lg:mb-6 tracking-wide">
+                 <p className="
+                 text-[clamp(1.05rem,2.6vw,2.2rem)]
+                 text-center min-[1560px]:text-justify
+                 text-card-foreground/70 font-gothic
+                 lg:mb-6 tracking-wide leading-snug">
                     En Comaleña preparamos <span className="font-bold">pizza artesanal al horno</span>, con <span className="font-bold">ingredientes frescos</span>,
                     <span className="font-bold"> masa hecha en casa</span> y recetas que resaltan el sabor auténtico en cada rebanada.
                 </p>
-                <p className="lg:text-3xl text-center text-wrap mt-2 xl:mt-0 min-[1560px]:text-justify sm:text-xl  md:text-2xl text-lg text-card-foreground/70 font-gothic lg:mb-6 tracking-wide">
+                <p className="
+                 mt-3
+                 text-[clamp(1.05rem,2.6vw,2.2rem)]
+                 text-center min-[1560px]:text-justify
+                 text-card-foreground/70 font-gothic
+                 lg:mb-6 tracking-wide leading-snug">
                     Cada pizza se hornea al momento para lograr una textura crujiente y un sabor inigualable.
                 </p>
                </div>
-               <div className="mt-4 xl:ml-8 aspect-[21/9] relative shrink-0 w-full max-w-[350px] min-[400px]:max-w-[450px] min-[500px]:max-w-[600px] min-[700px]:max-w-[800px] min-[1025px]:max-w-[900px]">
-                <Image src='/images/hero2.jpg' alt='Pizza Comalena'  fill sizes="(max-width: 640px) 260px, (max-width: 768px) 420px, (max-width: 1024px) 520px, 600px" className="object-cover rounded-xl shadow-lg "/>
+               <div className=" mx-auto mt-5
+                    relative shrink-0 overflow-hidden rounded-xl shadow-lg
+                    w-full max-w-[400px] sm:max-w-[520px] md:max-w-[600px] lg:max-w-[700px] xl:max-w-[800px]
+                    aspect-[16/9] min-[1560px]:mt-0 min-[1560px]:ml-8
+                ">
+                <Image src='/images/hero2.jpg' alt='Pizza Comalena'  fill sizes="(max-width: 640px) 260px, (max-width: 768px) 420px, (max-width: 1024px) 520px, 900px" className="object-cover rounded-xl shadow-lg "/>
                </div>
             </Reveal>
             <Reveal className="mb-12 mt-8 md:mt-12 lg:mt-30 min-[1560px]:mt-40"> {/* Las pizzas mas pedidas */}

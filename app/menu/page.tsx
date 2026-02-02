@@ -61,9 +61,9 @@ export default function MenuPage() {
   }, [tagsSelected]);
 
   const TAG_LABELS: Record<string, string> = {
-  especialidad: "Especialidad",
+  especial: "Especialidad",
   "mas-pedida": "La más pedida",
-  picosa: "Picosa",
+  picante: "Picante",
   vegetariana: "Vegetariana",
   frijoles: "Con frijoles",
   carnes: "Con carnes frías",
@@ -79,12 +79,12 @@ export default function MenuPage() {
                     <div className="w-full flex justify-center items-center flex-col mb-8 ">
                         <p className="lg:mt-2 font-medium text-lg sm:text-2xl md:text-3xl lg:text-4xl text-red/90 ">Conoce nuestros tamaños</p>
                         <div className="relative md:mt-6 w-full max-w-[370px] md:max-w-[360px] lg:max-w-[460px] aspect-[3.5/2]">
-                            <Image src='/images/tamanos.svg' alt='tamanos de pizza' fill sizes="(max-width: 640px) 220px, (max-width: 768px) 280px, (max-width: 1024px) 500px, 420px" className="object-contain"/>
+                            <Image src='/images/menu/tamanos.svg' alt='tamanos de pizza' fill sizes="(max-width: 640px) 220px, (max-width: 768px) 280px, (max-width: 1024px) 500px, 420px" className="object-contain"/>
                         </div>
                     </div>
                     <div className="w-full flex items-center flex-col">
                         <p className="lg:mt-2 font-medium text-lg sm:text-2xl md:text-3xl lg:text-4xl text-red/90">Filtra según tu antojo</p>
-                        <div className="mt-3 md:mt-8 flex flex-wrap gap-3 justify-center md:justify-start max-w-[720px] border">
+                        <div className="mt-3 md:mt-8 flex flex-wrap gap-3 justify-center lg:justify-start max-w-[720px]">
                             <TagButton
                                 label="Todas"
                                 active={tagsSelected.length === 0}
@@ -123,12 +123,12 @@ export default function MenuPage() {
                                 }
                                 />
                             <TagButton
-                                label="Picosas"
-                                active={tagsSelected.includes("picosa")}
+                                label="Picantes"
+                                active={tagsSelected.includes("picante")}
                                 onClick={() =>
                                     toggleTag(
-                                    "picosa",
-                                    !tagsSelected.includes("picosa")
+                                    "picante",
+                                    !tagsSelected.includes("picante")
                                     )
                                 }
                                 />
@@ -185,10 +185,25 @@ export default function MenuPage() {
                     onClick={() => setActive(null)}
                 >
                     <div
-                    className="relative flex flex-col w-4/5 max-w-[420px] sm:max-w-[640px] lg:max-w-4xl xl:max-w-6xl rounded-2xl bg-input p-4 sm:p-6 md:p-8 lg:p-10 overflow-hidden"
+                    className="relative flex flex-col justify-evenly w-4/5 max-w-[420px] sm:max-w-[640px] lg:max-w-4xl xl:max-w-6xl rounded-2xl bg-input p-4 sm:p-6 md:p-8 lg:p-10 overflow-hidden"
                     onClick={(e) => e.stopPropagation()}
                     >
-                     <div className="flex flex-col gap-4 md:gap-6 lg:flex-row lg:items-start mt-8">
+                      <div className="relative bottom-3 left-3 md:bottom-5 md:left-5 flex justify-end">
+                       <button
+                        type="button"
+                        onClick={() => setActive(null)}
+                        className=" text-card-foreground/80 cursor-pointer"
+                       >
+                        <IoMdCloseCircle 
+                         className="
+                            w-8 h-8
+                            sm:w-9 sm:h-9
+                            md:w-12 md:h-12
+                            lg:w-13 lg:h-13
+                        "/>
+                       </button>
+                    </div>
+                     <div className="flex flex-col gap-4 md:gap-6 lg:flex-row lg:items-start">
         
                     {/* Imagen (fill) */}
                     <div
@@ -206,7 +221,7 @@ export default function MenuPage() {
                         src={active.imageUrl}
                         alt={active.title}
                         fill
-                        sizes="(max-width: 640px) 320px, (max-width: 1024px) 420px, (max-width: 1280px) 320px, 380px"
+                        sizes="(max-width: 640px) 320px, (max-width: 1024px) 420px, (max-width: 1280px) 480px, 720px"
                         className="object-cover"
                     />
                     </div>
@@ -241,16 +256,8 @@ export default function MenuPage() {
                     </div>
                 </div>
             </div>
-
-                    <button
-                        type="button"
-                        onClick={() => setActive(null)}
-                        className="absolute right-1 top-2 px-1 text-sm text-card-foreground/80 cursor-pointer"
-                    >
-                        <IoMdCloseCircle size={45}/>
-                    </button>
-                    </div>
-                </div>
+            </div>
+        </div>
             )}
         </Layout>
     )

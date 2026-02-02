@@ -45,18 +45,18 @@ export default function contactPage() {
 
                     <div className="flex gap-6 text-center justify-center mt-8 ">
                     <a
-                        href="https://www.google.com/maps/place/Comale%C3%B1a+Pizza/@19.3268478,-103.7657404,17z/data=!4m8!3m7!1s0x8425457c6b85cca7:0x72ff4dec427ce4d3!8m2!3d19.3268428!4d-103.7631655!9m1!1b1!16s%2Fg%2F11wtwslbgs?authuser=0&entry=ttu&g_ep=EgoyMDI2MDEwNC4wIKXMDSoKLDEwMDc5MjA3M0gBUAM%3D"
-                        className="text-lg flex flex-col items-center text-card-foreground/70 hover:text-card-foreground transition lg:mr-12"
+                        href="https://www.google.com/maps/place/Comaleña+Pizza" target="_blank"  rel="noopener noreferrer"
+                        className="md:text-lg flex flex-col items-center text-card-foreground/70 hover:text-card-foreground transition lg:mr-12"
                     >
                         <Image src='/images/google_maps.svg' alt='Google Maps' width={60} height={60} className="inline-block mb-2"/>
                         Google Maps
                     </a>
 
                     <a
-                        href="#"
+                        href="https://www.facebook.com/comalena.pizza"  target="_blank" rel="noopener noreferrer"
                         className="md:text-lg flex flex-col items-center text-card-foreground/70 hover:text-card-foreground transition"
                     >
-                        <Image src='/images/facebook.svg' alt='Google Maps' width={60} height={60} className="inline-block mb-2"/>
+                        <Image src='/images/facebook.svg' alt='Facebook' width={60} height={60} className="inline-block mb-2"/>
                         Facebook
                     </a>
                     </div>
@@ -69,20 +69,20 @@ export default function contactPage() {
                     </h3>
                     <p className="text-card-foreground/70 lg:text-2xl font-gothic lg:mt-4">Conoce nuestras promociones, novedades y el día a día detrás del horno.</p>
 
-                    <div className="flex gap-6 text-center justify-center mt-8">
+                    <div className="flex gap-6 text-center justify-center mb-8 mt-8">
                     <a
-                        href="#"
-                        className="text-lg flex flex-col items-center text-card-foreground/70 hover:text-card-foreground transition lg:mr-12"
+                        href="https://www.instagram.com/_u/comalena.pizza" target="_blank"  rel="noopener noreferrer"
+                        className="md:text-lg flex flex-col items-center text-card-foreground/70 hover:text-card-foreground transition lg:mr-12"
                     >
-                        <Image src='/images/instagram.svg' alt='Google Maps' width={60} height={60} className="inline-block mb-2"/>
+                        <Image src='/images/instagram.svg' alt='Instagram' width={60} height={60} className="inline-block mb-2"/>
                         Instagram
                     </a>
 
                     <a
-                        href="#"
-                        className="text-lg flex flex-col items-center text-card-foreground/70 hover:text-card-foreground transition"
+                        href="https://www.facebook.com/comalena.pizza"  target="_blank" rel="noopener noreferrer"
+                        className="md:text-lg flex flex-col items-center text-card-foreground/70 hover:text-card-foreground transition"
                     >
-                        <Image src='/images/facebook.svg' alt='Google Maps' width={60} height={60} className="inline-block mb-2"/>
+                        <Image src='/images/facebook.svg' alt='Facebook' width={60} height={60} className="inline-block mb-2"/>
                         Facebook
                     </a>
                     </div>
