@@ -67,7 +67,7 @@ export default function MenuPage() {
   vegetariana: "Vegetariana",
   frijoles: "Con frijoles",
   carnes: "Con carnes frías",
-  clasica: "Clásica",
+  tradicional: "Tradicional",
 
 };
 
@@ -93,22 +93,32 @@ export default function MenuPage() {
                                 }
                                 />
                             <TagButton
+                                label="Tradicionales"
+                                active={tagsSelected.includes("tradicional")}
+                                onClick={() =>
+                                    toggleTag(
+                                    "tradicional",
+                                    !tagsSelected.includes("tradicional")
+                                    )
+                                }
+                                />
+                            <TagButton
+                                label="De la Casa"
+                                active={tagsSelected.includes("de-la-casa")}
+                                onClick={() =>
+                                    toggleTag(
+                                    "de-la-casa",
+                                    !tagsSelected.includes("de-la-casa")
+                                    )
+                                }
+                                />
+                            <TagButton
                                 label="Especialidades"
                                 active={tagsSelected.includes("especial")}
                                 onClick={() =>
                                     toggleTag(
                                     "especial",
                                     !tagsSelected.includes("especial")
-                                    )
-                                }
-                                />
-                            <TagButton
-                                label="Clásicas"
-                                active={tagsSelected.includes("clasica")}
-                                onClick={() =>
-                                    toggleTag(
-                                    "clasica",
-                                    !tagsSelected.includes("clasica")
                                     )
                                 }
                                 />
