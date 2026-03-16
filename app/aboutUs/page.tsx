@@ -24,7 +24,7 @@ export default function aboutUsPage() {
                     <Image src="/images/aboutUs/image-about-2_1.webp" alt="Ingredientes frescos" fill sizes="(max-width: 600px) 100vw, 50vw" className="object-cover rounded-xl shadow-lg"/>
                 </div>
                 <div>
-                    <h3 className="lg:mt-2 lg:text-4xl text-2xl  min-[560px]:text-3xl text-card-foreground/90 font-medium">UN SUENO CUMPLIDO</h3>
+                    <h3 className="lg:mt-2 lg:text-4xl text-2xl  min-[560px]:text-3xl text-card-foreground/90 font-medium">UN SUEÑO CUMPLIDO</h3>
                     <p className="lg:mt-4 text-md min-[560px]:text-xl lg:text-2xl font-gothic text-card-foreground/60 px-4">
                     Desde 2024 decidimos crear una pizza tan deliciosa que fuera imposible no comer otra rebanada, Comaleña nació de la idea de combinar los mejores ingredientes y técnicas unicas para crear pizzas irresistibles.
                     </p>
