@@ -68,6 +68,7 @@ export default function MenuPage() {
   frijoles: "Con frijoles",
   carnes: "Con carnes frías",
   tradicional: "Tradicional",
+  "de-la-casa": "De la casa",
 
 };
 
