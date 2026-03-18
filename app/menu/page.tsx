@@ -6,6 +6,7 @@ import Image from "next/image";
 import { useMemo, useState } from "react";
 import { IoMdCloseCircle } from "react-icons/io";
 import { FaCheck } from "react-icons/fa6";
+import type { PizzaItem } from "@/types/types";
 
 
 type TagButtonProps = {
@@ -13,15 +14,6 @@ type TagButtonProps = {
   active: boolean;
   onClick: () => void;
 };
-
-export type PizzaItem = {
-    id: number;
-    title: string;
-    ingredients: string;
-    imageUrl: string;
-    prices: {sm: number, md: number, lg: number};
-    tags?: string[];
-}
 
 function TagButton({ label, active, onClick }: TagButtonProps) {
   return (
