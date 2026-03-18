@@ -3,6 +3,7 @@ import { Chicle, Geist_Mono, Anton, Special_Gothic_Condensed_One } from "next/fo
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { CartProvider } from "@/context/CartContext";
 
 type RootLayoutProps = {
   children: React.ReactNode;
@@ -52,9 +53,11 @@ export default function RootLayout({
     <html lang="en" className={`${geistChicle.variable} ${geistMono.variable} ${anton.variable} ${gothic.variable}`}>
       <body
       className="bg-background text-card-foreground font-sans antialiased">
-        <Navbar navLabels={navLabels} />
-        {children}
-        <Footer />
+       <CartProvider>
+          <Navbar navLabels={navLabels} />
+          {children}
+          <Footer />
+       </CartProvider>
       </body>
     </html>
   );
