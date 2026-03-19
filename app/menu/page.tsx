@@ -7,6 +7,7 @@ import { useMemo, useState } from "react";
 import { IoMdCloseCircle } from "react-icons/io";
 import { FaCheck } from "react-icons/fa6";
 import type { PizzaItem } from "@/types/types";
+import AddToCartButton from "@/components/AddToCartButton";
 
 
 type TagButtonProps = {
@@ -170,14 +171,10 @@ export default function MenuPage() {
                 </div>
                 <div className="grid max-[730px]:grid-cols-2 gap-4 max-[1130px]:grid-cols-3 max-[1580px]:grid-cols-4 min-[1580px]:grid-cols-3">
                      {filteredPizzas.map((pizza: PizzaItem, index: number) => (
-                        <button
-                        key={pizza.id}
-                        type="button"
-                        onClick={() => setActive(pizza)}
-                        className="cursor-pointer"
-                        >
-                          <MenuCard key={index} {...pizza} />
-                        </button>
+                        <MenuCard 
+                            key={index} {...pizza} 
+                            onOpenDetails={() => setActive(pizza)} 
+                        />
                     ))}
                 </div>
 
