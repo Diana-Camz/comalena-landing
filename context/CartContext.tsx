@@ -8,6 +8,7 @@ type CartContextType = {
     customerInfo: CustomerInfo;
 
     addItem: (pizza: Pizza, size: Size) => void;
+    addOrderItem: (orderItem: OrderItem) => void;
     setQuantity: (pizzaId: string, size: Size, quantity: number) => void;
     removeItem: (pizzaId: string, size: Size) => void;
     clearCart: () => void;
@@ -61,6 +62,24 @@ export function CartProvider({children} : {children : React.ReactNode}) {
       ];
     });
   };
+
+  //Funcion que agrega una orden completa de acuerdo a los tamanos seleccionados por cada tipo de pizza.
+  const addOrderItem = (orderItem: OrderItem) => {
+    setOrder((prev) => {
+      const key = makeKey(orderItem.pizzaId, orderItem.size);
+      const existing = prev.find((it) => makeKey(it.pizzaId, it.size) === key);
+
+      if (existing) {
+        return prev.map((it) =>
+          makeKey(it.pizzaId, it.size) === key
+            ? { ...it, quantity: it.quantity + orderItem.quantity }
+            : it
+        );
+      }
+
+      return [...prev, orderItem];
+    });
+  }
 
     //Funcion que cambia la cantidad, si qty <= 0, lo elimina.
   const setQuantity = (pizzaId: string, size: Size, qty: number) => {
@@ -139,6 +158,7 @@ export function CartProvider({children} : {children : React.ReactNode}) {
         order,
         customerInfo,
         addItem,
+        addOrderItem,
         setQuantity,
         removeItem,
         clearCart,
