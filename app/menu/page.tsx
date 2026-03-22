@@ -5,9 +5,10 @@ import { pizzasMenu } from "@/data/data";
 import Image from "next/image";
 import { useMemo, useState } from "react";
 import { IoMdCloseCircle } from "react-icons/io";
+import { CiCirclePlus, CiCircleMinus } from "react-icons/ci";
 import { FaCheck } from "react-icons/fa6";
-import type { PizzaItem } from "@/types/types";
-import AddToCartButton from "@/components/AddToCartButton";
+import type { PizzaForModal, PizzaItem, Size } from "@/types/types";
+import { useCart } from "@/context/CartContext";
 
 
 type TagButtonProps = {
@@ -37,7 +38,10 @@ function TagButton({ label, active, onClick }: TagButtonProps) {
 
 export default function MenuPage() {
    const [tagsSelected, setTagsSelected] = useState<string[]>([]);
-   const [active, setActive] = useState<PizzaItem | null>(null);
+   const [activeDetails, setActiveDetails] = useState<PizzaItem | null>(null);
+   const [activeSizeSelection, setActiveSizeSelection] = useState<PizzaForModal | null>(null);
+   const [selectedSize, setSelectedSize] = useState({sm: 0, md: 0, lg: 0});
+   const { addOrderItem } = useCart();
     
    const toggleTag = (tag: string, checked: boolean) => {
     setTagsSelected((prev) => {
@@ -45,6 +49,57 @@ export default function MenuPage() {
       return prev.filter((t) => t !== tag);
     });
   };
+
+   const subtotalSm = activeSizeSelection
+    ? selectedSize.sm * activeSizeSelection.prices.sm
+    : 0;
+
+    const subtotalMd = activeSizeSelection
+    ? selectedSize.md * activeSizeSelection.prices.md
+    : 0;
+
+    const subtotalLg = activeSizeSelection
+    ? selectedSize.lg * activeSizeSelection.prices.lg
+    : 0;
+
+    const totalSubtotal = subtotalSm + subtotalMd + subtotalLg;
+
+    const increase = (size: Size) => {
+    setSelectedSize((prev) => ({
+        ...prev,
+        [size]: prev[size] + 1,
+    }));
+    };
+
+    const decrease = (size: Size) => {
+    setSelectedSize((prev) => ({
+        ...prev,
+        [size]: Math.max(0, prev[size] - 1),
+    }));
+    };
+
+    const handleAddToCart = () => {
+        if (!activeSizeSelection) return;
+
+        const { pizzaId, title, prices } = activeSizeSelection;
+
+        (["sm", "md", "lg"] as const).forEach((size) => {
+            const qty = selectedSize[size];
+            
+            if (qty > 0) {
+            addOrderItem({
+                pizzaId,
+                title,
+                size,
+                unitPrice: prices[size],
+                quantity: qty,
+            });
+            }
+        });
+
+        setActiveSizeSelection(null);
+        setSelectedSize({ sm: 0, md: 0, lg: 0 });
+    }
 
    const filteredPizzas = useMemo(() => {
     if (tagsSelected.length === 0) return pizzasMenu;
@@ -173,16 +228,22 @@ export default function MenuPage() {
                      {filteredPizzas.map((pizza: PizzaItem, index: number) => (
                         <MenuCard 
                             key={index} {...pizza} 
-                            onOpenDetails={() => setActive(pizza)} 
+                            onOpenDetails={() => setActiveDetails(pizza)}
+                            onOpenSizeSelection={() => {setActiveSizeSelection({
+                                pizzaId: pizza.id.toString(),
+                                title: pizza.title,
+                                prices: pizza.prices
+                            });
+                            setSelectedSize({sm: 0, md: 0, lg: 0});} }
                         />
                     ))}
                 </div>
 
             </section>
-            {active && (
+            {activeDetails && (
                 <div
                     className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 sm:p-4"
-                    onClick={() => setActive(null)}
+                    onClick={() => setActiveDetails(null)}
                 >
                     <div
                     className="relative flex flex-col justify-evenly w-4/5 max-w-[420px] sm:max-w-[640px] lg:max-w-4xl xl:max-w-6xl rounded-2xl bg-input p-4 sm:p-6 md:p-8 lg:p-10 overflow-hidden"
@@ -191,7 +252,7 @@ export default function MenuPage() {
                       <div className="relative bottom-3 left-3 md:bottom-5 md:left-5 flex justify-end">
                        <button
                         type="button"
-                        onClick={() => setActive(null)}
+                        onClick={() => setActiveDetails(null)}
                         className=" text-card-foreground/80 cursor-pointer"
                        >
                         <IoMdCloseCircle 
@@ -203,61 +264,126 @@ export default function MenuPage() {
                         "/>
                        </button>
                     </div>
-                     <div className="flex flex-col gap-4 md:gap-6 lg:flex-row lg:items-start">
-        
-                    {/* Imagen (fill) */}
-                    <div
-                    className="
-                        relative w-full
-                        max-w-[320px] sm:max-w-[420px] md:max-w-none
-                        aspect-[4/3] sm:aspect-square lg:aspect-square
-                        overflow-hidden rounded-xl
-                        mx-auto lg:mx-0
-                        lg:w-[480px] xl:w-[580px]
-                        shrink-0
-                    "
-                    >
-                    <Image
-                        src={active.imageUrl}
-                        alt={active.title}
-                        fill
-                        sizes="(max-width: 640px) 320px, (max-width: 1024px) 420px, (max-width: 1280px) 480px, 720px"
-                        className="object-cover"
-                    />
-                    </div>
+                    <div className="flex flex-col gap-4 md:gap-6 lg:flex-row lg:items-start">
+                        {/* Imagen (fill) */}
+                        <div
+                        className="
+                            relative w-full
+                            max-w-[320px] sm:max-w-[420px] md:max-w-none
+                            aspect-[4/3] sm:aspect-square lg:aspect-square
+                            overflow-hidden rounded-xl
+                            mx-auto lg:mx-0
+                            lg:w-[480px] xl:w-[580px]
+                            shrink-0
+                        "
+                        >
+                        <Image
+                            src={activeDetails.imageUrl}
+                            alt={activeDetails.title}
+                            fill
+                            sizes="(max-width: 640px) 320px, (max-width: 1024px) 420px, (max-width: 1280px) 480px, 720px"
+                            className="object-cover"
+                        />
+                        </div>
 
                     {/* Texto */}
-                    <div className="w-full lg:mt-10">
-                    <h3 className="text-[clamp(1.5rem,3.5vw,4rem)] text-red">
-                        {active.title}
-                    </h3>
+                        <div className="w-full lg:mt-10">
+                        <h3 className="text-[clamp(1.5rem,3.5vw,4rem)] text-red">
+                            {activeDetails.title}
+                        </h3>
 
-                    <p className="mt-2 sm:mt-3 text-card-foreground/70 font-gothic text-[clamp(0.95rem,2.2vw,1.4rem)] leading-snug">
-                        {active.ingredients}
-                    </p>
+                        <p className="mt-2 sm:mt-3 text-card-foreground/70 font-gothic text-[clamp(0.95rem,2.2vw,1.4rem)] leading-snug">
+                            {activeDetails.ingredients}
+                        </p>
 
-                     <div className="mt-4 sm:mt-6 flex flex-wrap gap-2 justify-end md:justify-start">
-                        {active.tags &&
-                        active.tags.map((tag, idx) => (
-                            <span
-                            key={idx}
-                            className="
-                                inline-flex items-center
-                                rounded-full border-2 border-red/60
-                                px-2.5 py-1
-                                text-[clamp(0.75rem,1.6vw,1.1rem)]
-                                text-card-foreground/70 font-gothic
-                            "
-                            >
-                            <FaCheck className="mr-2 text-secondary" />
-                            {TAG_LABELS[tag] || tag}
-                            </span>
-                        ))}
+                            <div className="mt-4 sm:mt-6 flex flex-wrap gap-2 justify-end md:justify-start">
+                                {activeDetails.tags &&
+                                activeDetails.tags.map((tag, idx) => (
+                                    <span
+                                    key={idx}
+                                    className="
+                                        inline-flex items-center
+                                        rounded-full border-2 border-red/60
+                                        px-2.5 py-1
+                                        text-[clamp(0.75rem,1.6vw,1.1rem)]
+                                        text-card-foreground/70 font-gothic
+                                    "
+                                    >
+                                    <FaCheck className="mr-2 text-secondary" />
+                                    {TAG_LABELS[tag] || tag}
+                                    </span>
+                                ))}
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-            </div>
-        </div>
+            )}
+            {activeSizeSelection && (
+                <div 
+                    className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 sm:p-4"
+                    onClick={() => setActiveSizeSelection(null)}>
+                    <div
+                        className="relative flex flex-col justify-evenly w-4/5 max-w-[420px] sm:max-w-[640px] lg:max-w-4xl xl:max-w-6xl rounded-2xl bg-input p-4 sm:p-6 md:p-8 lg:p-10 overflow-hidden"
+                        onClick={(e) => e.stopPropagation()}
+                    >
+                    <div className="flex justify-end mb-2">
+                       <button
+                        type="button"
+                        onClick={() => setActiveSizeSelection(null)}
+                        className="text-red hover:text-red/80 transition cursor-pointer"
+                       >
+                        <IoMdCloseCircle 
+                         className="
+                            w-8 h-8
+                            sm:w-9 sm:h-9
+                            md:w-12 md:h-12
+                        "/>
+                       </button>
+                    </div>
+                    <h3 className="text-[clamp(1.2rem,2.5vw,2.2rem)] text-red font-gothic mb-2 text-center">
+                        Selecciona el tamaño de tu pizza
+                    </h3>
+                    <div className="flex flex-col items-center gap-2">
+                        <p className=" text-lg font-semibold text-card-foreground mb-4">{activeSizeSelection?.title}</p> 
+                        {[{key: "sm", label: "Ch", subtotal: subtotalSm},
+                          {key: "md", label: "Med", subtotal: subtotalMd},
+                          {key: "lg", label: "Gde", subtotal: subtotalLg}
+                         ].map(({key, label, subtotal}) => (
+                            <div key={key} className="flex items-center gap-4 border-b-2 border-red/20 py-2 w-full max-w-xs"> 
+                                <button 
+                                onClick={() => decrease(key as Size)}
+                                className="p-1 rounded-full border-red/60 text-red hover:bg-red/10 transition">
+                                    <CiCircleMinus className="w-6 h-6"/>
+                                </button>
+                                <span>{selectedSize[key as Size]}</span>
+                                <button 
+                                onClick={() => increase(key as Size)}
+                                className="p-1 rounded-full border-red/60 text-red hover:bg-red/10 transition">
+                                    <CiCirclePlus className="w-6 h-6"/>
+                                </button>
+                                <span className="ml-2 font-gothic">{label}</span>
+                                <span className="ml-auto font-semibold text-card-foreground/80"> = $ {subtotal.toFixed(2)}</span>
+                            </div>
+                            ))}
+                            
+                            
+                            
+                           <div className="flex flex-col w-full max-w-xs mt-4">
+                             <div className="flex justify-between mb-2">
+                                <span className="font-gothic text-lg text-card-foreground">Subtotal: </span>
+                                <span className="font-bold text-red">${totalSubtotal.toFixed(2)}</span>
+                             </div>
+                                <button 
+                                className="w-full font-gothic border-2 rounded-md py-2 border-red text-red hover:bg-red/10 transition"
+                                onClick={handleAddToCart}
+                                >Agregar al carrito
+                                </button>
+                           </div>
+                        </div>
+                    </div>
+
+                </div>
             )}
         </Layout>
     )
