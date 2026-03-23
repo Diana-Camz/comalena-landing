@@ -9,6 +9,8 @@ import { CiCirclePlus, CiCircleMinus } from "react-icons/ci";
 import { FaCheck } from "react-icons/fa6";
 import type { PizzaForModal, PizzaItem, Size } from "@/types/types";
 import { useCart } from "@/context/CartContext";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 
 type TagButtonProps = {
@@ -253,14 +255,14 @@ export default function MenuPage() {
                        <button
                         type="button"
                         onClick={() => setActiveDetails(null)}
-                        className=" text-card-foreground/80 cursor-pointer"
+                        className=" text-card-foreground/80 cursor-pointer active:scale-80 transition duration-120"
                        >
                         <IoMdCloseCircle 
                          className="
                             w-8 h-8
                             sm:w-9 sm:h-9
                             md:w-12 md:h-12
-                            lg:w-13 lg:h-13
+                            lg:w-13 lg:h-13 
                         "/>
                        </button>
                     </div>
@@ -324,46 +326,48 @@ export default function MenuPage() {
                     className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 sm:p-4"
                     onClick={() => setActiveSizeSelection(null)}>
                     <div
-                        className="relative flex flex-col justify-evenly w-4/5 max-w-[420px] sm:max-w-[640px] lg:max-w-4xl xl:max-w-6xl rounded-2xl bg-input p-4 sm:p-6 md:p-8 lg:p-10 overflow-hidden"
+                        className="relative flex flex-col justify-evenly w-4/5 max-w-[420px] sm:max-w-[640px] lg:max-w-lg p-4 md:p-0 rounded-2xl bg-input sm:p-6 md:p-8 overflow-hidden"
                         onClick={(e) => e.stopPropagation()}
                     >
                     <div className="flex justify-end mb-2">
                        <button
                         type="button"
-                        onClick={() => setActiveSizeSelection(null)}
-                        className="text-red hover:text-red/80 transition cursor-pointer"
+                        onClick={() => {setActiveSizeSelection(null); setSelectedSize({sm: 0, md: 0, lg: 0});}}
+                        className="text-red hover:text-red/80 cursor-pointer active:scale-80 transition duration-120"
                        >
                         <IoMdCloseCircle 
                          className="
                             w-8 h-8
                             sm:w-9 sm:h-9
-                            md:w-12 md:h-12
+                            md:w-10 md:h-10
                         "/>
                        </button>
                     </div>
-                    <h3 className="text-[clamp(1.2rem,2.5vw,2.2rem)] text-red font-gothic mb-2 text-center">
+                    <h3 className="text-[clamp(1.2rem,2.5vw,2rem)] text-red font-gothic mb-2 text-center">
                         Selecciona el tamaño de tu pizza
                     </h3>
                     <div className="flex flex-col items-center gap-2">
-                        <p className=" text-lg font-semibold text-card-foreground mb-4">{activeSizeSelection?.title}</p> 
-                        {[{key: "sm", label: "Ch", subtotal: subtotalSm},
-                          {key: "md", label: "Med", subtotal: subtotalMd},
-                          {key: "lg", label: "Gde", subtotal: subtotalLg}
+                        <p className=" text-lg font-medium text-card-foreground mb-4">{activeSizeSelection?.title}</p> 
+                        {[{key: "sm", label: "Chica", subtotal: subtotalSm},
+                          {key: "md", label: "Mediana", subtotal: subtotalMd},
+                          {key: "lg", label: "Grande", subtotal: subtotalLg}
                          ].map(({key, label, subtotal}) => (
                             <div key={key} className="flex items-center gap-4 border-b-2 border-red/20 py-2 w-full max-w-xs"> 
                                 <button 
                                 onClick={() => decrease(key as Size)}
-                                className="p-1 rounded-full border-red/60 text-red hover:bg-red/10 transition">
-                                    <CiCircleMinus className="w-6 h-6"/>
+                                >
+                                    <CiCircleMinus className="w-10 h-10 rounded-full text-red hover:bg-red transition duration-120 hover:text-background active:scale-80 active:bg-red/70 active:text-background"/>
                                 </button>
-                                <span>{selectedSize[key as Size]}</span>
+                                <span className="font-medium w-4 text-center">{selectedSize[key as Size]}</span>
                                 <button 
                                 onClick={() => increase(key as Size)}
-                                className="p-1 rounded-full border-red/60 text-red hover:bg-red/10 transition">
-                                    <CiCirclePlus className="w-6 h-6"/>
+                                >
+                                    <CiCirclePlus className="w-10 h-10 rounded-full text-red hover:bg-red transition duration-120 hover:text-background active:scale-80 active:bg-red/70 active:text-background"/>
                                 </button>
-                                <span className="ml-2 font-gothic">{label}</span>
-                                <span className="ml-auto font-semibold text-card-foreground/80"> = $ {subtotal.toFixed(2)}</span>
+                                <div className="flex justify-between w-44 items-center">
+                                    <span className=" font-gothic text-[clamp(1.2rem,2.5vw,1.4rem)]">{label}</span>
+                                    <span className="font-medium text-card-foreground/80"> = $ {subtotal.toFixed(2)}</span>
+                                </div>
                             </div>
                             ))}
                             
@@ -372,13 +376,15 @@ export default function MenuPage() {
                            <div className="flex flex-col w-full max-w-xs mt-4">
                              <div className="flex justify-between mb-2">
                                 <span className="font-gothic text-lg text-card-foreground">Subtotal: </span>
-                                <span className="font-bold text-red">${totalSubtotal.toFixed(2)}</span>
+                                <span className="font-medium text-red">$ {totalSubtotal.toFixed(2)}</span>
                              </div>
-                                <button 
-                                className="w-full font-gothic border-2 rounded-md py-2 border-red text-red hover:bg-red/10 transition"
-                                onClick={handleAddToCart}
-                                >Agregar al carrito
-                                </button>
+                             <div  className="flex items-center justify-center mt-3">
+                                <Button 
+                                    onClick={() => handleAddToCart()}
+                                    className="w-full cursor-pointer h-12 bg-red/95 hover:bg-red/80 active:bg-red/80 active:scale-97 transition duration-120 text-background text-lg font-medium">
+                                    <span className="text-md md:text-lg">Agregar al carrito</span>
+                                </Button>
+                             </div>
                            </div>
                         </div>
                     </div>
