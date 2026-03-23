@@ -131,7 +131,7 @@ export const pizzasMenu = [
     id: 17,
     title: "Oseana",
     ingredients: "Salsa de tomate, queso, pepperoni, salchicha, salami, tocino, piña, champiñones y aderezo ranch",
-    imageUrl: "/images/menu/dogo.webp",
+    imageUrl: "/images/menu/oseana.webp",
     prices: {sm: 99, md: 209, lg: 299},
     tags: ["carnes", "especial"]
   }
