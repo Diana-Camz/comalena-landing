@@ -1,13 +1,14 @@
 import Image from "next/image";
 import type { PizzaItem } from "@/types/types";
-import { TagButtonMenu } from "./TagButtonMenu";
-import AddToCartButton from "./AddToCartButton";
+import { FaSquarePlus } from "react-icons/fa6";
+
 
 type MenuCardProps = PizzaItem & {
   onOpenDetails: () => void;
+  onOpenSizeSelection: () => void;
 }
 
-export default function MenuCard({title, ingredients, imageUrl, prices, onOpenDetails}: MenuCardProps) {
+export default function MenuCard({title, ingredients, imageUrl, prices, onOpenDetails, onOpenSizeSelection}: MenuCardProps) {
   
   return (
     <div className="
@@ -33,62 +34,21 @@ export default function MenuCard({title, ingredients, imageUrl, prices, onOpenDe
           <p className="text-card-foreground/70 font-gothic text-[clamp(0.80rem,3.1vw,1.3rem)]  min-[731px]:text-[clamp(0.84rem,1.1vw,1.15rem)] min-[900px]:text-[clamp(.90rem,1.2vw,1.25rem)] mt-2 text-start min-h-14 leading-snug">{ingredients}</p>
         </button>
         <div className="mt-auto pt-3">
-          <AddToCartButton />
+          <div className="flex w-full justify-end pr-1.5">
+              <button 
+                  type="button"
+                  onClick={onOpenSizeSelection}
+                  className="text-secondary/90 cursor-pointer active:scale-80 transition duration-120"
+              >
+              <FaSquarePlus 
+                  className="
+                  w-9 h-9
+                  md:w-12 md:h-12
+                  lg:w-13 lg:h-13"
+              />
+              </button>
+          </div>
         </div>
-        {/* <div className="flex max-[1580px]:justify-evenly min-[1580px]:mt-4 min-[1580px]:gap-10 mb-1 flex-wrap"> */}
-        
-           {/* Chica */}
-          {/* <div className="flex flex-col-reverse items-center">
-            <p className="text-[clamp(0.65rem,1.0vw,1.6rem)] min-[731px]:text-[clamp(0.65rem,1.1vw,1.5rem)] min-[900px]:text-[clamp(.90rem,1vw,1.03rem)] uppercase tracking-wide text-card-foreground/60">
-              Chica
-            </p>
-            <p className="text-[clamp(1rem,1vw,1.8rem)] min-[731px]:text-[clamp(1rem,1vw,1.9rem)] min-[900px]:text-[clamp(1.1rem,1.2vw,1.5rem)] font-gothic text-red/90">
-              ${prices.sm}
-            </p>
-          </div>
-
-          {/* Mediana */}
-          {/* <div className="flex flex-col-reverse items-center">
-            <p className="text-[clamp(0.65rem,1.0vw,1.6rem)] min-[731px]:text-[clamp(0.65rem,1.1vw,1.5rem)] min-[900px]:text-[clamp(.90rem,1vw,1.03rem)] uppercase tracking-wide text-card-foreground/60">
-              Mediana
-            </p>
-            <p className="text-[clamp(1rem,1vw,1.8rem)] min-[731px]:text-[clamp(1rem,1vw,1.9rem)] min-[900px]:text-[clamp(1.1rem,1.2vw,1.5rem)] font-gothic text-red/90">
-              ${prices.md}
-            </p>
-          </div> */}
-
-          {/* Grande */}
-          {/* <div className="flex flex-col-reverse items-center">
-            <p className="text-[clamp(0.65rem,1.0vw,1.6rem)] min-[731px]:text-[clamp(0.65rem,1.1vw,1.5rem)] min-[900px]:text-[clamp(.90rem,1vw,1.03rem)] uppercase tracking-wide text-card-foreground/60">
-              Grande
-            </p>
-            <p className="text-[clamp(1rem,1vw,1.8rem)] min-[731px]:text-[clamp(1rem,1vw,1.9rem)] min-[900px]:text-[clamp(1.1rem,1.2vw,1.5rem)] font-gothic text-red/90">
-              ${prices.lg}
-            </p>
-          </div> */}
-          {/* Chica
-          <div className="flex flex-col-reverse items-center justify-center">
-            <TagButtonMenu size="Ch" />
-            <p className="text-[clamp(1rem,1vw,1.8rem)] min-[731px]:text-[clamp(1rem,1vw,1.9rem)] min-[900px]:text-[clamp(1.1rem,1.2vw,1.5rem)] font-gothic text-red/90">
-              ${prices.sm}
-            </p>
-          </div>
-
-          {/* Mediana 
-          <div className="flex flex-col-reverse items-center justify-center">
-            <TagButtonMenu size="Med" />
-            <p className="text-[clamp(1rem,1vw,1.8rem)] min-[731px]:text-[clamp(1rem,1vw,1.9rem)] min-[900px]:text-[clamp(1.1rem,1.2vw,1.5rem)] font-gothic text-red/90">
-              ${prices.md}
-            </p>
-          </div>
-          /* Grande 
-          <div className="flex flex-col-reverse items-center justify-center">
-            <TagButtonMenu size="Gde" />
-            <p className="text-[clamp(1rem,1vw,1.8rem)] min-[731px]:text-[clamp(1rem,1vw,1.9rem)] min-[900px]:text-[clamp(1.1rem,1.2vw,1.5rem)] font-gothic text-red/90">
-              ${prices.lg}
-            </p>
-          </div> */}
-        {/* </div> */}
       </div>
     </div>
   )} 
