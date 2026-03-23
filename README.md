@@ -71,3 +71,25 @@ npm run dev
 ```bash
 http://localhost:3000
 ```
+
+## Current Development (dev-beta)
+
+The project is currently under active development in the **`dev-beta`** branch, where new features are being implemented to enable **order placement via WhatsApp**.
+
+### Planned Features
+
+#### WhatsApp Order Integration
+- Allow users to place orders directly through WhatsApp.
+- Generate a structured message with the order details.
+- Send the message to the pizzeria’s phone number.
+
+#### Shopping Cart
+- Implement a **cart system** where users can:
+  - Review their order before sending.
+
+#### 💬 Order Summary via WhatsApp
+- The cart will generate a message including:
+  - Selected pizzas
+  - Quantities
+  - Total summary
+  - Delivery information if needed
