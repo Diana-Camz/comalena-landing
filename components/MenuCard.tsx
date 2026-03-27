@@ -17,7 +17,7 @@ export default function MenuCard({title, ingredients, imageUrl, prices, onOpenDe
       <button 
         type="button"
         onClick={onOpenDetails}
-        className="relative w-full min-[1580px]:w-[200px] aspect-[4/3] min-[1580px]:aspect-square min-[1580px]:m-2 overflow-hidden shrink-0 rounded-t-lg min-[1580px]:rounded-xl">
+        className="relative w-full min-[1580px]:w-[200px] aspect-[4/3] min-[1580px]:aspect-square min-[1580px]:m-2 overflow-hidden shrink-0 rounded-t-lg min-[1580px]:rounded-xl cursor-pointer">
         <Image 
           src={imageUrl} 
           alt={title} 
@@ -38,7 +38,7 @@ export default function MenuCard({title, ingredients, imageUrl, prices, onOpenDe
               <button 
                   type="button"
                   onClick={onOpenSizeSelection}
-                  className="text-secondary/90 cursor-pointer active:scale-80 transition duration-120"
+                  className="text-secondary/90 hover:text-secondary/70 cursor-pointer active:scale-80 transition duration-120"
               >
               <FaSquarePlus 
                   className="
