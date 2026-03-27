@@ -10,7 +10,6 @@ import { FaCheck } from "react-icons/fa6";
 import type { PizzaForModal, PizzaItem, Size } from "@/types/types";
 import { useCart } from "@/context/CartContext";
 import { Button } from "@/components/ui/button";
-import Link from "next/link";
 
 
 type TagButtonProps = {
@@ -25,7 +24,7 @@ function TagButton({ label, active, onClick }: TagButtonProps) {
       type="button"
       onClick={onClick}
       className={`
-        px-3 lg:px-4 py-2 rounded-full text-[clamp(0.85rem,1.2vw,1.2rem)] transition 
+        px-3 lg:px-4 py-2 rounded-full text-[clamp(0.85rem,1.2vw,1.2rem)] transition cursor-pointer
         ${
           active
             ? "bg-secondary/70 text-background"
@@ -347,7 +346,7 @@ export default function MenuPage() {
                         Selecciona el tamaño de tu pizza
                     </h3>
                     <div className="flex flex-col items-center gap-2">
-                        <p className=" text-lg font-medium text-card-foreground mb-4">{activeSizeSelection?.title}</p> 
+                        <p className=" text-lg md:text-xl font-medium text-card-foreground mb-4">{activeSizeSelection?.title}</p> 
                         {[{key: "sm", label: "Chica", subtotal: subtotalSm},
                           {key: "md", label: "Mediana", subtotal: subtotalMd},
                           {key: "lg", label: "Grande", subtotal: subtotalLg}
@@ -355,34 +354,32 @@ export default function MenuPage() {
                             <div key={key} className="flex items-center gap-4 border-b-2 border-red/20 py-2 w-full max-w-xs"> 
                                 <button 
                                 onClick={() => decrease(key as Size)}
-                                >
-                                    <CiCircleMinus className="w-10 h-10 rounded-full text-red hover:bg-red transition duration-120 hover:text-background active:scale-80 active:bg-red/70 active:text-background"/>
+                                className="cursor-pointer">
+                                    <CiCircleMinus className="w-10 h-10 rounded-full text-red hover:bg-red transition duration-120 hover:text-background active:scale-80 active:bg-red/70 active:text-background "/>
                                 </button>
-                                <span className="font-medium w-4 text-center">{selectedSize[key as Size]}</span>
+                                <p className="font-medium w-4 text-center">{selectedSize[key as Size]}</p>
                                 <button 
                                 onClick={() => increase(key as Size)}
-                                >
+                                className="cursor-pointer">
                                     <CiCirclePlus className="w-10 h-10 rounded-full text-red hover:bg-red transition duration-120 hover:text-background active:scale-80 active:bg-red/70 active:text-background"/>
                                 </button>
                                 <div className="flex justify-between w-44 items-center">
-                                    <span className=" font-gothic text-[clamp(1.2rem,2.5vw,1.4rem)]">{label}</span>
-                                    <span className="font-medium text-card-foreground/80"> = $ {subtotal.toFixed(2)}</span>
+                                    <p className=" font-gothic text-[clamp(1.2rem,2.5vw,1.4rem)]">{label}</p>
+                                    <p className="font-medium text-card-foreground/80"> = {subtotal.toLocaleString('es-MX', {style: 'currency', currency: 'MXN'})}</p>
                                 </div>
                             </div>
                             ))}
-                            
-                            
-                            
+
                            <div className="flex flex-col w-full max-w-xs mt-4">
                              <div className="flex justify-between mb-2">
-                                <span className="font-gothic text-lg text-card-foreground">Subtotal: </span>
-                                <span className="font-medium text-red">$ {totalSubtotal.toFixed(2)}</span>
+                                <p className="font-gothic text-lg md:text-xl text-card-foreground">Subtotal: </p>
+                                <p className="font-medium text-red text-xl">{totalSubtotal.toLocaleString('es-MX', {style: 'currency', currency: 'MXN'})}</p>
                              </div>
                              <div  className="flex items-center justify-center mt-3">
                                 <Button 
                                     onClick={() => handleAddToCart()}
                                     className="w-full cursor-pointer h-12 bg-red/95 hover:bg-red/80 active:bg-red/80 active:scale-97 transition duration-120 text-background text-lg font-medium">
-                                    <span className="text-md md:text-lg">Agregar al carrito</span>
+                                    <p className="text-md md:text-lg">Agregar al carrito</p>
                                 </Button>
                              </div>
                            </div>
