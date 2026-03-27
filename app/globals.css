@@ -120,6 +120,17 @@
   --sidebar-border: oklch(1 0 0 / 10%); 
   --sidebar-ring: oklch(0.551 0.027 264.364);
 }
+.sin-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.sin-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.shadow-inner-bottom {
+  box-shadow: inset 0px -9px 8px -8px rgba(0,0,0,0.18);
+}
 
 @layer base {
   * {
