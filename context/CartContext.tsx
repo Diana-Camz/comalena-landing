@@ -86,7 +86,7 @@ export function CartProvider({children} : {children : React.ReactNode}) {
     const key = makeKey(pizzaId, size);
 
     setOrder((prev) => {
-      if (qty <= 0) return prev.filter((it) => makeKey(it.pizzaId, it.size) !== key);
+      if (qty <= 0) return prev;;
 
       return prev.map((it) =>
         makeKey(it.pizzaId, it.size) === key ? { ...it, quantity: qty } : it
