@@ -137,6 +137,27 @@ export const pizzasMenu = [
   }
 ];
 
+export const ingredients = [
+  { id: "1", name: "Pepperoni", slug: "pepperoni" },
+  { id: "2", name: "Tocino", slug: "tocino" },
+  { id: "3", name: "Jamón", slug: "jamon" },
+  { id: "4", name: "Salami", slug: "salami" },
+  { id: "5", name: "Chorizo", slug: "chorizo" },
+  { id: "6", name: "Salchicha", slug: "salchicha" },
+  { id: "7", name: "Boneless BBQ", slug: "boneless-bbq" },
+  { id: "8", name: "Boneless Búfalo", slug: "boneless-bufalo" },
+  { id: "9", name: "Piña", slug: "pina" },
+  { id: "10", name: "Jitomate", slug: "jitomate" },
+  { id: "11", name: "Champiñones", slug: "champinones" },
+  { id: "12", name: "Pimiento", slug: "pimiento" },
+  { id: "13", name: "Cebolla", slug: "cebolla" },
+  { id: "14", name: "Albahaca", slug: "albahaca" },
+  { id: "15", name: "Jitomate Cherry", slug: "jitomate-cherry" },
+  { id: "16", name: "Jitomate Deshidratado", slug: "jitomate-deshidratado" },
+  { id: "17", name: "Jalapeño", slug: "jalapeno" },
+  { id: "18", name: "Aceitunas Negras", slug: "aceitunas-negras" },
+];
+
 export const featuredPizzas = [
     {
     id: "pepperoni",
