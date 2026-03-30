@@ -10,6 +10,7 @@ export type PizzaItem = {
     imageUrl: string;
     prices: Prices;
     tags?: string[];
+    selectedIngredients?: string[];
 }
 
 export type Pizza = {
@@ -22,9 +23,10 @@ export type Size = "sm" | "md" | "lg";
 
 
 export type PizzaForModal = {
-     pizzaId: string;
+    pizzaId: string;
     title: string;
     prices: Prices;
+    ingredientMode?: "single" | "multiple";
 }
 
 export type OrderItem = {
@@ -33,6 +35,7 @@ export type OrderItem = {
     size: Size;
     unitPrice: number;
     quantity: number;
+    selectedIngredients?: string[];
 }
 
 export type CustomerInfo = {

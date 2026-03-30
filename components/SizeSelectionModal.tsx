@@ -43,7 +43,7 @@ export default function SizeSelectionModal({
     const isBasicPizza = activeSizeSelection?.title === "Básica";
 
     const isValid =
-    hasItems && (!isBasicPizza || selectedIngredients);
+    hasItems && (!isBasicPizza || selectedIngredients.length > 0);
 
     const increase = (size: Size) => {
     setSelectedSize((prev) => ({
