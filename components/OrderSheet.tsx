@@ -9,23 +9,25 @@ type OrderSheetProps = {
     setActive: (active: boolean) => void;
 };
 
-type GroupedOrder = {
-    [pizzaId: string]: {
-        title: string,
-        items: OrderItem[]
-    }
-}
 export default function OrderSheet({ setActive }: OrderSheetProps) {
-    const {setQuantity, removeItem, order, total} = useCart();
+    const {setQuantity, removeItem, buildWhatsAppMessage, order, total} = useCart();
 
-    const groupedOrder = order.reduce<GroupedOrder>((acc, item ) => {
-        if (!acc[item.pizzaId]) {
-            acc[item.pizzaId] = {
-            title: item.title,
-            items: []
-            };
-        }
-        acc[item.pizzaId].items.push(item);
+    const groupedOrder = order.reduce<Record<string, {title: string, items: OrderItem[]}>>((acc, item ) => {
+        const ingredientKey = (item.selectedIngredients ?? []).slice().sort().join("-");
+        const groupKey = `${item.pizzaId}-${ingredientKey}`;
+        const capitalize = (text: string) => text.charAt(0).toUpperCase() + text.slice(1);
+        const ingredientLabel = item.selectedIngredients && item.selectedIngredients.length > 0 
+            ? ` - ${item.selectedIngredients.map(capitalize).join(", ")}`
+            : "";
+        
+
+        if (!acc[groupKey]) {
+            acc[groupKey] = {
+                title: `${item.title}${ingredientLabel}`,
+                items: []
+            }
+            }
+        acc[groupKey].items.push(item);
         return acc;
     }, {});
 
@@ -33,6 +35,11 @@ export default function OrderSheet({ setActive }: OrderSheetProps) {
         sm: "CH",
         md: "MED",
         lg: "GDE",
+    };
+
+    const handleSendWhatsApp = () => {
+        const url = buildWhatsAppMessage("523121096301");
+        window.open(url, "_blank");
     };
 
   return (
@@ -79,14 +86,14 @@ export default function OrderSheet({ setActive }: OrderSheetProps) {
                                         <div key={`${item.pizzaId}-${item.size}`} className="flex justify-between items-center py-2 md:px-2 md:py-1 border-b-2 sm:border-0 border-red/20 md:rounded-lg hover:bg-card-foreground/10 transition">
                                         <div className="w-20 md:w-26 items-center flex justify-between">
                                             <button 
-                                            onClick={() => setQuantity(item.pizzaId, item.size, item.quantity - 1)}
+                                            onClick={() => setQuantity(item.pizzaId, item.size, item.quantity - 1, item.selectedIngredients ?? [])}
                                             className="cursor-pointer"
                                             >
                                             <CiCircleMinus className="w-8 h-8 md:w-10 md:h-10 rounded-full text-red hover:bg-red transition duration-120 hover:text-background active:scale-80 active:bg-red/70 active:text-background"/>
                                             </button>
                                             <p className="font-normal text-md md:text-lg">{item.quantity}</p>
                                             <button 
-                                            onClick={() => setQuantity(item.pizzaId, item.size, item.quantity + 1)}
+                                            onClick={() => setQuantity(item.pizzaId, item.size, item.quantity + 1, item.selectedIngredients ?? [])}
                                             className="cursor-pointer"
                                             >
                                             <CiCirclePlus className="w-8 md:w-10 h-8 md:h-10 rounded-full text-red hover:bg-red transition duration-120 hover:text-background active:scale-80 active:bg-red/70 active:text-background"/>
@@ -102,7 +109,7 @@ export default function OrderSheet({ setActive }: OrderSheetProps) {
                                            </div>
                                         </div>
                                         <button
-                                            onClick={() => removeItem(item.pizzaId, item.size)}
+                                            onClick={() => removeItem(item.pizzaId, item.size, item.selectedIngredients ?? [])}
                                             className="p-2 rounded-full hover:bg-red/20 transition cursor-pointer duration-170 active:scale-80 active:bg-red/70 active:text-background mb-1">
                                             <FaRegTrashAlt  className="text-red w-5 h-5 " />
                                         </button>
@@ -115,8 +122,9 @@ export default function OrderSheet({ setActive }: OrderSheetProps) {
                             <p className="font-medium text-xl md:text-2xl text-red">{total.toLocaleString('es-MX', {style: 'currency', currency: 'MXN'})}</p>
                             </div>
                             <div  className="flex items-center w-full justify-center  mt-3">
-                                <Button 
-                                    onClick={() => {}}
+                                <Button
+                                    type="button" 
+                                    onClick={handleSendWhatsApp}
                                     className="w-1/2 cursor-pointer h-12 bg-red/95 hover:bg-red/80 active:bg-red/80 active:scale-97 transition duration-120 text-background text-lg font-medium">
                                     <p className="text-md md:text-lg">Enviar mi orden</p>
                                 </Button>
