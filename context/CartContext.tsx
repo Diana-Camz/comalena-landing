@@ -13,7 +13,7 @@ type CartContextType = {
     removeItem: (pizzaId: string, size: Size, selectedIngredients: string[]) => void;
     clearCart: () => void;
 
-    setCustomerField: (field: keyof CustomerInfo, value: string) => void;
+    setCustomerField: <K extends keyof CustomerInfo>(field: K, value: CustomerInfo[K]) => void;
 
     total: number;
     buildWhatsAppMessage: (phone: string) => string;
@@ -28,10 +28,12 @@ function makeKey(pizzaId: string, size: Size, ingredients: string[] = []) {
 export function CartProvider({children} : {children : React.ReactNode}) {
     const [order, setOrder] = useState<OrderItem[]>([]);
     const [customerInfo, setCustomerInfo] = useState<CustomerInfo>({
-        name: "Diana",
-        address: "Insurgentes Sur 1234, CDMX",
-        phone: "31212545121",
-        notes: "sin cebolla por favor"
+        name: "",
+        address: "",
+        phone: "",
+        notes: "",
+        isPickup: false,
+        acceptedPrivacy: false
     });
 
     //Funcion que Agrega pizza + tamaño, si ya existe, aumenta la cantidad, si no, la agrega al carrito
@@ -99,7 +101,7 @@ export function CartProvider({children} : {children : React.ReactNode}) {
     setOrder((prev) => prev.filter((it) => makeKey(it.pizzaId, it.size, it.selectedIngredients) !== key));
   }
 
-  const setCustomerField = (field: keyof CustomerInfo, value: string) => {
+  const setCustomerField = <K extends keyof CustomerInfo>(field: K, value: CustomerInfo[K]) => {
     setCustomerInfo((prev) => ({
         ... prev,
         [field]: value
@@ -112,7 +114,9 @@ export function CartProvider({children} : {children : React.ReactNode}) {
         name: "",
         address: "",
         phone: "",
-        notes: ""
+        notes: "",
+        isPickup: false,
+        acceptedPrivacy: false
     });
   }
 
@@ -124,15 +128,18 @@ export function CartProvider({children} : {children : React.ReactNode}) {
   const buildWhatsAppMessage = (phone:string): string => {
      const lines: string[] = [];
 
-    lines.push("Hola! Quiero hacer una orden 🍕");
-    if (customerInfo.name.trim()) lines.push(`Nombre: ${customerInfo.name.trim()}`);
+    lines.push("Hola! Quiero hacer una orden");
+    if (customerInfo.name.trim()) lines.push(`Nombre: ${customerInfo.name.trim()}`) ;
+    if (customerInfo.phone.trim()) lines.push(`Teléfono: ${customerInfo.phone.trim()}`);
     if (customerInfo.address.trim()) lines.push(`Domicilio: ${customerInfo.address.trim()}`);
     lines.push("");
     lines.push("Orden:");
 
     order.forEach((it, idx) => {
       lines.push(
-        `${idx + 1}) ${it.title} (${it.size}) x${it.quantity} - $${it.unitPrice} c/u`
+        it.pizzaId === "1" 
+        ? `${idx + 1}) ${it.title} (${it.size}) de: ${it.selectedIngredients?.join(", ")} x${it.quantity} = $${it.quantity * it.unitPrice}` 
+        : `${idx + 1}) ${it.title} (${it.size}) x${it.quantity} = $${it.quantity * it.unitPrice}`
       );
     });
 
@@ -150,7 +157,6 @@ export function CartProvider({children} : {children : React.ReactNode}) {
     lines.push('Para confirmar, responde "CONFIRMO" ✅');
 
     const text = encodeURIComponent(lines.join("\n"));
-    console.log(text)
     return `https://wa.me/${phone}?text=${text}`;
 
   }
