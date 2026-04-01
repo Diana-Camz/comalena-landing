@@ -4,11 +4,8 @@ import MenuCard from "@/components/MenuCard";
 import { pizzasMenu } from "@/data/data";
 import Image from "next/image";
 import { useMemo, useState } from "react";
-import { IoMdCloseCircle } from "react-icons/io";
-import { FaCheck } from "react-icons/fa6";
-import type { PizzaForModal, PizzaItem, Size } from "@/types/types";
+import type { PizzaForModal, PizzaItem } from "@/types/types";
 import { useCart } from "@/context/CartContext";
-
 import SizeSelectionModal from "@/components/SizeSelectionModal";
 import DetailsModal from "@/components/DetailsModal";
 
@@ -43,6 +40,7 @@ export default function MenuPage() {
    const [activeDetails, setActiveDetails] = useState<PizzaItem | null>(null);
    const [activeSizeSelection, setActiveSizeSelection] = useState<PizzaForModal | null>(null);
    const [selectedSize, setSelectedSize] = useState({sm: 0, md: 0, lg: 0});
+   const [selectedIngredients, setSelectedIngredients] = useState<string[] | []>([]);
    const { addOrderItem } = useCart();
     
    const toggleTag = (tag: string, checked: boolean) => {
@@ -81,12 +79,14 @@ export default function MenuPage() {
                 size,
                 unitPrice: prices[size],
                 quantity: qty,
+                selectedIngredients
             });
             }
         });
 
         setActiveSizeSelection(null);
         setSelectedSize({ sm: 0, md: 0, lg: 0 });
+        setSelectedIngredients([]);
     }
 
    const filteredPizzas = useMemo(() => {
@@ -229,6 +229,8 @@ export default function MenuPage() {
                     activeSizeSelection={activeSizeSelection}
                     selectedSize={selectedSize}
                     setSelectedSize={setSelectedSize}
+                    selectedIngredients={selectedIngredients}
+                    setSelectedIngredients={setSelectedIngredients}
                     handleAddToCart={handleAddToCart}
                     subtotalSm={subtotalSm}
                     subtotalMd={subtotalMd}

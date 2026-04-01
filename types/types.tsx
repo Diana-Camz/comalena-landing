@@ -43,4 +43,6 @@ export type CustomerInfo = {
     address: string;
     phone: string;
     notes?: string;
+    isPickup: boolean;
+    acceptedPrivacy: boolean;
 }
