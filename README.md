@@ -11,6 +11,9 @@ The landing focuses on clear product presentation, strong visual identity, and s
 🔗 **Deployed on Netlify:**  
 https://comalena.netlify.app
 
+Beta version
+https://dev-beta--comalena.netlify.app/menu
+
 ---
 
 ## Tech Stack
