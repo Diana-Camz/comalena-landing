@@ -1,10 +1,12 @@
 import { useCart } from "@/context/CartContext"
 import { useState } from "react";
 import { ImCheckboxChecked, ImCheckboxUnchecked } from "react-icons/im";
+import PrivacyAdvertisment from "./PrivacyAdv";
 
 
 export default function CustomerForm () {
     const [isCheckedPrivacy, setIsCheckedPrivacy] = useState(false);
+    const [isActivePrivacy, setIsActivePrivacy] = useState(false);
     const {customerInfo, setCustomerField} = useCart();
     return (
         <div>
@@ -63,7 +65,12 @@ export default function CustomerForm () {
                    {isCheckedPrivacy
                     ? <ImCheckboxChecked /> 
                     : <ImCheckboxUnchecked />}
-                     <p className="text-sm md:text-md font-gothic text-card-foreground/80">Acepto el aviso de privacidad</p>
+                     <p
+                     onClick={() => setIsActivePrivacy(true)} 
+                     className="text-sm md:text-md font-gothic text-card-foreground/80"
+                     >Acepto el 
+                        <span className="underline ml-1">Aviso de Privacidad</span>
+                    </p>
                 </button>
                 <div>
                     <p className="text-sm md:text-lg font-gothic text-center text-red/80 leading-tight">
@@ -71,6 +78,9 @@ export default function CustomerForm () {
                     </p>
                 </div>
             </div>
+            {isActivePrivacy && (
+                <PrivacyAdvertisment setActive={setIsActivePrivacy} />
+            )}
         </div>
     )
 }
