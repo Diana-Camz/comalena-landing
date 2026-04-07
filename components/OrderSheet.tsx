@@ -17,7 +17,7 @@ export default function OrderSheet({ setActive }: OrderSheetProps) {
 
     const groupedOrder = order.reduce<Record<string, {title: string, items: OrderItem[]}>>((acc, item ) => {
         const ingredientKey = (item.selectedIngredients ?? []).slice().sort().join("-");
-        const groupKey = `${item.pizzaId}-${ingredientKey}`;
+        const groupKey = `${item.itemId}-${ingredientKey}`;
         const capitalize = (text: string) => text.charAt(0).toUpperCase() + text.slice(1);
         const ingredientLabel = item.selectedIngredients && item.selectedIngredients.length > 0 
             ? ` - ${item.selectedIngredients.map(capitalize).join(", ")}`

@@ -18,6 +18,7 @@ export default function DetailsModal({setActiveDetails, activeDetails}: DetailsM
       carnes: "Con carnes frías",
       tradicional: "Tradicional",
       "de-la-casa": "De la casa",
+      complemento: "Complemento",
     
     };
     return (
