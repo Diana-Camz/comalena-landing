@@ -6,7 +6,7 @@ import SwitchSizeAndIngredientButton from "./SwitchSizeAndIngredientButton";
 import { useState } from "react";
 import { ingredients } from "@/data/data";
 
-interface SizeSelectionModalProps {
+interface SizeSelectionPizzaModalProps {
   activeSizeSelection: PizzaForModal | null;
   setActiveSizeSelection: (value: PizzaForModal | null) => void;
   selectedSize: { sm: number; md: number; lg: number };
@@ -14,13 +14,9 @@ interface SizeSelectionModalProps {
   selectedIngredients: string[];
   setSelectedIngredients: React.Dispatch<React.SetStateAction<string[]>>;
   handleAddToCart: () => void;
-  subtotalSm: number;
-  subtotalMd: number;
-  subtotalLg: number;
-  totalSubtotal: number;
 }
 
-export default function SizeSelectionModal({
+export default function SizeSelectionPizzaModal({
     activeSizeSelection,
     setActiveSizeSelection,
     selectedSize,
@@ -28,12 +24,24 @@ export default function SizeSelectionModal({
     selectedIngredients,
     setSelectedIngredients,
     handleAddToCart,
-    subtotalSm,
-    subtotalMd,
-    subtotalLg,
-    totalSubtotal }: SizeSelectionModalProps) {
+
+}: SizeSelectionPizzaModalProps) {
     
     const [showIngredients, setShowIngredients] = useState(false);
+
+    const subtotalSm = activeSizeSelection
+    ? selectedSize.sm * activeSizeSelection.prices.sm
+    : 0;
+
+    const subtotalMd = activeSizeSelection
+    ? selectedSize.md * activeSizeSelection.prices.md
+    : 0;
+
+    const subtotalLg = activeSizeSelection
+    ? selectedSize.lg * activeSizeSelection.prices.lg
+    : 0;
+
+    const totalSubtotal = subtotalSm + subtotalMd + subtotalLg;
 
     const hasItems =
     selectedSize.sm > 0 ||
@@ -86,7 +94,7 @@ export default function SizeSelectionModal({
     </h3>
     <div className="flex flex-col items-center gap-2">
         <p className=" text-lg md:text-xl font-medium text-card-foreground mb-4">{activeSizeSelection?.title}</p>
-        {activeSizeSelection?.pizzaId === "1" && (
+        {activeSizeSelection?.pizzaId === "pizza-1" && (
             <div>
                 <SwitchSizeAndIngredientButton 
                 setShowIngredients={setShowIngredients} 
