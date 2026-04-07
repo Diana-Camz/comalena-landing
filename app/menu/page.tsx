@@ -1,44 +1,22 @@
 'use client';
 import Layout from "@/components/Layout";
 import MenuCard from "@/components/MenuCard";
-import { pizzasMenu } from "@/data/data";
+import { complementsMenu, pizzaMenu } from "@/data/data";
 import Image from "next/image";
 import { useMemo, useState } from "react";
-import type { PizzaForModal, PizzaItem } from "@/types/types";
+import type { ComplementForModal, PizzaForModal, PizzaItem } from "@/types/types";
 import { useCart } from "@/context/CartContext";
-import SizeSelectionModal from "@/components/SizeSelectionModal";
+import SizeSelectionPizzaModal from "@/components/SizeSelectionPizzaModal";
 import DetailsModal from "@/components/DetailsModal";
-
-
-type TagButtonProps = {
-  label: string;
-  active: boolean;
-  onClick: () => void;
-};
-
-function TagButton({ label, active, onClick }: TagButtonProps) {
-  return (
-    <button
-      type="button"
-      onClick={onClick}
-      className={`
-        px-3 lg:px-4 py-2 rounded-full text-[clamp(0.85rem,1.2vw,1.2rem)] transition cursor-pointer
-        ${
-          active
-            ? "bg-secondary/70 text-background"
-            : "bg-background text-card-foreground/75 ring-1 ring-black/10 hover:bg-ring/10"
-        }
-      `}
-    >
-      {label}
-    </button>
-  );
-}
+import TagButton from "@/components/TagButtonMenu";
+import ComplementCard from "@/components/ComplementCard";
+import SizeSelectionComplementModal from "@/components/SizeSelectionComplementModal";
 
 export default function MenuPage() {
    const [tagsSelected, setTagsSelected] = useState<string[]>([]);
    const [activeDetails, setActiveDetails] = useState<PizzaItem | null>(null);
-   const [activeSizeSelection, setActiveSizeSelection] = useState<PizzaForModal | null>(null);
+   const [activeSizeSelection, setActiveSizeSelection] = useState<PizzaForModal |null>(null);
+   const [activeComplementSelection, setActiveComplementSelection] = useState<ComplementForModal |null>(null);
    const [selectedSize, setSelectedSize] = useState({sm: 0, md: 0, lg: 0});
    const [selectedIngredients, setSelectedIngredients] = useState<string[] | []>([]);
    const { addOrderItem } = useCart();
@@ -50,32 +28,27 @@ export default function MenuPage() {
     });
   };
 
-   const subtotalSm = activeSizeSelection
-    ? selectedSize.sm * activeSizeSelection.prices.sm
-    : 0;
-
-    const subtotalMd = activeSizeSelection
-    ? selectedSize.md * activeSizeSelection.prices.md
-    : 0;
-
-    const subtotalLg = activeSizeSelection
-    ? selectedSize.lg * activeSizeSelection.prices.lg
-    : 0;
-
-    const totalSubtotal = subtotalSm + subtotalMd + subtotalLg;
+   const resetModal = () => {
+        setActiveSizeSelection(null);
+        setActiveComplementSelection(null);
+        setSelectedSize({ sm: 0, md: 0, lg: 0 });
+        setSelectedIngredients([]);
+   }
 
     const handleAddToCart = () => {
-        if (!activeSizeSelection) return;
+        if (!activeSizeSelection && !activeComplementSelection) return;
 
-        const { pizzaId, title, prices } = activeSizeSelection;
+        if (activeSizeSelection) {
+            const { pizzaId, title, prices } = activeSizeSelection;
 
         (["sm", "md", "lg"] as const).forEach((size) => {
             const qty = selectedSize[size];
             
             if (qty > 0) {
             addOrderItem({
-                pizzaId,
+                itemId: pizzaId,
                 title,
+                itemType: "pizza",
                 size,
                 unitPrice: prices[size],
                 quantity: qty,
@@ -83,15 +56,33 @@ export default function MenuPage() {
             });
             }
         });
-
-        setActiveSizeSelection(null);
-        setSelectedSize({ sm: 0, md: 0, lg: 0 });
-        setSelectedIngredients([]);
+        resetModal();
     }
+    if (activeComplementSelection) {
+            const { complementId, title, prices } = activeComplementSelection;
+
+        (["sm", "md", "lg"] as const).forEach((size) => {
+            const qty = selectedSize[size];
+            
+            if (qty > 0) {
+            addOrderItem({
+                itemId: complementId,
+                title,
+                itemType: "complement",
+                size,
+                unitPrice: prices[size],
+                quantity: qty,
+                selectedIngredients
+            });
+            }
+        });
+        resetModal();
+    }
+}
 
    const filteredPizzas = useMemo(() => {
-    if (tagsSelected.length === 0) return pizzasMenu;
-    return pizzasMenu.filter((pizza: PizzaItem) =>
+    if (tagsSelected.length === 0) return pizzaMenu;
+    return pizzaMenu.filter((pizza: PizzaItem) =>
       pizza.tags?.some((t: string) => tagsSelected.includes(t))
     );
   }, [tagsSelected]);
@@ -199,6 +190,41 @@ export default function MenuPage() {
                                     )
                                 }
                             />
+                            <div className="flex flex-wrap mt-3 gap-3">
+                            <TagButton
+                                label="Complementos"
+                                type={"submenu"}
+                                active={tagsSelected.includes("complemento")}
+                                onClick={() =>
+                                    toggleTag(
+                                    "complemento",
+                                    !tagsSelected.includes("complemento")
+                                     )
+                                }
+                            />
+                            <TagButton
+                                label="Postres"
+                                type={"submenu"}
+                                active={tagsSelected.includes("postre")}
+                                onClick={() =>
+                                    toggleTag(
+                                    "postre",
+                                    !tagsSelected.includes("postre")
+                                    )
+                                }
+                            />
+                            <TagButton
+                                label="Bebidas"
+                                type={"submenu"}
+                                active={tagsSelected.includes("bebida")}
+                                onClick={() =>
+                                    toggleTag(
+                                    "bebida",
+                                    !tagsSelected.includes("bebida")
+                                    )
+                                }
+                            />
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -215,6 +241,17 @@ export default function MenuPage() {
                             setSelectedSize({sm: 0, md: 0, lg: 0});} }
                         />
                     ))}
+                    {complementsMenu.map((complement) => (
+                        <ComplementCard 
+                            key={complement.id} {...complement}
+                            onOpenSizeSelection={() => {setActiveComplementSelection({
+                                complementId: complement.id,
+                                title: complement.title,
+                                prices: complement.prices
+                            });
+                            setSelectedSize({sm: 0, md: 0, lg: 0});} }
+                        />
+                    ))}
                 </div>
 
             </section>
@@ -224,7 +261,7 @@ export default function MenuPage() {
                 activeDetails={activeDetails}/>
             )}
             {activeSizeSelection && (
-                <SizeSelectionModal
+                <SizeSelectionPizzaModal
                     setActiveSizeSelection={setActiveSizeSelection}
                     activeSizeSelection={activeSizeSelection}
                     selectedSize={selectedSize}
@@ -232,12 +269,19 @@ export default function MenuPage() {
                     selectedIngredients={selectedIngredients}
                     setSelectedIngredients={setSelectedIngredients}
                     handleAddToCart={handleAddToCart}
-                    subtotalSm={subtotalSm}
-                    subtotalMd={subtotalMd}
-                    subtotalLg={subtotalLg}
-                    totalSubtotal={totalSubtotal}
                 />
             )}
+            {activeComplementSelection && (
+                <SizeSelectionComplementModal
+                    setActiveSizeSelection={setActiveComplementSelection}
+                    activeComplement={activeComplementSelection}
+                    selectedSize={selectedSize}
+                    setSelectedSize={setSelectedSize}
+                    handleAddToCart={handleAddToCart}
+                />
+             )
+
+            }
         </Layout>
     )
 }
