@@ -4,7 +4,7 @@ export type Prices = {
     lg: number; 
 }
 export type PizzaItem = {
-    id: number;
+    id: string;
     title: string;
     ingredients: string;
     imageUrl: string;
@@ -13,10 +13,26 @@ export type PizzaItem = {
     selectedIngredients?: string[];
 }
 
+export type ComplementItem = {
+    id: string,
+    title: string,
+    description: string,
+    imageUrl: string,
+    prices: Prices,
+    tags?: string[];
+}
+
+//este tipo de types son para agregarse al carrito, ya que no necesita toda la info de la pizza
 export type Pizza = {
     id: string;
     title: string;
     prices: Prices;
+}
+
+export type Complement = {
+    id: string;
+    name: string;
+    price: Prices;
 }
 
 export type Size = "sm" | "md" | "lg";
@@ -29,9 +45,16 @@ export type PizzaForModal = {
     ingredientMode?: "single" | "multiple";
 }
 
-export type OrderItem = {
-    pizzaId: string;
+export type ComplementForModal = {
+    complementId: string;
     title: string;
+    prices: Prices;
+}
+
+export type OrderItem = {
+    itemId: string;
+    title: string;
+    itemType: "pizza" | "complement";
     size: Size;
     unitPrice: number;
     quantity: number;

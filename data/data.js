@@ -1,6 +1,7 @@
-export const pizzasMenu = [
+
+export const pizzaMenu = [
   {
-    id: 1,
+    id: "pizza-1",
     title: "Básica",
     ingredients: "Salsa de tomate, queso y 1 ingrediente a elegir",
     imageUrl: "/images/menu/pepperoni.webp",
@@ -8,7 +9,7 @@ export const pizzasMenu = [
     tags: ["basica", "mas-pedida"]
   },
   {
-    id: 2,
+    id: "pizza-2",
     title: "Pepperoni Champiñones",
     ingredients: "Salsa de tomate, queso, pepperoni y champiñones",
     imageUrl: "/images/menu/pepperoni-champ.webp",
@@ -16,7 +17,7 @@ export const pizzasMenu = [
     tags: ["mas-pedida", "carnes", "tradicional"]
   },
   {
-    id: 3,
+    id: "pizza-3",
     title: "Hawaiana",
     ingredients: "Salsa de tomate, queso, jamón y piña",
     imageUrl: "/images/menu/hawaiana.webp",
@@ -24,7 +25,7 @@ export const pizzasMenu = [
     tags: ["carnes", "tradicional", "mas-pedida"]
   },
   {
-    id: 4,
+    id: "pizza-4",
     title: "Red Hawaiana",
     ingredients: "Salsa de tomate, queso, pepperoni, piña",
     imageUrl: "/images/menu/red-haw.webp",
@@ -32,7 +33,7 @@ export const pizzasMenu = [
     tags: ["carnes", "tradicional"]
   },
   {
-    id: 5,
+    id: "pizza-5",
     title: "Mexicana",
     ingredients: "Salsa de tomate, queso, chorizo, jitomate, pimiento, jalapeño y cebolla",
     imageUrl: "/images/menu/mexicana.webp",
@@ -40,7 +41,7 @@ export const pizzasMenu = [
     tags: ["picante", "carnes", "tradicional", "mas-pedida"]
   },
   {
-    id: 6,
+    id: "pizza-6",
     title: "Vegetariana",
     ingredients: "Salsa de tomate, queso, champiñones, pimiento, cebolla, jalapeño y piña",
     imageUrl: "/images/menu/vegetariana.webp",
@@ -48,7 +49,7 @@ export const pizzasMenu = [
     tags: ["vegetariana", "picante", 'tradicional']
   },
   {
-    id: 7,
+    id: "pizza-7",
     title: "Margarita",
     ingredients: "Salsa de tomate, queso, jitomate cherry, albahaca y queso parmesano",
     imageUrl: "/images/menu/margarita.webp",
@@ -56,7 +57,7 @@ export const pizzasMenu = [
     tags: ["vegetariana", "de-la-casa"]
   },
   {
-    id: 8,
+    id: "pizza-8",
     title: "Mamma-Mía",
     ingredients: "Salsa de tomate, queso, jitomate deshidratado, jitomate cherry, champiñones y albahaca fresca",
     imageUrl: "/images/menu/mamma-mia.webp",
@@ -64,7 +65,7 @@ export const pizzasMenu = [
     tags: ["vegetariana", "de-la-casa"]
   },
   {
-    id: 9,
+    id: "pizza-9",
     title: "Diávola",
     ingredients: "Salsa de tomate, queso, pepperoni, chorizo, jalapeño y pimiento",
     imageUrl:  "/images/menu/diavola.webp",
@@ -72,7 +73,7 @@ export const pizzasMenu = [
     tags: ["picante", "carnes", "de-la-casa"]
   },
   {
-    id: 10,
+    id: "pizza-10",
     title: "Exótica",
     ingredients: "Salsa de tomate, queso, jamón, salami, aceitunas negras, pimiento y cebolla",
     imageUrl: "/images/menu/exotica.webp",
@@ -80,7 +81,7 @@ export const pizzasMenu = [
     tags: ["carnes", "de-la-casa"]
   },
   {
-    id: 11,
+    id: "pizza-11",
     title: "Frijoleña",
     ingredients: "Frijoles refritos, queso, chorizo, tocino y jalapeño",
     imageUrl: "/images/menu/frijolena.webp",
@@ -88,7 +89,7 @@ export const pizzasMenu = [
     tags: ["frijoles", "carnes", "de-la-casa"]
   },
   {
-    id: 12,
+    id: "pizza-12",
     title: "Wera",
     ingredients: "Frijoles refritos, queso, chicharrón de cerdo, chorizo, chile güero, jalapeño y cebolla",
     imageUrl: "/images/menu/wera.webp",
@@ -96,7 +97,7 @@ export const pizzasMenu = [
     tags: ["frijoles", "carnes", "de-la-casa", "picante"]
   },
   {
-    id: 13,
+    id: "pizza-13",
     title: "Carroñera",
     ingredients: "Salsa de tomate, queso, pepperoni, salami, jamón, tocino, chorizo y salchicha",
     imageUrl: "/images/menu/carronera.webp",
@@ -104,7 +105,7 @@ export const pizzasMenu = [
     tags: ["carnes", "especial", "mas-pedida"]
   },
   {
-    id: 14,
+    id: "pizza-14",
     title: "Boneless Búfalo",
     ingredients: "Salsa de tomate, queso, boneless búfalo, apio y aderezo ranch",
     imageUrl: "/images/menu/bufalo.webp",
@@ -112,7 +113,7 @@ export const pizzasMenu = [
     tags: ["carnes", "especial", "mas-pedida", "picante"]
   },
   {
-    id: 15,
+    id: "pizza-15",
     title: "Boneless BBQ",
     ingredients: "Salsa de tomate, queso, boneless BBQ, champiñones y cebolla",
     imageUrl: "/images/menu/bbq.webp",
@@ -120,7 +121,7 @@ export const pizzasMenu = [
     tags: ["carnes", "especial", "mas-pedida"]
   },
   {
-    id: 16,
+    id: "pizza-16",
     title: "Pizza-Dogo",
     ingredients: "Salsa de tomate, queso, salchicha, salami, tocino, cebolla, champiñones y aderezo ranch",
     imageUrl: "/images/menu/dogo.webp",
@@ -128,34 +129,111 @@ export const pizzasMenu = [
     tags: ["carnes", "especial", "mas-pedida"]
   },
   {
-    id: 17,
+    id: "pizza-17",
     title: "Oseana",
     ingredients: "Salsa de tomate, queso, pepperoni, salchicha, salami, tocino, piña, champiñones y aderezo ranch",
     imageUrl: "/images/menu/dogo.webp",
     prices: {sm: 99, md: 209, lg: 299},
     tags: ["carnes", "especial"]
-  }
+  },
 ];
 
+export const complementsMenu = [
+    {
+    id: "comp-1",
+    title: "Chimichurri",
+    description: "Delicioso chimichurri casero",
+    imageUrl: "/images/menu/complements/chimichurri.webp",
+    prices: {sm: 5, md: 15, lg: 25},
+    tags: ["complemento"]
+  },
+  {
+    id: "comp-2",
+    title: "Aderezo Ranch",
+    description: "Complementa tu pizza con nuestro aderezo ranch",
+    imageUrl: "/images/menu/complements/aderezo-ranch.webp",
+    prices: {sm: 5, md: 15, lg: 25},
+    tags: ["complemento"]
+  },
+  {
+    id: "comp-3",
+    title: "Aderezo BBQ",
+    description: "Complementa tu pizza con nuestro aderezo BBQ",
+    imageUrl: "/images/menu/complements/aderezo-bbq.webp",
+    prices: {sm: 5, md: 15, lg: 25},
+    tags: ["complemento"]
+  },
+  {
+    id: "comp-4",
+    title: "Aderezo Búfalo",
+    description: "Complementa tu pizza con nuestro aderezo búfalo",
+    imageUrl: "/images/menu/complements/aderezo-bufalo.webp",
+    prices: {sm: 5, md: 15, lg: 25},
+    tags: ["complemento"]
+  },
+    {
+    id: "comp-5",
+    title: "Queso Mozarella extra",
+    description: "Agrega más queso a tu pizza",
+    imageUrl: "/images/menu/complements/mozarella.webp",
+    prices: {sm: 5, md: 15, lg: 25},
+    tags: ["complemento"]
+  },
+    {
+    id: "comp-6",
+    title: "Queso Parmesano",
+    description: "Complementa tu pizza con nuestro queso parmesano",
+    imageUrl: "/images/menu/complements/parmesano.webp",
+    prices: {sm: 5, md: 15, lg: 25},
+    tags: ["complemento"]
+  },
+    {
+    id: "comp-7",
+    title: "Sobresito de Catsup",
+    description: "Agrega mas catsup",
+    imageUrl: "/images/menu/complements/catsup.webp",
+    prices: {sm: 5, md: 15, lg: 25},
+    tags: ["complemento"]
+  },
+    {
+    id: "comp-8",
+    title: "Salsa Habanera",
+    description: "Agrega un toque de picante a tu pizza",
+    imageUrl: "/images/menu/complements/habanero.webp",
+    prices: {sm: 5, md: 15, lg: 25},
+    tags: ["complemento"]
+  }
+]
+
 export const ingredients = [
-  { id: "1", name: "Pepperoni", slug: "pepperoni" },
-  { id: "2", name: "Tocino", slug: "tocino" },
-  { id: "3", name: "Jamón", slug: "jamon" },
-  { id: "4", name: "Salami", slug: "salami" },
-  { id: "5", name: "Chorizo", slug: "chorizo" },
-  { id: "6", name: "Salchicha", slug: "salchicha" },
-  { id: "7", name: "Boneless BBQ", slug: "boneless-bbq" },
-  { id: "8", name: "Boneless Búfalo", slug: "boneless-bufalo" },
-  { id: "9", name: "Piña", slug: "pina" },
-  { id: "10", name: "Jitomate", slug: "jitomate" },
-  { id: "11", name: "Champiñones", slug: "champinones" },
-  { id: "12", name: "Pimiento", slug: "pimiento" },
-  { id: "13", name: "Cebolla", slug: "cebolla" },
-  { id: "14", name: "Albahaca", slug: "albahaca" },
-  { id: "15", name: "Jitomate Cherry", slug: "jitomate-cherry" },
-  { id: "16", name: "Jitomate Deshidratado", slug: "jitomate-deshidratado" },
-  { id: "17", name: "Jalapeño", slug: "jalapeno" },
-  { id: "18", name: "Aceitunas Negras", slug: "aceitunas-negras" },
+  { id: "1", name: "Pepperoni", slug: "pepperoni", type: "carne", price:  {sm: 10, md: 20, lg: 30}},
+  { id: "2", name: "Tocino", slug: "tocino", type: "carne", price:  {sm: 10, md: 20, lg: 30} },
+  { id: "3", name: "Jamón", slug: "jamon", type: "carne", price:  {sm: 10, md: 20, lg: 30} },
+  { id: "4", name: "Salami", slug: "salami", type: "carne", price:  {sm: 10, md: 20, lg: 30} },
+  { id: "5", name: "Chorizo", slug: "chorizo", type: "carne", price:  {sm: 10, md: 20, lg: 30} },
+  { id: "6", name: "Salchicha", slug: "salchicha", type: "carne", price:  {sm: 10, md: 20, lg: 30} },
+  { id: "7", name: "Boneless BBQ", slug: "boneless-bbq", type: "carne", price:  {sm: 10, md: 20, lg: 30}},
+  { id: "8", name: "Boneless Búfalo", slug: "boneless-bufalo", type: "carne", price:  {sm: 10, md: 20, lg: 30} },
+  { id: "9", name: "Piña", slug: "pina", type: "vegetal", price:  {sm: 8, md: 15, lg: 20} },
+  { id: "10", name: "Jitomate", slug: "jitomate", type: "vegetal", price:  {sm: 8, md: 15, lg: 20} },
+  { id: "11", name: "Champiñones", slug: "champinones", type: "vegetal", price:  {sm: 8, md: 15, lg: 20} },
+  { id: "12", name: "Pimiento", slug: "pimiento", type: "vegetal", price:  {sm: 8, md: 15, lg: 20} },
+  { id: "13", name: "Cebolla", slug: "cebolla", type: "vegetal", price:  {sm: 8, md: 15, lg: 20} },
+  { id: "14", name: "Albahaca", slug: "albahaca", type: "vegetal", price:  {sm: 8, md: 15, lg: 20} },
+  { id: "15", name: "Jitomate Cherry", slug: "jitomate-cherry", type: "vegetal", price:  {sm: 8, md: 15, lg: 20} },
+  { id: "16", name: "Jitomate Deshidratado", slug: "jitomate-deshidratado", type: "vegetal", price:  {sm: 8, md: 15, lg: 20} },
+  { id: "17", name: "Jalapeño", slug: "jalapeno", type: "vegetal", price:  {sm: 8, md: 15, lg: 20} },
+  { id: "18", name: "Aceitunas Negras", slug: "aceitunas-negras", type: "vegetal", price:  {sm: 8, md: 15, lg: 20} },
+  { id: "19", name: "Apio", slug: "apio", type: "vegetal", price:  {sm: 8, md: 15, lg: 20} },
+  { id: "20", name: "Queso Mozarella extra", slug: "queso-extra", type: "queso", price:  {sm: 15, md: 20, lg: 30} },
+  { id: "21", name: "Queso Parmesano", slug: "queso-parmesano", type: "queso", price:  {sm: 15, md: 20, lg: 30} },
+  { id: "22", name: "Aderezo Ranch", slug: "aderezo-ranch", type: "complemento", price:  {sm: 8, md: 15, lg: 20} },
+  { id: "23", name: "Aderezo BBQ", slug: "aderezo-bbq", type: "complemento", price:  {sm: 8, md: 15, lg: 20} },
+  { id: "24", name: "Aderezo Búfalo", slug: "aderezo-bufalo", type: "complemento", price:  {sm: 8, md: 15, lg: 20} },
+  { id: "25", name: "Catsup", slug: "catsup", type: "complemento", price:  {sm: 2} },
+  { id: "26", name: "Salsa Habanera", slug: "salsa-habanera", type: "complemento", price:  {sm: 5} },
+
+
 ];
 
 export const featuredPizzas = [
