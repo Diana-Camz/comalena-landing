@@ -95,7 +95,7 @@ export default function OrderSheet({ setActive }: OrderSheetProps) {
                                 {step === "order" && (
                                 <>
                                 <div className="max-h-[355px] overflow-y-auto sin-scrollbar border-b-2 border-red  shadow-inner-bottom">
-                                 {Object.entries(groupedOrder).map(([pizzaId, group]) => {
+                                 {Object.entries(groupedOrder).map(([itemId, group]) => {
                                 const sizeMap: { [size: string]: OrderItem } = {};
                                 group.items.forEach(item => {
                                     if(!sizeMap[item.size]) {
@@ -105,20 +105,20 @@ export default function OrderSheet({ setActive }: OrderSheetProps) {
                                     }
                                 })
                                 return (
-                                <div key={pizzaId} className="flex flex-col mb-4">
+                                <div key={itemId} className="flex flex-col mb-4">
                                     <h2 className="text-lg md:text-xl font-medium text-card-foreground mb-2">{group.title}</h2>
                                     {Object.values(sizeMap).map(item => (
-                                        <div key={`${item.pizzaId}-${item.size}`} className="flex justify-between items-center py-2 md:px-2 md:py-1 border-b-2 sm:border-0 border-red/20 md:rounded-lg hover:bg-card-foreground/10 transition">
+                                        <div key={`${item.itemId}-${item.size}`} className="flex justify-between items-center py-2 md:px-2 md:py-1 border-b-2 sm:border-0 border-red/20 md:rounded-lg hover:bg-card-foreground/10 transition">
                                         <div className="w-20 md:w-26 items-center flex justify-between">
                                             <button 
-                                            onClick={() => setQuantity(item.pizzaId, item.size, item.quantity - 1, item.selectedIngredients ?? [])}
+                                            onClick={() => setQuantity(item.itemId, item.size, item.quantity - 1, item.selectedIngredients ?? [])}
                                             className="cursor-pointer"
                                             >
                                             <CiCircleMinus className="w-8 h-8 md:w-10 md:h-10 rounded-full text-red hover:bg-red transition duration-120 hover:text-background active:scale-80 active:bg-red/70 active:text-background"/>
                                             </button>
                                             <p className="font-normal text-md md:text-lg">{item.quantity}</p>
                                             <button 
-                                            onClick={() => setQuantity(item.pizzaId, item.size, item.quantity + 1, item.selectedIngredients ?? [])}
+                                            onClick={() => setQuantity(item.itemId, item.size, item.quantity + 1, item.selectedIngredients ?? [])}
                                             className="cursor-pointer"
                                             >
                                             <CiCirclePlus className="w-8 md:w-10 h-8 md:h-10 rounded-full text-red hover:bg-red transition duration-120 hover:text-background active:scale-80 active:bg-red/70 active:text-background"/>
@@ -134,7 +134,7 @@ export default function OrderSheet({ setActive }: OrderSheetProps) {
                                            </div>
                                         </div>
                                         <button
-                                            onClick={() => removeItem(item.pizzaId, item.size, item.selectedIngredients ?? [])}
+                                            onClick={() => removeItem(item.itemId, item.size, item.selectedIngredients ?? [])}
                                             className="p-2 rounded-full hover:bg-red/20 transition cursor-pointer duration-170 active:scale-80 active:bg-red/70 active:text-background mb-1">
                                             <FaRegTrashAlt  className="text-red w-5 h-5 " />
                                         </button>
