@@ -1,7 +1,7 @@
 import { CiCircleMinus, CiCirclePlus } from "react-icons/ci";
 import { IoMdCloseCircle } from "react-icons/io";
 import { Button } from "@/components/ui/button";
-import { PizzaForModal, Size } from "@/types/types";
+import { PizzaForModal, PizzaSize } from "@/types/types";
 import SwitchSizeAndIngredientButton from "./SwitchSizeAndIngredientButton";
 import { useState } from "react";
 import { ingredients } from "@/data/data";
@@ -53,14 +53,14 @@ export default function SizeSelectionPizzaModal({
     const isValid =
     hasItems && (!isBasicPizza || selectedIngredients.length > 0);
 
-    const increase = (size: Size) => {
+    const increase = (size: PizzaSize) => {
     setSelectedSize((prev) => ({
         ...prev,
         [size]: prev[size] + 1,
     }));
     };
 
-    const decrease = (size: Size) => {
+    const decrease = (size: PizzaSize) => {
     setSelectedSize((prev) => ({
         ...prev,
         [size]: Math.max(0, prev[size] - 1),
@@ -144,13 +144,13 @@ export default function SizeSelectionPizzaModal({
         ].map(({key, label, subtotal}) => (
             <div key={key} className="flex items-center gap-4 border-b-2 border-red/20 py-2 w-full max-w-xs"> 
                 <button 
-                onClick={() => decrease(key as Size)}
+                onClick={() => decrease(key as PizzaSize)}
                 className="cursor-pointer">
                     <CiCircleMinus className="w-10 h-10 rounded-full text-red hover:bg-red transition duration-120 hover:text-background active:scale-80 active:bg-red/70 active:text-background "/>
                 </button>
-                <p className="font-medium w-4 text-center">{selectedSize[key as Size]}</p>
+                <p className="font-medium w-4 text-center">{selectedSize[key as PizzaSize]}</p>
                 <button 
-                onClick={() => increase(key as Size)}
+                onClick={() => increase(key as PizzaSize)}
                 className="cursor-pointer">
                     <CiCirclePlus className="w-10 h-10 rounded-full text-red hover:bg-red transition duration-120 hover:text-background active:scale-80 active:bg-red/70 active:text-background"/>
                 </button>

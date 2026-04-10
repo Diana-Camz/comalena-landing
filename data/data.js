@@ -152,7 +152,7 @@ export const complementsMenu = [
     title: "Aderezo Ranch",
     description: "Complementa tu pizza con nuestro aderezo ranch",
     imageUrl: "/images/menu/complements/aderezo-ranch.webp",
-    prices: {sm: 5, md: 15, lg: 25},
+    prices: {unit: 15},
     tags: ["complemento"]
   },
   {
@@ -160,7 +160,7 @@ export const complementsMenu = [
     title: "Aderezo BBQ",
     description: "Complementa tu pizza con nuestro aderezo BBQ",
     imageUrl: "/images/menu/complements/aderezo-bbq.webp",
-    prices: {sm: 5, md: 15, lg: 25},
+    prices: {unit: 15},
     tags: ["complemento"]
   },
   {
@@ -168,23 +168,15 @@ export const complementsMenu = [
     title: "Aderezo Búfalo",
     description: "Complementa tu pizza con nuestro aderezo búfalo",
     imageUrl: "/images/menu/complements/aderezo-bufalo.webp",
-    prices: {sm: 5, md: 15, lg: 25},
+    prices: {unit: 15},
     tags: ["complemento"]
   },
-    {
+  {
     id: "comp-5",
-    title: "Queso Mozarella extra",
-    description: "Agrega más queso a tu pizza",
-    imageUrl: "/images/menu/complements/mozarella.webp",
-    prices: {sm: 5, md: 15, lg: 25},
-    tags: ["complemento"]
-  },
-    {
-    id: "comp-6",
     title: "Queso Parmesano",
     description: "Complementa tu pizza con nuestro queso parmesano",
     imageUrl: "/images/menu/complements/parmesano.webp",
-    prices: {sm: 5, md: 15, lg: 25},
+    prices: {sm: 15, md: 25, lg: 35},
     tags: ["complemento"]
   },
     {
@@ -192,7 +184,7 @@ export const complementsMenu = [
     title: "Sobresito de Catsup",
     description: "Agrega mas catsup",
     imageUrl: "/images/menu/complements/catsup.webp",
-    prices: {sm: 5, md: 15, lg: 25},
+    prices: {unit: 2},
     tags: ["complemento"]
   },
     {
@@ -200,7 +192,7 @@ export const complementsMenu = [
     title: "Salsa Habanera",
     description: "Agrega un toque de picante a tu pizza",
     imageUrl: "/images/menu/complements/habanero.webp",
-    prices: {sm: 5, md: 15, lg: 25},
+    prices: {unit: 5},
     tags: ["complemento"]
   }
 ]
@@ -230,10 +222,6 @@ export const ingredients = [
   { id: "22", name: "Aderezo Ranch", slug: "aderezo-ranch", type: "complemento", price:  {sm: 8, md: 15, lg: 20} },
   { id: "23", name: "Aderezo BBQ", slug: "aderezo-bbq", type: "complemento", price:  {sm: 8, md: 15, lg: 20} },
   { id: "24", name: "Aderezo Búfalo", slug: "aderezo-bufalo", type: "complemento", price:  {sm: 8, md: 15, lg: 20} },
-  { id: "25", name: "Catsup", slug: "catsup", type: "complemento", price:  {sm: 2} },
-  { id: "26", name: "Salsa Habanera", slug: "salsa-habanera", type: "complemento", price:  {sm: 5} },
-
-
 ];
 
 export const featuredPizzas = [
