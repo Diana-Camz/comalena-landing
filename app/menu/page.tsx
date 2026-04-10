@@ -4,7 +4,7 @@ import MenuCard from "@/components/MenuCard";
 import { complementsMenu, pizzaMenu } from "@/data/data";
 import Image from "next/image";
 import { useMemo, useState } from "react";
-import type { ComplementForModal, PizzaForModal, PizzaItem } from "@/types/types";
+import type { ComplementForModal, ComplementItem, ComplementSize, PizzaForModal, PizzaItem, PizzaSize } from "@/types/types";
 import { useCart } from "@/context/CartContext";
 import SizeSelectionPizzaModal from "@/components/SizeSelectionPizzaModal";
 import DetailsModal from "@/components/DetailsModal";
@@ -13,16 +13,18 @@ import ComplementCard from "@/components/ComplementCard";
 import SizeSelectionComplementModal from "@/components/SizeSelectionComplementModal";
 
 export default function MenuPage() {
-   const [tagsSelected, setTagsSelected] = useState<string[]>([]);
+   const [tagsPizzaSelected, setTagsPizzaSelected] = useState<string[]>([]);
+   const [tagsSubmenuSelected, setTagsSubmenuSelected] = useState<string[]>([]);
    const [activeDetails, setActiveDetails] = useState<PizzaItem | null>(null);
    const [activeSizeSelection, setActiveSizeSelection] = useState<PizzaForModal |null>(null);
    const [activeComplementSelection, setActiveComplementSelection] = useState<ComplementForModal |null>(null);
-   const [selectedSize, setSelectedSize] = useState({sm: 0, md: 0, lg: 0});
+   const [selectedSize, setSelectedSize] = useState<Record<PizzaSize, number>>({sm: 0, md: 0, lg: 0});
+   const [selectedComplementSizes, setSelectedComplementSizes] = useState<Record<ComplementSize, number>>({sm: 0,md: 0,lg: 0,unit: 0});
    const [selectedIngredients, setSelectedIngredients] = useState<string[] | []>([]);
    const { addOrderItem } = useCart();
     
    const toggleTag = (tag: string, checked: boolean) => {
-    setTagsSelected((prev) => {
+    setTagsPizzaSelected((prev) => {
       if (checked) return prev.includes(tag) ? prev : [...prev, tag];
       return prev.filter((t) => t !== tag);
     });
@@ -31,7 +33,7 @@ export default function MenuPage() {
    const resetModal = () => {
         setActiveSizeSelection(null);
         setActiveComplementSelection(null);
-        setSelectedSize({ sm: 0, md: 0, lg: 0 });
+        setSelectedSize({ sm: 0, md: 0, lg: 0});
         setSelectedIngredients([]);
    }
 
@@ -39,31 +41,45 @@ export default function MenuPage() {
         if (!activeSizeSelection && !activeComplementSelection) return;
 
         if (activeSizeSelection) {
-            const { pizzaId, title, prices } = activeSizeSelection;
+        const { pizzaId, title, prices } = activeSizeSelection;
 
-        (["sm", "md", "lg"] as const).forEach((size) => {
+        if("sm" in prices){
+            (["sm", "md", "lg"] as const).forEach((size) => {
             const qty = selectedSize[size];
+            const price = prices[size];
             
-            if (qty > 0) {
+            if (qty > 0 && price !== undefined) {
             addOrderItem({
                 itemId: pizzaId,
                 title,
                 itemType: "pizza",
                 size,
-                unitPrice: prices[size],
+                unitPrice: price,
                 quantity: qty,
                 selectedIngredients
             });
             }
         });
+        }
         resetModal();
     }
     if (activeComplementSelection) {
-            const { complementId, title, prices } = activeComplementSelection;
+        const { complementId, title, prices } = activeComplementSelection;
 
-        (["sm", "md", "lg"] as const).forEach((size) => {
-            const qty = selectedSize[size];
-            
+        if("unit" in prices){
+            if (selectedComplementSizes.unit > 0) {
+            addOrderItem({
+                itemId: complementId,
+                title,
+                itemType: "complement",
+                size: "unit",
+                unitPrice: prices.unit,
+                quantity: selectedComplementSizes.unit,
+            });
+            }
+        } else {
+            (["sm", "md", "lg"] as const).forEach((size) => {
+            const qty = selectedComplementSizes[size];
             if (qty > 0) {
             addOrderItem({
                 itemId: complementId,
@@ -72,20 +88,27 @@ export default function MenuPage() {
                 size,
                 unitPrice: prices[size],
                 quantity: qty,
-                selectedIngredients
             });
             }
-        });
+            });
+        }
         resetModal();
     }
 }
 
    const filteredPizzas = useMemo(() => {
-    if (tagsSelected.length === 0) return pizzaMenu;
+    if (tagsPizzaSelected.length === 0) return pizzaMenu;
     return pizzaMenu.filter((pizza: PizzaItem) =>
-      pizza.tags?.some((t: string) => tagsSelected.includes(t))
+      pizza.tags?.some((t: string) => tagsPizzaSelected.includes(t))
     );
-  }, [tagsSelected]);
+  }, [tagsPizzaSelected]);
+
+     const filteredComplements = useMemo(() => {
+    if (tagsSubmenuSelected.length === 0) return complementsMenu;
+    return complementsMenu.filter((complement: ComplementItem) =>
+      complement.tags?.some((t: string) => tagsSubmenuSelected.includes(t))
+    );
+  }, [tagsSubmenuSelected]);
 
 
 
@@ -104,89 +127,89 @@ export default function MenuPage() {
                         <p className="lg:mt-2 font-medium text-lg sm:text-2xl md:text-3xl lg:text-4xl text-red/90">Filtra según tu antojo</p>
                         <div className="mt-3 md:mt-8 flex flex-wrap gap-3 justify-center lg:justify-start max-w-[720px]">
                             <TagButton
-                                label="Todas"
-                                active={tagsSelected.length === 0}
+                                label="Todo"
+                                active={tagsPizzaSelected.length === 0}
                                 onClick={() =>
-                                    setTagsSelected([])
+                                    setTagsPizzaSelected([])
                                 }
                                 />
                             <TagButton
                                 label="Tradicionales"
-                                active={tagsSelected.includes("tradicional")}
+                                active={tagsPizzaSelected.includes("tradicional")}
                                 onClick={() =>
                                     toggleTag(
                                     "tradicional",
-                                    !tagsSelected.includes("tradicional")
+                                    !tagsPizzaSelected.includes("tradicional")
                                     )
                                 }
                                 />
                             <TagButton
                                 label="De la Casa"
-                                active={tagsSelected.includes("de-la-casa")}
+                                active={tagsPizzaSelected.includes("de-la-casa")}
                                 onClick={() =>
                                     toggleTag(
                                     "de-la-casa",
-                                    !tagsSelected.includes("de-la-casa")
+                                    !tagsPizzaSelected.includes("de-la-casa")
                                     )
                                 }
                                 />
                             <TagButton
                                 label="Especialidades"
-                                active={tagsSelected.includes("especial")}
+                                active={tagsPizzaSelected.includes("especial")}
                                 onClick={() =>
                                     toggleTag(
                                     "especial",
-                                    !tagsSelected.includes("especial")
+                                    !tagsPizzaSelected.includes("especial")
                                     )
                                 }
                                 />
                             <TagButton
                                 label="Vegetarianas"
-                                active={tagsSelected.includes("vegetariana")}
+                                active={tagsPizzaSelected.includes("vegetariana")}
                                 onClick={() =>
                                     toggleTag(
                                     "vegetariana",
-                                    !tagsSelected.includes("vegetariana")
+                                    !tagsPizzaSelected.includes("vegetariana")
                                     )
                                 }
                                 />
                             <TagButton
                                 label="Picantes"
-                                active={tagsSelected.includes("picante")}
+                                active={tagsPizzaSelected.includes("picante")}
                                 onClick={() =>
                                     toggleTag(
                                     "picante",
-                                    !tagsSelected.includes("picante")
+                                    !tagsPizzaSelected.includes("picante")
                                     )
                                 }
                                 />
                             <TagButton
                                 label="Frijoles"
-                                active={tagsSelected.includes("frijoles")}
+                                active={tagsPizzaSelected.includes("frijoles")}
                                 onClick={() =>
                                     toggleTag(
                                     "frijoles",
-                                    !tagsSelected.includes("frijoles")
+                                    !tagsPizzaSelected.includes("frijoles")
                                     )
                                 }
                             />
                             <TagButton
                                 label="Carnes frías"
-                                active={tagsSelected.includes("carnes")}
+                                active={tagsPizzaSelected.includes("carnes")}
                                 onClick={() =>
                                     toggleTag(
                                     "carnes",
-                                    !tagsSelected.includes("carnes")
+                                    !tagsPizzaSelected.includes("carnes")
                                     )
                                 }
                             />
                             <TagButton
                                 label="Más pedidas"
-                                active={tagsSelected.includes("mas-pedida")}
+                                active={tagsPizzaSelected.includes("mas-pedida")}
                                 onClick={() =>
                                     toggleTag(
                                     "mas-pedida",
-                                    !tagsSelected.includes("mas-pedida")
+                                    !tagsPizzaSelected.includes("mas-pedida")
                                     )
                                 }
                             />
@@ -194,33 +217,33 @@ export default function MenuPage() {
                             <TagButton
                                 label="Complementos"
                                 type={"submenu"}
-                                active={tagsSelected.includes("complemento")}
+                                active={tagsSubmenuSelected.includes("complemento")}
                                 onClick={() =>
                                     toggleTag(
                                     "complemento",
-                                    !tagsSelected.includes("complemento")
+                                    !tagsSubmenuSelected.includes("complemento")
                                      )
                                 }
                             />
                             <TagButton
                                 label="Postres"
                                 type={"submenu"}
-                                active={tagsSelected.includes("postre")}
+                                active={tagsSubmenuSelected.includes("postre")}
                                 onClick={() =>
                                     toggleTag(
                                     "postre",
-                                    !tagsSelected.includes("postre")
+                                    !tagsSubmenuSelected.includes("postre")
                                     )
                                 }
                             />
                             <TagButton
                                 label="Bebidas"
                                 type={"submenu"}
-                                active={tagsSelected.includes("bebida")}
+                                active={tagsSubmenuSelected.includes("bebida")}
                                 onClick={() =>
                                     toggleTag(
                                     "bebida",
-                                    !tagsSelected.includes("bebida")
+                                    !tagsSubmenuSelected.includes("bebida")
                                     )
                                 }
                             />
@@ -241,15 +264,18 @@ export default function MenuPage() {
                             setSelectedSize({sm: 0, md: 0, lg: 0});} }
                         />
                     ))}
-                    {complementsMenu.map((complement) => (
+                </div>
+                <div className="grid max-[730px]:grid-cols-2 mt-4 gap-4 max-[1130px]:grid-cols-3 max-[1580px]:grid-cols-4 min-[1580px]:grid-cols-3">
+                    {filteredComplements.map((complement) => (
                         <ComplementCard 
                             key={complement.id} {...complement}
                             onOpenSizeSelection={() => {setActiveComplementSelection({
                                 complementId: complement.id,
                                 title: complement.title,
                                 prices: complement.prices
-                            });
-                            setSelectedSize({sm: 0, md: 0, lg: 0});} }
+                            }); 
+                                setSelectedComplementSizes({sm: 0, md: 0, lg: 0, unit: 0});
+                            }}
                         />
                     ))}
                 </div>
@@ -273,10 +299,10 @@ export default function MenuPage() {
             )}
             {activeComplementSelection && (
                 <SizeSelectionComplementModal
-                    setActiveSizeSelection={setActiveComplementSelection}
+                    setActiveComplementSelection={setActiveComplementSelection}
                     activeComplement={activeComplementSelection}
-                    selectedSize={selectedSize}
-                    setSelectedSize={setSelectedSize}
+                    selectedComplementSizes={selectedComplementSizes}
+                    setSelectedComplementSizes={setSelectedComplementSizes}
                     handleAddToCart={handleAddToCart}
                 />
              )
