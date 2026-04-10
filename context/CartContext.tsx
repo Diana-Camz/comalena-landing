@@ -1,16 +1,16 @@
 "use client"
 
 import React, { createContext, useContext, useState, useMemo } from "react"
-import type { Size, OrderItem, CustomerInfo, Pizza } from "@/types/types";
+import type { AnySize, OrderItem, CustomerInfo, Pizza } from "@/types/types";
 
 type CartContextType = {
     order: OrderItem[];
     customerInfo: CustomerInfo;
 
-    addItem: (pizza: Pizza, size: Size) => void;
+    //addItem: (pizza: Pizza, size: Size) => void;
     addOrderItem: (orderItem: OrderItem) => void;
-    setQuantity: (pizzaId: string, size: Size, quantity: number, selectedIngredients: string[]) => void;
-    removeItem: (pizzaId: string, size: Size, selectedIngredients: string[]) => void;
+    setQuantity: (pizzaId: string, size: AnySize, quantity: number, selectedIngredients: string[]) => void;
+    removeItem: (pizzaId: string, size: AnySize, selectedIngredients: string[]) => void;
     clearCart: () => void;
 
     setCustomerField: <K extends keyof CustomerInfo>(field: K, value: CustomerInfo[K]) => void;
@@ -21,8 +21,8 @@ type CartContextType = {
 
 const CartContext = createContext<CartContextType | null>(null);
 
-function makeKey(pizzaId: string, size: Size, ingredients: string[] = []) {
-  return `${pizzaId}-${size}-${ingredients.slice().sort().join("-")}`;
+function makeKey(itemId: string, size: AnySize, ingredients: string[] = []) {
+  return `${itemId}-${size}-${ingredients.slice().sort().join("-")}`;
 }
 
 export function CartProvider({children} : {children : React.ReactNode}) {
@@ -37,38 +37,38 @@ export function CartProvider({children} : {children : React.ReactNode}) {
     });
 
     //Funcion que Agrega pizza + tamaño, si ya existe, aumenta la cantidad, si no, la agrega al carrito
-  const addItem = (pizza: Pizza, size: Size) => {
-    const unitPrice = pizza.prices[size];
+  // const addItem = (pizza: Pizza, size: Size) => {
+  //   const unitPrice = pizza.prices[size];
 
-    setOrder((prev) => {
-      const key = makeKey(pizza.id, size);
-      const existing = prev.find((it) => makeKey(it.itemId, it.size) === key);
+  //   setOrder((prev) => {
+  //     const key = makeKey(pizza.id, size);
+  //     const existing = prev.find((it) => makeKey(it.itemId, it.size) === key);
 
-      if (existing) {
-        return prev.map((it) =>
-          makeKey(it.itemId, it.size) === key
-            ? { ...it, quantity: it.quantity + 1 }
-            : it
-        );
-      }
+  //     if (existing) {
+  //       return prev.map((it) =>
+  //         makeKey(it.itemId, it.size) === key
+  //           ? { ...it, quantity: it.quantity + 1 }
+  //           : it
+  //       );
+  //     }
 
-      return [
-        ...prev,
-        {
-          pizzaId: pizza.id,
-          title: pizza.title,
-          size,
-          unitPrice,
-          quantity: 1,
-        },
-      ];
-    });
-  };
+  //     return [
+  //       ...prev,
+  //       {
+  //         pizzaId: pizza.id,
+  //         title: pizza.title,
+  //         size,
+  //         unitPrice,
+  //         quantity: 1,
+  //       },
+  //     ];
+  //   });
+  // };
 
   //Funcion que agrega una orden completa de acuerdo a los tamanos seleccionados por cada tipo de pizza.
   const addOrderItem = (orderItem: OrderItem) => {
     setOrder((prev) => {
-      const key = makeKey(orderItem.itemId, orderItem.size, orderItem.selectedIngredients);
+      const key = makeKey(orderItem.itemId, orderItem.size, orderItem?.selectedIngredients);
       const existing = prev.find((it) => makeKey(it.itemId, it.size, it.selectedIngredients) === key);
 
       if (existing) {
@@ -84,7 +84,7 @@ export function CartProvider({children} : {children : React.ReactNode}) {
   }
 
     //Funcion que cambia la cantidad, si qty <= 0, lo elimina.
-  const setQuantity = (pizzaId: string, size: Size, qty: number, selectedIngredients: string[]= []) => {
+  const setQuantity = (pizzaId: string, size: AnySize, qty: number, selectedIngredients: string[]= []) => {
     const key = makeKey(pizzaId, size, selectedIngredients);
 
     setOrder((prev) => {
@@ -96,7 +96,7 @@ export function CartProvider({children} : {children : React.ReactNode}) {
     });
   };
 
-  const removeItem = (pizzaId: string, size: Size, selectedIngredients: string[]= []) => {
+  const removeItem = (pizzaId: string, size: AnySize, selectedIngredients: string[]= []) => {
     const key = makeKey(pizzaId, size, selectedIngredients);
     setOrder((prev) => prev.filter((it) => makeKey(it.itemId, it.size, it.selectedIngredients) !== key));
   }
@@ -164,7 +164,7 @@ export function CartProvider({children} : {children : React.ReactNode}) {
     const value = {
         order,
         customerInfo,
-        addItem,
+        //addItem,
         addOrderItem,
         setQuantity,
         removeItem,
