@@ -31,7 +31,7 @@ export default function ComplementCard({
         <div 
           className="mx-2 min-[1580px]:mx-0 lg:mr-2 lg:mt-1 xl:mt-4">
           <h3 className="text-[clamp(.90rem,3.2vw,2rem)] min-[731px]:text-[clamp(1.1rem,1.1vw,1.15rem)] min-[900px]:text-[clamp(1.5rem,1.2vw,1.25rem)] text-red text-start">{title}</h3>
-          <p className="text-card-foreground/70 font-gothic text-[clamp(0.80rem,3.1vw,1.3rem)]  min-[731px]:text-[clamp(0.84rem,1.1vw,1.15rem)] min-[900px]:text-[clamp(.90rem,1.2vw,1.25rem)] mt-2 text-start min-h-14 leading-snug">{description}</p>
+          {/* <p className="text-card-foreground/70 font-gothic text-[clamp(0.80rem,3.1vw,1.3rem)]  min-[731px]:text-[clamp(0.84rem,1.1vw,1.15rem)] min-[900px]:text-[clamp(.90rem,1.2vw,1.25rem)] mt-2 text-start min-h-14 leading-snug">{description}</p> */}
         </div>
         <div className="mt-auto pt-3">
           <div className="flex w-full justify-end pr-1.5">

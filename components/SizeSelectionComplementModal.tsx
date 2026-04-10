@@ -1,71 +1,74 @@
 import { CiCircleMinus, CiCirclePlus } from "react-icons/ci";
 import { IoMdCloseCircle } from "react-icons/io";
 import { Button } from "@/components/ui/button";
-import { useState } from "react";
-import { ComplementForModal, Size } from "@/types/types";
+import { ComplementForModal, ComplementSize } from "@/types/types";
 
 
 interface SizeSelectionComplementModalProps {
     activeComplement: ComplementForModal | null;
-    setActiveSizeSelection: (value: ComplementForModal | null) => void;
-    selectedSize: { sm: number; md: number; lg: number };
-    setSelectedSize: React.Dispatch<React.SetStateAction<{ sm: number; md: number; lg: number }>>;
+    setActiveComplementSelection: (value: ComplementForModal | null) => void;
+    selectedComplementSizes: Record<ComplementSize, number>;
+    setSelectedComplementSizes: React.Dispatch<React.SetStateAction<Record<ComplementSize, number>>>;
     handleAddToCart: () => void;
 }
 
 export default function SizeSelectionComplementModal({
     activeComplement,
-    setActiveSizeSelection,
-    selectedSize,
-    setSelectedSize,
+    setActiveComplementSelection,
+    selectedComplementSizes,
+    setSelectedComplementSizes,
     handleAddToCart,
 }: SizeSelectionComplementModalProps) {
+
+    const COMPLEMENT_SIZE_LABELS: Record<string, string> = {
+        sm: "Chico",
+        md: "Mediano",
+        lg: "Grande",
+        unit: "unidades",
+    };
+
     const hasItems =
-    selectedSize.sm > 0 ||
-    selectedSize.md > 0 ||
-    selectedSize.lg > 0;
+    (selectedComplementSizes.sm ?? 0) > 0 ||
+    (selectedComplementSizes.md ?? 0) > 0 ||
+    (selectedComplementSizes.lg ?? 0) > 0 ||
+    (selectedComplementSizes.unit ?? 0) > 0;
 
-        const subtotalSm = activeComplement
-    ? selectedSize.sm * activeComplement.prices.sm
-    : 0;
 
-    const subtotalMd = activeComplement
-    ? selectedSize.md * activeComplement.prices.md
-    : 0;
-
-    const subtotalLg = activeComplement
-    ? selectedSize.lg * activeComplement.prices.lg
-    : 0;
-
-    const totalSubtotal = subtotalSm + subtotalMd + subtotalLg;
+    const totalSubtotal = Object.entries(activeComplement?.prices || {}).reduce(
+    (acc, [key, price]) => {
+        const qty = selectedComplementSizes[key as ComplementSize] ?? 0;
+    return acc + qty * price;
+  },
+  0
+);
 
     const isValid = hasItems;
 
-    const increase = (size: Size) => {
-        setSelectedSize((prev) => ({
+    const increase = (key: ComplementSize) => {
+        setSelectedComplementSizes((prev) => ({
             ...prev,
-            [size]: prev[size] + 1,
+            [key]: (prev[key] ?? 0) + 1,
         }));
         };
     
-        const decrease = (size: Size) => {
-        setSelectedSize((prev) => ({
+        const decrease = (key: ComplementSize) => {
+        setSelectedComplementSizes((prev) => ({
             ...prev,
-            [size]: Math.max(0, prev[size] - 1),
+            [key]: Math.max(0, (prev[key] ?? 0) - 1),
         }));
         };
     return (
         <div 
     className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 sm:p-4"
-    onClick={() => {setActiveSizeSelection(null)}}>
+    onClick={() => {setActiveComplementSelection(null)}}>
     <div
-        className="relative flex flex-col justify-evenly w-4/5 max-w-[420px] sm:max-w-[640px] lg:max-w-lg p-4 md:p-0 rounded-2xl bg-input sm:p-6 md:p-8 overflow-hidden"
+        className="relative flex flex-col justify-evenly w-4/5 max-w-[420px] sm:max-w-[640px] lg:max-w-lg p-4 rounded-2xl bg-input sm:p-6 md:p-8 overflow-hidden"
         onClick={(e) => e.stopPropagation()}
     >
     <div className="flex justify-end mb-2">
         <button
         type="button"
-        onClick={() => {setActiveSizeSelection(null); setSelectedSize({sm: 0, md: 0, lg: 0})}}
+        onClick={() => {setActiveComplementSelection(null); setSelectedComplementSizes({sm: 0, md: 0, lg: 0, unit: 0})}}
         className="text-red hover:text-red/80 cursor-pointer active:scale-80 transition duration-120"
         >
         <IoMdCloseCircle 
@@ -81,29 +84,30 @@ export default function SizeSelectionComplementModal({
     </h3>
     <p className=" text-lg md:text-xl text-center font-medium text-card-foreground mb-4">{activeComplement?.title}</p>
     <div className="flex flex-col items-center gap-2">
-        {[
-            {key: "sm", label: "Chico", subtotal: subtotalSm},
-            {key: "md", label: "Mediano", subtotal: subtotalMd},
-            {key: "lg", label: "Grande", subtotal: subtotalLg}
-        ].map(({key, label, subtotal}) => (
-            <div key={key} className="flex items-center gap-4 border-b-2 border-red/20 py-2 w-full max-w-xs"> 
-                <button 
-                onClick={() => decrease(key as Size)}
-                className="cursor-pointer">
-                    <CiCircleMinus className="w-10 h-10 rounded-full text-red hover:bg-red transition duration-120 hover:text-background active:scale-80 active:bg-red/70 active:text-background "/>
-                </button>
-                <p className="font-medium w-4 text-center">{selectedSize[key as Size]}</p>
-                <button 
-                onClick={() => increase(key as Size)}
-                className="cursor-pointer">
-                    <CiCirclePlus className="w-10 h-10 rounded-full text-red hover:bg-red transition duration-120 hover:text-background active:scale-80 active:bg-red/70 active:text-background"/>
-                </button>
-                <div className="flex justify-between w-44 items-center">
-                    <p className=" font-gothic text-[clamp(1.2rem,2.5vw,1.4rem)]">{label}</p>
-                    <p className="font-medium text-card-foreground/80"> = {subtotal.toLocaleString('es-MX', {style: 'currency', currency: 'MXN'})}</p>
+        {Object.entries(activeComplement?.prices ?? {}).map(([key, price]) => {
+            const quantity = selectedComplementSizes[key as ComplementSize] ?? 0;
+            const subtotal = quantity * price;
+            const label = COMPLEMENT_SIZE_LABELS[key] || key;
+            return (
+                <div key={key} className="flex items-center gap-4 border-b-2 border-red/20 py-2 w-full max-w-xs"> 
+                    <button 
+                    onClick={() => decrease(key as ComplementSize)}
+                    className="cursor-pointer">
+                        <CiCircleMinus className="w-10 h-10 rounded-full text-red hover:bg-red transition duration-120 hover:text-background active:scale-80 active:bg-red/70 active:text-background "/>
+                    </button>
+                    <p className="font-medium w-4 text-center">{quantity}</p>
+                    <button 
+                    onClick={() => increase(key as ComplementSize)}
+                    className="cursor-pointer">
+                        <CiCirclePlus className="w-10 h-10 rounded-full text-red hover:bg-red transition duration-120 hover:text-background active:scale-80 active:bg-red/70 active:text-background"/>
+                    </button>
+                    <div className="flex justify-between w-44 items-center">
+                        <p className=" font-gothic text-[clamp(1.2rem,2.5vw,1.4rem)]">{label}</p>
+                        <p className="font-medium text-card-foreground/80"> = {subtotal?.toLocaleString('es-MX', {style: 'currency', currency: 'MXN'})}</p>
+                    </div>
                 </div>
-            </div>
-            ))}
+            )
+        })}
    
 
             <div className="flex flex-col w-full max-w-xs mt-4">
