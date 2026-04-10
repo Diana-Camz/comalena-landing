@@ -1,14 +1,21 @@
-export type Prices = {
+type SizePrices = {
     sm: number;
     md: number;
-    lg: number; 
+    lg: number;
 }
+
+type UnitPrice = {
+    unit: number;
+}
+
+export type Prices = SizePrices | UnitPrice;
+
 export type PizzaItem = {
     id: string;
     title: string;
     ingredients: string;
     imageUrl: string;
-    prices: Prices;
+    prices: SizePrices;
     tags?: string[];
     selectedIngredients?: string[];
 }
@@ -26,7 +33,7 @@ export type ComplementItem = {
 export type Pizza = {
     id: string;
     title: string;
-    prices: Prices;
+    prices: SizePrices;
 }
 
 export type Complement = {
@@ -35,13 +42,16 @@ export type Complement = {
     price: Prices;
 }
 
-export type Size = "sm" | "md" | "lg";
+export type PizzaSize = "sm" | "md" | "lg";
+export type ComplementSize = "sm" | "md" | "lg" | "unit";
+
+export type AnySize = PizzaSize | ComplementSize;
 
 
 export type PizzaForModal = {
     pizzaId: string;
     title: string;
-    prices: Prices;
+    prices: SizePrices;
     ingredientMode?: "single" | "multiple";
 }
 
@@ -51,15 +61,26 @@ export type ComplementForModal = {
     prices: Prices;
 }
 
-export type OrderItem = {
+export type PizzaOrderItem = {
     itemId: string;
     title: string;
-    itemType: "pizza" | "complement";
-    size: Size;
+    itemType: "pizza";
+    size: PizzaSize;
     unitPrice: number;
     quantity: number;
     selectedIngredients?: string[];
 }
+
+export type ComplementOrderItem = {
+    itemId: string;
+    title: string;
+    itemType: "complement";
+    size: ComplementSize;
+    unitPrice: number;
+    quantity: number;
+    selectedIngredients?: string[];
+}
+export type OrderItem = PizzaOrderItem | ComplementOrderItem;
 
 export type CustomerInfo = {
     name: string;
