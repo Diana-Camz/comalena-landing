@@ -10,6 +10,22 @@ export const pizzaMenu = [
   },
   {
     id: "pizza-2",
+    title: "Mitad y mitad",
+    ingredients: "¿No te puedes decidir? selecciona 2 de tus pizzas favoritas del menú y recibe una pizza mitad y mitad",
+    imageUrl: "/images/menu/mitades.webp",
+    prices: {sm: 0, md: 0, lg: 0},
+    tags: ["mitad-y-mitad"]
+  },
+  {
+    id: "pizza-3",
+    title: "Arma tu pizza",
+    ingredients: "Selecciona los ingredientes que quieras, el precio se ajustará dependiendo de los ingredientes que elijas.",
+    imageUrl: "/images/menu/arma-tu-pizza.webp",
+    prices: {sm: 85, md: 169, lg: 239},
+    tags: ["mas-pedida", "carnes", "tradicional"]
+  },
+  {
+    id: "pizza-4",
     title: "Pepperoni Champiñones",
     ingredients: "Salsa de tomate, queso, pepperoni y champiñones",
     imageUrl: "/images/menu/pepperoni-champ.webp",
@@ -17,7 +33,7 @@ export const pizzaMenu = [
     tags: ["mas-pedida", "carnes", "tradicional"]
   },
   {
-    id: "pizza-3",
+    id: "pizza-5",
     title: "Hawaiana",
     ingredients: "Salsa de tomate, queso, jamón y piña",
     imageUrl: "/images/menu/hawaiana.webp",
@@ -25,7 +41,7 @@ export const pizzaMenu = [
     tags: ["carnes", "tradicional", "mas-pedida"]
   },
   {
-    id: "pizza-4",
+    id: "pizza-6",
     title: "Red Hawaiana",
     ingredients: "Salsa de tomate, queso, pepperoni, piña",
     imageUrl: "/images/menu/red-haw.webp",
@@ -33,7 +49,7 @@ export const pizzaMenu = [
     tags: ["carnes", "tradicional"]
   },
   {
-    id: "pizza-5",
+    id: "pizza-7",
     title: "Mexicana",
     ingredients: "Salsa de tomate, queso, chorizo, jitomate, pimiento, jalapeño y cebolla",
     imageUrl: "/images/menu/mexicana.webp",
@@ -41,7 +57,7 @@ export const pizzaMenu = [
     tags: ["picante", "carnes", "tradicional", "mas-pedida"]
   },
   {
-    id: "pizza-6",
+    id: "pizza-8",
     title: "Vegetariana",
     ingredients: "Salsa de tomate, queso, champiñones, pimiento, cebolla, jalapeño y piña",
     imageUrl: "/images/menu/vegetariana.webp",
@@ -49,7 +65,7 @@ export const pizzaMenu = [
     tags: ["vegetariana", "picante", 'tradicional']
   },
   {
-    id: "pizza-7",
+    id: "pizza-9",
     title: "Margarita",
     ingredients: "Salsa de tomate, queso, jitomate cherry, albahaca y queso parmesano",
     imageUrl: "/images/menu/margarita.webp",
@@ -57,7 +73,7 @@ export const pizzaMenu = [
     tags: ["vegetariana", "de-la-casa"]
   },
   {
-    id: "pizza-8",
+    id: "pizza-10",
     title: "Mamma-Mía",
     ingredients: "Salsa de tomate, queso, jitomate deshidratado, jitomate cherry, champiñones y albahaca fresca",
     imageUrl: "/images/menu/mamma-mia.webp",
@@ -65,7 +81,7 @@ export const pizzaMenu = [
     tags: ["vegetariana", "de-la-casa"]
   },
   {
-    id: "pizza-9",
+    id: "pizza-11",
     title: "Diávola",
     ingredients: "Salsa de tomate, queso, pepperoni, chorizo, jalapeño y pimiento",
     imageUrl:  "/images/menu/diavola.webp",
@@ -73,7 +89,7 @@ export const pizzaMenu = [
     tags: ["picante", "carnes", "de-la-casa"]
   },
   {
-    id: "pizza-10",
+    id: "pizza-12",
     title: "Exótica",
     ingredients: "Salsa de tomate, queso, jamón, salami, aceitunas negras, pimiento y cebolla",
     imageUrl: "/images/menu/exotica.webp",
@@ -81,7 +97,7 @@ export const pizzaMenu = [
     tags: ["carnes", "de-la-casa"]
   },
   {
-    id: "pizza-11",
+    id: "pizza-13",
     title: "Frijoleña",
     ingredients: "Frijoles refritos, queso, chorizo, tocino y jalapeño",
     imageUrl: "/images/menu/frijolena.webp",
@@ -89,7 +105,7 @@ export const pizzaMenu = [
     tags: ["frijoles", "carnes", "de-la-casa"]
   },
   {
-    id: "pizza-12",
+    id: "pizza-14",
     title: "Wera",
     ingredients: "Frijoles refritos, queso, chicharrón de cerdo, chorizo, chile güero, jalapeño y cebolla",
     imageUrl: "/images/menu/wera.webp",
@@ -97,7 +113,7 @@ export const pizzaMenu = [
     tags: ["frijoles", "carnes", "de-la-casa", "picante"]
   },
   {
-    id: "pizza-13",
+    id: "pizza-15",
     title: "Carroñera",
     ingredients: "Salsa de tomate, queso, pepperoni, salami, jamón, tocino, chorizo y salchicha",
     imageUrl: "/images/menu/carronera.webp",
@@ -105,7 +121,7 @@ export const pizzaMenu = [
     tags: ["carnes", "especial", "mas-pedida"]
   },
   {
-    id: "pizza-14",
+    id: "pizza-16",
     title: "Boneless Búfalo",
     ingredients: "Salsa de tomate, queso, boneless búfalo, apio y aderezo ranch",
     imageUrl: "/images/menu/bufalo.webp",
@@ -113,7 +129,7 @@ export const pizzaMenu = [
     tags: ["carnes", "especial", "mas-pedida", "picante"]
   },
   {
-    id: "pizza-15",
+    id: "pizza-17",
     title: "Boneless BBQ",
     ingredients: "Salsa de tomate, queso, boneless BBQ, champiñones y cebolla",
     imageUrl: "/images/menu/bbq.webp",
@@ -121,7 +137,7 @@ export const pizzaMenu = [
     tags: ["carnes", "especial", "mas-pedida"]
   },
   {
-    id: "pizza-16",
+    id: "pizza-18",
     title: "Pizza-Dogo",
     ingredients: "Salsa de tomate, queso, salchicha, salami, tocino, cebolla, champiñones y aderezo ranch",
     imageUrl: "/images/menu/dogo.webp",
@@ -129,7 +145,7 @@ export const pizzaMenu = [
     tags: ["carnes", "especial", "mas-pedida"]
   },
   {
-    id: "pizza-17",
+    id: "pizza-19",
     title: "Oseana",
     ingredients: "Salsa de tomate, queso, pepperoni, salchicha, salami, tocino, piña, champiñones y aderezo ranch",
     imageUrl: "/images/menu/oseana.webp",
