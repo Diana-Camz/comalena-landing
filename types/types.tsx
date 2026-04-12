@@ -1,4 +1,4 @@
-type SizePrices = {
+export type SizePrices = {
     sm: number;
     md: number;
     lg: number;
@@ -35,6 +35,14 @@ export type Pizza = {
     title: string;
     prices: SizePrices;
 }
+
+export type Ingredient = {
+  id: string;
+  name: string;
+  slug: string;
+  type: string;
+  price: SizePrices;
+};
 
 export type Complement = {
     id: string;
