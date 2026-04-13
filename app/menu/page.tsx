@@ -21,6 +21,7 @@ export default function MenuPage() {
    const [selectedSize, setSelectedSize] = useState<Record<PizzaSize, number>>({sm: 0, md: 0, lg: 0});
    const [selectedComplementSizes, setSelectedComplementSizes] = useState<Record<ComplementSize, number>>({sm: 0,md: 0,lg: 0,unit: 0});
    const [selectedIngredients, setSelectedIngredients] = useState<string[] | []>([]);
+   const [selectedPizzas, setSelectedPizzas] = useState<string[] | []>([]);
    const { addOrderItem } = useCart();
     
    const toggleTag = (tag: string, checked: boolean) => {
@@ -35,6 +36,8 @@ export default function MenuPage() {
         setActiveComplementSelection(null);
         setSelectedSize({ sm: 0, md: 0, lg: 0});
         setSelectedIngredients([]);
+        setSelectedPizzas([]);
+        setSelectedComplementSizes({sm: 0, md: 0, lg: 0, unit: 0});
    }
 
     const handleAddToCart = () => {
@@ -294,6 +297,8 @@ export default function MenuPage() {
                     setSelectedSize={setSelectedSize}
                     selectedIngredients={selectedIngredients}
                     setSelectedIngredients={setSelectedIngredients}
+                    selectedPizzas={selectedPizzas}
+                    setSelectedPizzas={setSelectedPizzas}
                     handleAddToCart={handleAddToCart}
                 />
             )}
