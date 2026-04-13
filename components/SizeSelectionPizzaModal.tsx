@@ -1,7 +1,7 @@
 import { CiCircleMinus, CiCirclePlus } from "react-icons/ci";
 import { IoMdCloseCircle } from "react-icons/io";
 import { Button } from "@/components/ui/button";
-import { PizzaForModal, PizzaSize, SizePrices } from "@/types/types";
+import { Ingredient, PizzaForModal, PizzaSize, SizePrices } from "@/types/types";
 import { useState } from "react";
 import { ingredients, pizzaMenu } from "@/data/data";
 import IngredientsList from "./IngredientsList";
@@ -17,6 +17,8 @@ interface SizeSelectionPizzaModalProps {
   selectedPizzas: string[];
   setSelectedIngredients: React.Dispatch<React.SetStateAction<string[]>>;
   setSelectedPizzas: React.Dispatch<React.SetStateAction<string[]>>;
+  pricesForHalfPizza: SizePrices;
+  arrSelectedIngredients: Ingredient[];
   handleAddToCart: () => void;
 }
 
@@ -29,6 +31,8 @@ export default function SizeSelectionPizzaModal({
     setSelectedIngredients,
     selectedPizzas,
     setSelectedPizzas,
+    pricesForHalfPizza,
+    arrSelectedIngredients,
     handleAddToCart,
 
 }: SizeSelectionPizzaModalProps) {
@@ -38,16 +42,7 @@ export default function SizeSelectionPizzaModal({
     const isBasicPizza = activeSizeSelection?.pizzaId === "pizza-1"
     const isHalfPizza = activeSizeSelection?.pizzaId === "pizza-2"
     const isCustomPizza = activeSizeSelection?.pizzaId === "pizza-3";
-    
-    const halfPizzas = pizzaMenu.filter((pizza) => selectedPizzas.includes(pizza.id)) //Array con las pizzas seleccionadas para mitad y mitad
-    const halfPizzasPrice = halfPizzas.reduce<(typeof halfPizzas)[number] | null>((acc, pizza) => {
-        if (!acc) return pizza;
-        return pizza.prices.lg > acc.prices.lg ? pizza : acc;
-    }, null); //Array que devuelve la pizza con mayor precio.
-
-    const pricesToUse = halfPizzas && halfPizzasPrice ? halfPizzasPrice.prices : activeSizeSelection?.prices ?? {sm: 0, md: 0, lg: 0}; //Si hay pizzas seleccionadas para mitad y mitad, usar los precios de la pizza más cara, si no, usar los precios de la pizza activa o 0 si no hay pizza activa.  
-    const arrSelectedIngredients = ingredients.filter((ingredient) => selectedIngredients.includes(ingredient.slug))
-    const ingredientsPrice = arrSelectedIngredients.reduce((acc, ingredient) => {
+    const pricesForCustomPizza = arrSelectedIngredients.reduce((acc, ingredient) => {
         return (
             acc +
             (selectedSize.sm * ingredient.price.sm) +
@@ -55,14 +50,15 @@ export default function SizeSelectionPizzaModal({
             (selectedSize.lg * ingredient.price.lg)
         );
     }, 0);
+    
 
-    const subtotalSm = selectedSize.sm * pricesToUse.sm
+    const subtotalSm = selectedSize.sm * pricesForHalfPizza.sm
 
-    const subtotalMd = selectedSize.md * pricesToUse.md
+    const subtotalMd = selectedSize.md * pricesForHalfPizza.md
 
-    const subtotalLg = selectedSize.lg * pricesToUse.lg
+    const subtotalLg = selectedSize.lg * pricesForHalfPizza.lg
 
-    const totalSubtotal = subtotalSm + subtotalMd + subtotalLg + ingredientsPrice;
+    const totalSubtotal = subtotalSm + subtotalMd + subtotalLg + (!isBasicPizza ? pricesForCustomPizza : 0);
 
     const pizzaSizes = isHalfPizza 
         ? [
