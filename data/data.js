@@ -20,7 +20,7 @@ export const pizzaMenu = [
     title: "Arma tu pizza",
     ingredients: "Selecciona los ingredientes que quieras, el precio se ajustará dependiendo de los ingredientes que elijas.",
     imageUrl: "/images/menu/arma-tu-pizza.webp",
-    prices: {sm: 85, md: 169, lg: 239},
+    prices: {sm: 79, md: 159, lg: 219},
     tags: ["mas-pedida", "carnes", "tradicional"]
   },
   {
