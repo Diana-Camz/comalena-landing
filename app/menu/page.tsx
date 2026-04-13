@@ -1,7 +1,7 @@
 'use client';
 import Layout from "@/components/Layout";
 import MenuCard from "@/components/MenuCard";
-import { complementsMenu, pizzaMenu } from "@/data/data";
+import { complementsMenu, pizzaMenu, ingredients } from "@/data/data";
 import Image from "next/image";
 import { useMemo, useState } from "react";
 import type { ComplementForModal, ComplementItem, ComplementSize, PizzaForModal, PizzaItem, PizzaSize } from "@/types/types";
@@ -20,9 +20,11 @@ export default function MenuPage() {
    const [activeComplementSelection, setActiveComplementSelection] = useState<ComplementForModal |null>(null);
    const [selectedSize, setSelectedSize] = useState<Record<PizzaSize, number>>({sm: 0, md: 0, lg: 0});
    const [selectedComplementSizes, setSelectedComplementSizes] = useState<Record<ComplementSize, number>>({sm: 0,md: 0,lg: 0,unit: 0});
-   const [selectedIngredients, setSelectedIngredients] = useState<string[] | []>([]);
-   const [selectedPizzas, setSelectedPizzas] = useState<string[] | []>([]);
+   const [selectedIngredients, setSelectedIngredients] = useState<string[]>([]);
+   const [selectedPizzas, setSelectedPizzas] = useState<string[]>([]);
    const { addOrderItem } = useCart();
+   const isBasicPizza = activeSizeSelection?.pizzaId === "pizza-1";
+   const isHalfPizza = activeSizeSelection?.pizzaId === "pizza-2";
     
    const toggleTag = (tag: string, checked: boolean) => {
     setTagsPizzaSelected((prev) => {
@@ -40,16 +42,44 @@ export default function MenuPage() {
         setSelectedComplementSizes({sm: 0, md: 0, lg: 0, unit: 0});
    }
 
+   const halfPizzas = pizzaMenu.filter((pizza) => selectedPizzas.includes(pizza.id)) //Array con las pizzas seleccionadas para mitad y mitad
+    const halfPizzasPrice = halfPizzas.reduce<(typeof halfPizzas)[number] | null>((acc, pizza) => {
+        if (!acc) return pizza;
+        return pizza.prices.lg > acc.prices.lg ? pizza : acc;
+    }, null); //Array que devuelve la pizza con mayor precio.
+
+    const pricesForHalfPizza = halfPizzas && halfPizzasPrice ? halfPizzasPrice.prices : activeSizeSelection?.prices ?? {sm: 0, md: 0, lg: 0}; //Si hay pizzas seleccionadas para mitad y mitad, usar los precios de la pizza más cara, si no, usar los precios de la pizza activa o 0 si no hay pizza activa.  
+    const arrSelectedIngredients = ingredients.filter((ingredient) => selectedIngredients.includes(ingredient.slug));
+    const extraIngredientsPriceBySize = isBasicPizza 
+        ? {sm: 0, md: 0, lg: 0}
+        : arrSelectedIngredients.reduce((acc, ingredient) => ({
+            sm: acc.sm + ingredient.price.sm,
+            md: acc.md + ingredient.price.md,
+            lg: acc.lg + ingredient.price.lg,
+        }), {sm: 0, md: 0, lg: 0}
+        );
+    const pricesForPizzas = {
+        sm: (activeSizeSelection?.prices.sm ?? 0) + extraIngredientsPriceBySize.sm,
+        md: (activeSizeSelection?.prices.md  ?? 0) + extraIngredientsPriceBySize.md,
+        lg: (activeSizeSelection?.prices.lg ?? 0) + extraIngredientsPriceBySize.lg,
+        };
+
     const handleAddToCart = () => {
         if (!activeSizeSelection && !activeComplementSelection) return;
 
         if (activeSizeSelection) {
         const { pizzaId, title, prices } = activeSizeSelection;
 
+        
+        const pricesToUse = isHalfPizza 
+            ? pricesForHalfPizza 
+            : isBasicPizza
+                ? prices
+                : pricesForPizzas;
         if("sm" in prices){
             (["sm", "md", "lg"] as const).forEach((size) => {
             const qty = selectedSize[size];
-            const price = prices[size];
+            const price = pricesToUse[size];
             
             if (qty > 0 && price !== undefined) {
             addOrderItem({
@@ -299,6 +329,8 @@ export default function MenuPage() {
                     setSelectedIngredients={setSelectedIngredients}
                     selectedPizzas={selectedPizzas}
                     setSelectedPizzas={setSelectedPizzas}
+                    pricesForHalfPizza={pricesForHalfPizza}
+                    arrSelectedIngredients={arrSelectedIngredients}
                     handleAddToCart={handleAddToCart}
                 />
             )}
