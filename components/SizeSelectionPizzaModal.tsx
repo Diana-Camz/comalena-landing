@@ -1,18 +1,22 @@
 import { CiCircleMinus, CiCirclePlus } from "react-icons/ci";
 import { IoMdCloseCircle } from "react-icons/io";
 import { Button } from "@/components/ui/button";
-import { PizzaForModal, PizzaSize } from "@/types/types";
-import SwitchSizeAndIngredientButton from "./SwitchSizeAndIngredientButton";
+import { PizzaForModal, PizzaSize, SizePrices } from "@/types/types";
 import { useState } from "react";
-import { ingredients } from "@/data/data";
+import { ingredients, pizzaMenu } from "@/data/data";
+import IngredientsList from "./IngredientsList";
+import PizzaList from "./PizzaList";
+import SwitchButton from "./SwitchButton";
 
 interface SizeSelectionPizzaModalProps {
   activeSizeSelection: PizzaForModal | null;
   setActiveSizeSelection: (value: PizzaForModal | null) => void;
-  selectedSize: { sm: number; md: number; lg: number };
-  setSelectedSize: React.Dispatch<React.SetStateAction<{ sm: number; md: number; lg: number }>>;
+  selectedSize: SizePrices;
+  setSelectedSize: React.Dispatch<React.SetStateAction<SizePrices>>;
   selectedIngredients: string[];
+  selectedPizzas: string[];
   setSelectedIngredients: React.Dispatch<React.SetStateAction<string[]>>;
+  setSelectedPizzas: React.Dispatch<React.SetStateAction<string[]>>;
   handleAddToCart: () => void;
 }
 
@@ -23,35 +27,65 @@ export default function SizeSelectionPizzaModal({
     setSelectedSize,
     selectedIngredients,
     setSelectedIngredients,
+    selectedPizzas,
+    setSelectedPizzas,
     handleAddToCart,
 
 }: SizeSelectionPizzaModalProps) {
     
-    const [showIngredients, setShowIngredients] = useState(false);
+    const [showList, setShowList] = useState(false);
+    const excludedPizzaIds = ["pizza-1", "pizza-2", "pizza-3"];
+    const isBasicPizza = activeSizeSelection?.pizzaId === "pizza-1"
+    const isHalfPizza = activeSizeSelection?.pizzaId === "pizza-2"
+    const isCustomPizza = activeSizeSelection?.pizzaId === "pizza-3";
+    
+    const halfPizzas = pizzaMenu.filter((pizza) => selectedPizzas.includes(pizza.id)) //Array con las pizzas seleccionadas para mitad y mitad
+    const halfPizzasPrice = halfPizzas.reduce<(typeof halfPizzas)[number] | null>((acc, pizza) => {
+        if (!acc) return pizza;
+        return pizza.prices.lg > acc.prices.lg ? pizza : acc;
+    }, null); //Array que devuelve la pizza con mayor precio.
 
-    const subtotalSm = activeSizeSelection
-    ? selectedSize.sm * activeSizeSelection.prices.sm
-    : 0;
+    const pricesToUse = halfPizzas && halfPizzasPrice ? halfPizzasPrice.prices : activeSizeSelection?.prices ?? {sm: 0, md: 0, lg: 0}; //Si hay pizzas seleccionadas para mitad y mitad, usar los precios de la pizza más cara, si no, usar los precios de la pizza activa o 0 si no hay pizza activa.  
+    const arrSelectedIngredients = ingredients.filter((ingredient) => selectedIngredients.includes(ingredient.slug))
+    const ingredientsPrice = arrSelectedIngredients.reduce((acc, ingredient) => {
+        return (
+            acc +
+            (selectedSize.sm * ingredient.price.sm) +
+            (selectedSize.md * ingredient.price.md) +
+            (selectedSize.lg * ingredient.price.lg)
+        );
+    }, 0);
 
-    const subtotalMd = activeSizeSelection
-    ? selectedSize.md * activeSizeSelection.prices.md
-    : 0;
+    const subtotalSm = selectedSize.sm * pricesToUse.sm
 
-    const subtotalLg = activeSizeSelection
-    ? selectedSize.lg * activeSizeSelection.prices.lg
-    : 0;
+    const subtotalMd = selectedSize.md * pricesToUse.md
 
-    const totalSubtotal = subtotalSm + subtotalMd + subtotalLg;
+    const subtotalLg = selectedSize.lg * pricesToUse.lg
+
+    const totalSubtotal = subtotalSm + subtotalMd + subtotalLg + ingredientsPrice;
+
+    const pizzaSizes = isHalfPizza 
+        ? [
+            {key: "md", label: "Mediana", subtotal: subtotalMd},
+            {key: "lg", label: "Grande", subtotal: subtotalLg}
+            ]
+        :  [{key: "sm", label: "Chica", subtotal: subtotalSm},
+            {key: "md", label: "Mediana", subtotal: subtotalMd},
+            {key: "lg", label: "Grande", subtotal: subtotalLg}
+            ]
 
     const hasItems =
     selectedSize.sm > 0 ||
     selectedSize.md > 0 ||
     selectedSize.lg > 0;
 
-    const isBasicPizza = activeSizeSelection?.title === "Básica";
 
-    const isValid =
-    hasItems && (!isBasicPizza || selectedIngredients.length > 0);
+
+    const isValid = isHalfPizza 
+        ? hasItems && selectedPizzas.length === 2 
+        : ( isBasicPizza || isCustomPizza ) 
+            ? hasItems && (selectedIngredients.length > 0) 
+            : hasItems;
 
     const increase = (size: PizzaSize) => {
     setSelectedSize((prev) => ({
@@ -67,10 +101,18 @@ export default function SizeSelectionPizzaModal({
     }));
     };
 
+    const resetData = () => {
+        setActiveSizeSelection(null); 
+        setShowList(false); 
+        setSelectedIngredients([]); 
+        setSelectedPizzas([]); 
+        setSelectedSize({sm: 0, md: 0, lg: 0})
+    }
+
     return (
     <div 
     className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 sm:p-4"
-    onClick={() => {setActiveSizeSelection(null); setShowIngredients(false)}}>
+    onClick={() => resetData()}>
     <div
         className="relative flex flex-col justify-evenly w-4/5 max-w-[420px] sm:max-w-[640px] lg:max-w-lg p-4 md:p-0 rounded-2xl bg-input sm:p-6 md:p-8 overflow-hidden"
         onClick={(e) => e.stopPropagation()}
@@ -78,7 +120,7 @@ export default function SizeSelectionPizzaModal({
     <div className="flex justify-end mb-2">
         <button
         type="button"
-        onClick={() => {setActiveSizeSelection(null); setSelectedSize({sm: 0, md: 0, lg: 0}); setShowIngredients(false)}}
+        onClick={() => resetData()}
         className="text-red hover:text-red/80 cursor-pointer active:scale-80 transition duration-120"
         >
         <IoMdCloseCircle 
@@ -89,59 +131,62 @@ export default function SizeSelectionPizzaModal({
         "/>
         </button>
     </div>
-    <h3 className="text-[clamp(1.2rem,2.5vw,2rem)] text-red font-gothic mb-2 text-center">
-        {`Selecciona el ${!showIngredients ? "tamaño" : "ingrediente"} de tu pizza`}
+    <h3 className="text-[clamp(1.2rem,2.5vw,2rem)] text-red font-gothic mb-2 text-center leading-tight">
+        {isBasicPizza 
+            ?`Selecciona el ${!showList ? "tamaño" : "ingrediente"} de tu pizza`
+            : isHalfPizza
+                ? `Selecciona ${!showList ? "el tamaño de tu pizza" : "tus 2 pizzas favoritas"}`
+                : `Elige ${!showList ? "el tamaño de tu pizza" : `tus ingredientes ${!isCustomPizza ? "extra favoritos" : ""}`}`}
     </h3>
     <div className="flex flex-col items-center gap-2">
         <p className=" text-lg md:text-xl font-medium text-card-foreground mb-4">{activeSizeSelection?.title}</p>
-        {activeSizeSelection?.pizzaId === "pizza-1" && (
+            {!isHalfPizza &&(<div>
+                <SwitchButton 
+                setShowList={setShowList} 
+                showList={showList}
+                secondLabel="Ingredientes"
+                />
+            </div>)}
+        {isHalfPizza && (
             <div>
-                <SwitchSizeAndIngredientButton 
-                setShowIngredients={setShowIngredients} 
-                showIngredients={showIngredients}/>
+                <SwitchButton 
+                setShowList={setShowList} 
+                showList={showList}
+                secondLabel="Pizzas"
+                />
             </div>
-        )} 
-        {showIngredients ? (
+        )}  
+        {showList ? (
             <div className="flex flex-col  pt-2 w-full max-w-xs h-48 overflow-y-auto sin-scrollbar border-b-2 border-red/20 ">
-                {ingredients?.map((ingredient) => (
-                <div key={ingredient.id} className={`border-t-2 border-red/20 transition p-1 ${selectedIngredients[0] === ingredient.slug
-                        ? "bg-red/10"
-                        : "hover:bg-gray-100"}`}>
-                    <label  
-                    key={ingredient.id}
-                    className={`flex gap-1 items-center cursor-pointer `}>
-                    <input
-                    type="radio"
-                    name="basic-ingredient"
-                    checked={selectedIngredients.includes(ingredient.slug)}
-                    onChange={() => setSelectedIngredients([ingredient.slug])}
-                    className="hidden"
-                    />
-                    {/* círculo custom */}
-                    <div
-                        className={`
-                        w-5 h-5 rounded-full border flex items-center justify-center
-                        ${
-                            selectedIngredients.includes(ingredient.slug)
-                            ? "border-red"
-                            : "border-ring"
-                        }
-                        `}
-                    >
-                        {selectedIngredients.includes(ingredient.slug) && (
-                        <div className="w-3 h-3 rounded-full bg-red" />
-                        )}
+                {isHalfPizza ? (
+                    <div> 
+                    {pizzaMenu?.filter((pizza) => !excludedPizzaIds.includes(pizza.id))
+                    .map((pizza) => (
+                         <PizzaList
+                            key={pizza.id}
+                            pizza={pizza}
+                            selectedPizzas={selectedPizzas}
+                            setSelectedPizzas={setSelectedPizzas}
+                        />)
+                        )
+                    }
                     </div>
-                    <p className=" font-gothic text-[clamp(1.2rem,2.5vw,1.4rem)]">{ingredient.name}</p>
-                </label>
-                </div>
-                ))}
+                ) : (
+                    <div> 
+                    {ingredients?.map((ingredient) => (
+                        <IngredientsList
+                            key={ingredient.id}
+                            ingredient={ingredient}
+                            selectedIngredients={selectedIngredients}
+                            setSelectedIngredients={setSelectedIngredients}
+                            singleSelection={isBasicPizza}
+                        />
+                ))}</div>
+                )}
+                
             </div>
         ) : (
-        [{key: "sm", label: "Chica", subtotal: subtotalSm},
-        {key: "md", label: "Mediana", subtotal: subtotalMd},
-        {key: "lg", label: "Grande", subtotal: subtotalLg}
-        ].map(({key, label, subtotal}) => (
+        pizzaSizes.map(({key, label, subtotal}) => (
             <div key={key} className="flex items-center gap-4 border-b-2 border-red/20 py-2 w-full max-w-xs"> 
                 <button 
                 onClick={() => decrease(key as PizzaSize)}
