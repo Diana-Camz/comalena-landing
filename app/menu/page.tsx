@@ -23,6 +23,7 @@ export default function MenuPage() {
    const [selectedIngredients, setSelectedIngredients] = useState<string[]>([]);
    const [selectedPizzas, setSelectedPizzas] = useState<string[]>([]);
    const { addOrderItem } = useCart();
+   const pizzasWithSingleIngredient = ["pizza-20", "pizza-21"]
    const isBasicPizza = activeSizeSelection?.pizzaId === "pizza-1";
    const isHalfPizza = activeSizeSelection?.pizzaId === "pizza-2";
     
@@ -41,8 +42,7 @@ export default function MenuPage() {
         setSelectedPizzas([]);
         setSelectedComplementSizes({sm: 0, md: 0, lg: 0, unit: 0});
    }
-
-   const halfPizzas = pizzaMenu.filter((pizza) => selectedPizzas.includes(pizza.id)) //Array con las pizzas seleccionadas para mitad y mitad
+    const halfPizzas = pizzaMenu.filter((pizza) => selectedPizzas.includes(pizza.id)) //Array con las pizzas seleccionadas para mitad y mitad
     const halfPizzasPrice = halfPizzas.reduce<(typeof halfPizzas)[number] | null>((acc, pizza) => {
         if (!acc) return pizza;
         return pizza.prices.lg > acc.prices.lg ? pizza : acc;
@@ -130,7 +130,8 @@ export default function MenuPage() {
 }
 
    const filteredPizzas = useMemo(() => {
-    if (tagsPizzaSelected.length === 0) return pizzaMenu;
+    const originalMenu = pizzaMenu.filter((pizza) => !pizzasWithSingleIngredient.includes(pizza.id))
+    if (tagsPizzaSelected.length === 0) return originalMenu;
     return pizzaMenu.filter((pizza: PizzaItem) =>
       pizza.tags?.some((t: string) => tagsPizzaSelected.includes(t))
     );
