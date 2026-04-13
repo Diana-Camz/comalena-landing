@@ -39,6 +39,7 @@ export default function SizeSelectionPizzaModal({
     
     const [showList, setShowList] = useState(false);
     const excludedPizzaIds = ["pizza-1", "pizza-2", "pizza-3"];
+    const excludedIngredients = ["boneless-bbq", "boneless-bufalo"]
     const isBasicPizza = activeSizeSelection?.pizzaId === "pizza-1"
     const isHalfPizza = activeSizeSelection?.pizzaId === "pizza-2"
     const isCustomPizza = activeSizeSelection?.pizzaId === "pizza-3";
@@ -169,15 +170,28 @@ export default function SizeSelectionPizzaModal({
                     </div>
                 ) : (
                     <div> 
-                    {ingredients?.map((ingredient) => (
-                        <IngredientsList
-                            key={ingredient.id}
-                            ingredient={ingredient}
-                            selectedIngredients={selectedIngredients}
-                            setSelectedIngredients={setSelectedIngredients}
-                            singleSelection={isBasicPizza}
-                        />
-                ))}</div>
+                    {isBasicPizza ?
+                        (ingredients?.filter((ingredient) => !excludedIngredients.includes(ingredient.slug))
+                        .map((ingredient) => (
+                            <IngredientsList
+                                key={ingredient.id}
+                                ingredient={ingredient}
+                                selectedIngredients={selectedIngredients}
+                                setSelectedIngredients={setSelectedIngredients}
+                                singleSelection={isBasicPizza}
+                            />
+                            ))
+                        ) : (ingredients?.map((ingredient) => (
+                            <IngredientsList
+                                key={ingredient.id}
+                                ingredient={ingredient}
+                                selectedIngredients={selectedIngredients}
+                                setSelectedIngredients={setSelectedIngredients}
+                                singleSelection={isBasicPizza}
+                            />
+                            ))
+                        )}
+                    </div>
                 )}
                 
             </div>

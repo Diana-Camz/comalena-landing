@@ -5,7 +5,7 @@ export const pizzaMenu = [
     ingredients: "Salsa de tomate, queso y 1 ingrediente a elegir",
     imageUrl: "/images/menu/pepperoni.webp",
     prices: {sm: 79, md: 159, lg: 219},
-    tags: ["basica", "mas-pedida"]
+    tags: ["arma-tu-pizza"]
   },
   {
     id: "pizza-2",
@@ -13,7 +13,7 @@ export const pizzaMenu = [
     ingredients: "¿No te puedes decidir? selecciona 2 de tus pizzas favoritas del menú y recibe una pizza mitad y mitad",
     imageUrl: "/images/menu/mitades.webp",
     prices: {sm: 0, md: 0, lg: 0},
-    tags: ["mitad-y-mitad"]
+    tags: ["arma-tu-pizza"]
   },
   {
     id: "pizza-3",
@@ -21,7 +21,23 @@ export const pizzaMenu = [
     ingredients: "Selecciona los ingredientes que quieras, el precio se ajustará dependiendo de los ingredientes que elijas.",
     imageUrl: "/images/menu/arma-tu-pizza.webp",
     prices: {sm: 79, md: 159, lg: 219},
-    tags: ["mas-pedida", "carnes", "tradicional"]
+    tags: ["arma-tu-pizza"]
+  },
+  {
+    id: "pizza-20",
+    title: "Pepperoni",
+    ingredients: "",
+    imageUrl: "",
+    prices: {sm: 79, md: 159, lg: 219},
+    tags: []
+  },
+  {
+    id: "pizza-21",
+    title: "Champiñones",
+    ingredients: "",
+    imageUrl: "",
+    prices: {sm: 79, md: 159, lg: 219},
+    tags: []
   },
   {
     id: "pizza-4",
@@ -214,16 +230,16 @@ export const complementsMenu = [
 
 export const ingredients = [
   { id: "1", name: "Pepperoni", slug: "pepperoni", type: "carne", price:  {sm: 10, md: 20, lg: 30}},
-  { id: "2", name: "Tocino", slug: "tocino", type: "carne", price:  {sm: 10, md: 20, lg: 30} },
+  { id: "11", name: "Champiñones", slug: "champinones", type: "vegetal", price:  {sm: 8, md: 15, lg: 20} },
   { id: "3", name: "Jamón", slug: "jamon", type: "carne", price:  {sm: 10, md: 20, lg: 30} },
   { id: "4", name: "Salami", slug: "salami", type: "carne", price:  {sm: 10, md: 20, lg: 30} },
   { id: "5", name: "Chorizo", slug: "chorizo", type: "carne", price:  {sm: 10, md: 20, lg: 30} },
   { id: "6", name: "Salchicha", slug: "salchicha", type: "carne", price:  {sm: 10, md: 20, lg: 30} },
   { id: "7", name: "Boneless BBQ", slug: "boneless-bbq", type: "carne", price:  {sm: 10, md: 20, lg: 30}},
   { id: "8", name: "Boneless Búfalo", slug: "boneless-bufalo", type: "carne", price:  {sm: 10, md: 20, lg: 30} },
+  { id: "2", name: "Tocino", slug: "tocino", type: "carne", price:  {sm: 10, md: 20, lg: 30} },
   { id: "9", name: "Piña", slug: "pina", type: "vegetal", price:  {sm: 8, md: 15, lg: 20} },
   { id: "10", name: "Jitomate", slug: "jitomate", type: "vegetal", price:  {sm: 8, md: 15, lg: 20} },
-  { id: "11", name: "Champiñones", slug: "champinones", type: "vegetal", price:  {sm: 8, md: 15, lg: 20} },
   { id: "12", name: "Pimiento", slug: "pimiento", type: "vegetal", price:  {sm: 8, md: 15, lg: 20} },
   { id: "13", name: "Cebolla", slug: "cebolla", type: "vegetal", price:  {sm: 8, md: 15, lg: 20} },
   { id: "14", name: "Albahaca", slug: "albahaca", type: "vegetal", price:  {sm: 8, md: 15, lg: 20} },
