@@ -85,7 +85,7 @@ export default function OrderSheet({ setActive }: OrderSheetProps) {
                     </div>
                     <h3 className="text-[clamp(1.5rem,2.5vw,2rem)] text-red font-gothic mb-2 text-center ">
                        {order.length === 0 
-                        ? "Carrito Vacio" 
+                        ? "Carrito Vacío" 
                         :  step === "order"
                             ? "Revisa tu orden"
                             : "Completa tus datos" }
