@@ -6,6 +6,7 @@ import { Button } from "./ui/button";
 import { OrderItem } from "@/types/types";
 import CustomerForm from "./CustomerForm";
 import { useState } from "react";
+import { ingredients, pizzaMenu } from "@/data/data";
 
 type OrderSheetProps = {
     setActive: (active: boolean) => void;
@@ -13,19 +14,27 @@ type OrderSheetProps = {
 
 export default function OrderSheet({ setActive }: OrderSheetProps) {
     const {setQuantity, removeItem, buildWhatsAppMessage, clearCart, order, total, customerInfo} = useCart();
-    const [step, setStep] = useState<"order" | "form">("order");
+    const [step, setStep] = useState<"order" | "form">("order")
 
-    const groupedOrder = order.reduce<Record<string, {title: string, items: OrderItem[]}>>((acc, item ) => {
+    const groupedOrder = order.reduce<Record<string, {title: string, ingredientLabel: string, pizzasLabel:string, items: OrderItem[]}>>((acc, item) => {
         const ingredientKey = (item.selectedIngredients ?? []).slice().sort().join("-");
-        const groupKey = `${item.itemId}-${ingredientKey}`;
-        const capitalize = (text: string) => text.charAt(0).toUpperCase() + text.slice(1);
+        const pizzasKey = (item.selectedPizzas ?? []).slice().sort().join("-");
+        const groupKey = `${item.itemId}-${ingredientKey}-${pizzasKey}`;
+        const ingredientsTitles = ingredients.filter((ingredient) => item.selectedIngredients?.includes(ingredient.slug)).map(ing => ing.name);
+        const pizzasTitles = pizzaMenu.filter((pizza) => item.selectedPizzas?.includes(pizza.id)).map(p => p.title);
+
         const ingredientLabel = item.selectedIngredients && item.selectedIngredients.length > 0 
-            ? ` - ${item.selectedIngredients.map(capitalize).join(", ")}`
+            ? ` ${ingredientsTitles.join(", ")}`
             : "";
-        
+        const pizzasLabel = item.selectedPizzas && item.selectedPizzas.length > 0
+            ? ` ${pizzasTitles[0]} y ${pizzasTitles[1]}`
+            : "";
+
         if (!acc[groupKey]) {
             acc[groupKey] = {
-                title: `${item.title}${ingredientLabel}`,
+                title: `${item.title}`,
+                ingredientLabel: ingredientLabel || "",
+                pizzasLabel: pizzasLabel || "",
                 items: []
             }
             }
@@ -96,6 +105,13 @@ export default function OrderSheet({ setActive }: OrderSheetProps) {
                                 <>
                                 <div className="max-h-[355px] overflow-y-auto sin-scrollbar border-b-2 border-red  shadow-inner-bottom">
                                  {Object.entries(groupedOrder).map(([itemId, group]) => {
+                                const pizzaId = group.items[0]?.itemId;
+                                const ingredientPrefix = 
+                                    pizzaId === "pizza-1" 
+                                        ? "Ingrediente: "
+                                        : pizzaId === "pizza-3"
+                                            ? "Ingredientes: "
+                                            : "Ingredientes extras: "
                                 const sizeMap: { [size: string]: OrderItem } = {};
                                 group.items.forEach(item => {
                                     if(!sizeMap[item.size]) {
@@ -106,7 +122,17 @@ export default function OrderSheet({ setActive }: OrderSheetProps) {
                                 })
                                 return (
                                 <div key={itemId} className="flex flex-col mb-4">
-                                    <h2 className="text-lg md:text-xl font-medium text-card-foreground mb-2">{group.title}</h2>
+                                    <h2 className="text-lg md:text-xl font-medium text-card-foreground">{group.title}</h2>
+                                    {group.ingredientLabel && (
+                                        <p className="text-card-foreground/70 font-gothic text-[clamp(0.80rem,3.1vw,1.3rem)]  min-[731px]:text-[clamp(0.84rem,1.1vw,1.15rem)] min-[900px]:text-[clamp(.90rem,1.2vw,1.25rem)] text-start leading-snug">{
+                                             `${ingredientPrefix} ${group.ingredientLabel}`}
+                                        </p>
+                                    )}
+                                    {group.pizzasLabel && (
+                                        <p className="text-card-foreground/70 font-gothic text-[clamp(0.80rem,3.1vw,1.3rem)]  min-[731px]:text-[clamp(0.84rem,1.1vw,1.15rem)] min-[900px]:text-[clamp(.90rem,1.2vw,1.25rem)] text-start leading-snug">{
+                                             `Pizzas: ${group.pizzasLabel}`}
+                                        </p>
+                                    )}
                                     {Object.values(sizeMap).map(item => (
                                         <div key={`${item.itemId}-${item.size}`} className="flex justify-between items-center py-2 md:px-2 md:py-1 border-b-2 sm:border-0 border-red/20 md:rounded-lg hover:bg-card-foreground/10 transition">
                                         <div className="w-20 md:w-26 items-center flex justify-between">
