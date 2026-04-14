@@ -7,14 +7,16 @@ import { OrderItem } from "@/types/types";
 import CustomerForm from "./CustomerForm";
 import { useState } from "react";
 import { ingredients, pizzaMenu } from "@/data/data";
+import AlertForClearCart from "./AlertForClearCart";
 
 type OrderSheetProps = {
     setActive: (active: boolean) => void;
 };
 
 export default function OrderSheet({ setActive }: OrderSheetProps) {
-    const {setQuantity, removeItem, buildWhatsAppMessage, clearCart, order, total, customerInfo} = useCart();
-    const [step, setStep] = useState<"order" | "form">("order")
+    const {setQuantity, removeItem, buildWhatsAppMessage, order, total, customerInfo} = useCart();
+    const [step, setStep] = useState<"order" | "form">("order");
+    const [activeAlertForClearCart, setActiveAlertForClearCart] = useState(false);
 
     const groupedOrder = order.reduce<Record<string, {title: string, ingredientLabel: string, pizzasLabel:string, items: OrderItem[]}>>((acc, item) => {
         const ingredientKey = (item.selectedIngredients ?? []).slice().sort().join("-");
@@ -57,6 +59,7 @@ export default function OrderSheet({ setActive }: OrderSheetProps) {
         customerInfo.name.trim() !== "" &&
         customerInfo.address.trim() !== "" &&
         customerInfo.phone.trim() !== "";
+
 
   return (
     <section className="mx-auto w-full px-4 sm:px-6 lg:px-8 flex flex-col">
@@ -197,7 +200,7 @@ export default function OrderSheet({ setActive }: OrderSheetProps) {
                                 )}
                                 <Button
                                     type="button" 
-                                    onClick={clearCart}
+                                    onClick={() => setActiveAlertForClearCart(true)}
                                     className="w-1/2 cursor-pointer h-12 bg-opacity-50 hover:bg-red/20  active:text-card active:bg-red/40 active:scale-97 transition duration-120 text-red/85 border-2 border-red/85 text-lg font-medium">
                                     <p className="text-md md:text-lg">Vaciar carrito</p>
                                 </Button>
@@ -208,9 +211,13 @@ export default function OrderSheet({ setActive }: OrderSheetProps) {
                                 <p className="text-[clamp(1.1rem,3.2vw,1.8rem)] text-center font-gothic text-card-foreground/80">Aún no has agregado nada a tu orden.</p>
                             </div>
                         )}
+                        {activeAlertForClearCart && 
+                            <AlertForClearCart
+                            setActiveAlertForClearCart={setActiveAlertForClearCart}
+                            />
+                        }
                 </div>
             </div>
-        
     </section>
   )
 }

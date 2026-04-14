@@ -1,16 +1,25 @@
 import { IoMdCloseCircle } from "react-icons/io";
 import { Button } from "./ui/button";
+import { useCart } from "@/context/CartContext";
 
-type PrivacyAdvertismentProps = {
-    setActive: (active: boolean) => void;
+
+type AlertForClearCartProps = {
+    setActiveAlertForClearCart: (active: boolean) => void;
 };
 
-export default function PrivacyAdvertisment ({setActive}: PrivacyAdvertismentProps) {
+
+export default function AlertForClearCart ({setActiveAlertForClearCart}: AlertForClearCartProps) {
+    const {clearCart} = useCart();
+
+    const handleClearCart = () => {
+        clearCart();
+        setActiveAlertForClearCart(false);
+    }
     
     return (
     <section className="mx-auto w-full px-4 sm:px-6 lg:px-8 flex flex-col">
         <div 
-        onClick={() => setActive(false)}
+        onClick={() => setActiveAlertForClearCart(false)}
         className="fixed inset-0 bg-black/50 bg-opacity-50 z-50 flex justify-center items-center">
             <div 
             onClick={(e) => e.stopPropagation()} 
@@ -19,7 +28,7 @@ export default function PrivacyAdvertisment ({setActive}: PrivacyAdvertismentPro
                 className=" bottom-3  flex justify-end items-center">
                     <button
                     type="button"
-                    onClick={() => setActive(false)}
+                    onClick={() => setActiveAlertForClearCart(false)}
                     className="text-red hover:text-red/80 cursor-pointer active:scale-80 transition duration-120 relative left-1 bottom-3 md:bottom-5 md:left-5"
                     >
                         <IoMdCloseCircle 
@@ -31,21 +40,22 @@ export default function PrivacyAdvertisment ({setActive}: PrivacyAdvertismentPro
                     </button>
                 </div>
                 <div>
-                    <h3 className="text-center text-xl">Aviso de Privacidad</h3>
-                    <p className="font-gothic text-justify leading-tight">En Comaleña Pizza, los datos personales que nos proporciones (como nombre, domicilio, teléfono y notas de pedido) serán utilizados únicamente para procesar y entregar tu orden.
-                    No compartimos tu información con terceros y únicamente se utiliza para fines de contacto y entrega.
-                    </p>
-                    <p className="font-gothic text-justify leading-tight">
-                    Puedes solicitar la modificación o eliminación de tus datos en cualquier momento contactándonos directamente.
-                    Al realizar un pedido, aceptas el uso de tus datos conforme a este aviso de privacidad.
+                    <h3 className="text-[clamp(1.5rem,2.5vw,2rem)] text-red font-gothic mb-2 text-center ">Tu orden se eliminará</h3>
+                    <p className="text-[clamp(1.1rem,3.2vw,1.8rem)] text-center font-gothic text-card-foreground/80">¿Estas seguro de que quieres vaciar el carrito?
                     </p>
                 </div>
-                <div className="flex justify-center mt-5">
+                <div className="flex flex-col items-center justify-center mt-5">
                     <Button
                         type="button" 
-                        onClick={() => setActive(false)}
+                        onClick={handleClearCart}
                         className="w-1/2 cursor-pointer h-12 bg-red/95 hover:bg-red/80 active:bg-red/80 active:scale-97 transition duration-120 text-background text-lg font-medium">
                         <p className="text-md md:text-lg">Aceptar</p>
+                    </Button>
+                    <Button
+                        type="button" 
+                        onClick={() => setActiveAlertForClearCart(false)}
+                        className="w-1/2 cursor-pointer h-12 mt-2 bg-opacity-50 hover:bg-red/20  active:text-card active:bg-red/40 active:scale-97 transition duration-120 text-red/85 border-2 border-red/85 text-lg font-medium">
+                        <p className="text-md md:text-lg">Cancelar</p>
                     </Button>
                 </div>
             </div>
