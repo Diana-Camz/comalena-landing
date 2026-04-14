@@ -17,7 +17,7 @@ interface SizeSelectionPizzaModalProps {
   selectedPizzas: string[];
   setSelectedIngredients: React.Dispatch<React.SetStateAction<string[]>>;
   setSelectedPizzas: React.Dispatch<React.SetStateAction<string[]>>;
-  pricesForHalfPizza: SizePrices;
+  pricesForAllPizzas: SizePrices;
   arrSelectedIngredients: Ingredient[];
   handleAddToCart: () => void;
 }
@@ -31,7 +31,7 @@ export default function SizeSelectionPizzaModal({
     setSelectedIngredients,
     selectedPizzas,
     setSelectedPizzas,
-    pricesForHalfPizza,
+    pricesForAllPizzas,
     arrSelectedIngredients,
     handleAddToCart,
 
@@ -53,11 +53,11 @@ export default function SizeSelectionPizzaModal({
     }, 0);
     
 
-    const subtotalSm = selectedSize.sm * pricesForHalfPizza.sm
+    const subtotalSm = selectedSize.sm * pricesForAllPizzas.sm
 
-    const subtotalMd = selectedSize.md * pricesForHalfPizza.md
+    const subtotalMd = selectedSize.md * pricesForAllPizzas.md
 
-    const subtotalLg = selectedSize.lg * pricesForHalfPizza.lg
+    const subtotalLg = selectedSize.lg * pricesForAllPizzas.lg
 
     const totalSubtotal = subtotalSm + subtotalMd + subtotalLg + (!isBasicPizza ? pricesForCustomPizza : 0);
 

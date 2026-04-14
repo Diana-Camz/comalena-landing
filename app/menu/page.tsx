@@ -27,7 +27,13 @@ export default function MenuPage() {
    const isBasicPizza = activeSizeSelection?.pizzaId === "pizza-1";
    const isHalfPizza = activeSizeSelection?.pizzaId === "pizza-2";
     
-   const toggleTag = (tag: string, checked: boolean) => {
+   const toggleTag = (tag: string, checked: boolean, type?: string ) => {
+    if(type === "submenu"){
+        setTagsSubmenuSelected((prev) => {
+            if (checked) return prev.includes(tag) ? prev : [...prev, tag];
+            return prev.filter((t) => t !== tag)
+        })
+    }
     setTagsPizzaSelected((prev) => {
       if (checked) return prev.includes(tag) ? prev : [...prev, tag];
       return prev.filter((t) => t !== tag);
@@ -48,7 +54,7 @@ export default function MenuPage() {
         return pizza.prices.lg > acc.prices.lg ? pizza : acc;
     }, null); //Array que devuelve la pizza con mayor precio.
 
-    const pricesForHalfPizza = halfPizzas && halfPizzasPrice ? halfPizzasPrice.prices : activeSizeSelection?.prices ?? {sm: 0, md: 0, lg: 0}; //Si hay pizzas seleccionadas para mitad y mitad, usar los precios de la pizza más cara, si no, usar los precios de la pizza activa o 0 si no hay pizza activa.  
+    const pricesForAllPizzas = halfPizzas && halfPizzasPrice ? halfPizzasPrice.prices : activeSizeSelection?.prices ?? {sm: 0, md: 0, lg: 0}; //Si hay pizzas seleccionadas para mitad y mitad, usar los precios de la pizza más cara, si no, usar los precios de la pizza activa o 0 si no hay pizza activa.  
     const arrSelectedIngredients = ingredients.filter((ingredient) => selectedIngredients.includes(ingredient.slug));
     const extraIngredientsPriceBySize = isBasicPizza 
         ? {sm: 0, md: 0, lg: 0}
@@ -72,7 +78,7 @@ export default function MenuPage() {
 
         
         const pricesToUse = isHalfPizza 
-            ? pricesForHalfPizza 
+            ? pricesForPizzas 
             : isBasicPizza
                 ? prices
                 : pricesForPizzas;
@@ -89,7 +95,8 @@ export default function MenuPage() {
                 size,
                 unitPrice: price,
                 quantity: qty,
-                selectedIngredients
+                selectedIngredients,
+                selectedPizzas
             });
             }
         });
@@ -138,7 +145,7 @@ export default function MenuPage() {
   }, [tagsPizzaSelected]);
 
      const filteredComplements = useMemo(() => {
-    if (tagsSubmenuSelected.length === 0) return complementsMenu;
+    if (tagsSubmenuSelected.length === 0) return null;
     return complementsMenu.filter((complement: ComplementItem) =>
       complement.tags?.some((t: string) => tagsSubmenuSelected.includes(t))
     );
@@ -161,7 +168,7 @@ export default function MenuPage() {
                         <p className="lg:mt-2 font-medium text-lg sm:text-2xl md:text-3xl lg:text-4xl text-red/90">Filtra según tu antojo</p>
                         <div className="mt-3 md:mt-8 flex flex-wrap gap-3 justify-center lg:justify-start max-w-[720px]">
                             <TagButton
-                                label="Todo"
+                                label="Todas"
                                 active={tagsPizzaSelected.length === 0}
                                 onClick={() =>
                                     setTagsPizzaSelected([])
@@ -247,6 +254,16 @@ export default function MenuPage() {
                                     )
                                 }
                             />
+                            <TagButton
+                                label="Arma tu pizza"
+                                active={tagsPizzaSelected.includes("arma-tu-pizza")}
+                                onClick={() =>
+                                    toggleTag(
+                                    "arma-tu-pizza",
+                                    !tagsPizzaSelected.includes("arma-tu-pizza")
+                                    )
+                                }
+                            />
                             <div className="flex flex-wrap mt-3 gap-3">
                             <TagButton
                                 label="Complementos"
@@ -255,7 +272,8 @@ export default function MenuPage() {
                                 onClick={() =>
                                     toggleTag(
                                     "complemento",
-                                    !tagsSubmenuSelected.includes("complemento")
+                                    !tagsSubmenuSelected.includes("complemento"),
+                                    "submenu"
                                      )
                                 }
                             />
@@ -266,7 +284,8 @@ export default function MenuPage() {
                                 onClick={() =>
                                     toggleTag(
                                     "postre",
-                                    !tagsSubmenuSelected.includes("postre")
+                                    !tagsSubmenuSelected.includes("postre"),
+                                    "submenu"
                                     )
                                 }
                             />
@@ -277,7 +296,8 @@ export default function MenuPage() {
                                 onClick={() =>
                                     toggleTag(
                                     "bebida",
-                                    !tagsSubmenuSelected.includes("bebida")
+                                    !tagsSubmenuSelected.includes("bebida"),
+                                    "submenu"
                                     )
                                 }
                             />
@@ -300,7 +320,7 @@ export default function MenuPage() {
                     ))}
                 </div>
                 <div className="grid max-[730px]:grid-cols-2 mt-4 gap-4 max-[1130px]:grid-cols-3 max-[1580px]:grid-cols-4 min-[1580px]:grid-cols-3">
-                    {filteredComplements.map((complement) => (
+                    {filteredComplements?.map((complement) => (
                         <ComplementCard 
                             key={complement.id} {...complement}
                             onOpenSizeSelection={() => {setActiveComplementSelection({
@@ -330,7 +350,7 @@ export default function MenuPage() {
                     setSelectedIngredients={setSelectedIngredients}
                     selectedPizzas={selectedPizzas}
                     setSelectedPizzas={setSelectedPizzas}
-                    pricesForHalfPizza={pricesForHalfPizza}
+                    pricesForAllPizzas={pricesForAllPizzas}
                     arrSelectedIngredients={arrSelectedIngredients}
                     handleAddToCart={handleAddToCart}
                 />

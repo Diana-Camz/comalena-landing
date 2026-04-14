@@ -19,6 +19,7 @@ export default function DetailsModal({setActiveDetails, activeDetails}: DetailsM
       tradicional: "Tradicional",
       "de-la-casa": "De la casa",
       complemento: "Complemento",
+      "arma-tu-pizza": "Arma tu pizza",
     
     };
     return (
