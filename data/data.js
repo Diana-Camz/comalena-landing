@@ -170,7 +170,7 @@ export const pizzaMenu = [
 ];
 
 export const complementsMenu = [
-    {
+  {
     id: "comp-1",
     title: "Chimichurri",
     description: "Delicioso chimichurri casero",
@@ -210,7 +210,7 @@ export const complementsMenu = [
     prices: {sm: 15, md: 25, lg: 35},
     tags: ["complemento"]
   },
-    {
+  {
     id: "comp-7",
     title: "Sobresito de Catsup",
     description: "Agrega mas catsup",
@@ -218,14 +218,54 @@ export const complementsMenu = [
     prices: {unit: 2},
     tags: ["complemento"]
   },
-    {
+  {
     id: "comp-8",
     title: "Salsa Habanera",
     description: "Agrega un toque de picante a tu pizza",
     imageUrl: "/images/menu/complements/habanero.webp",
     prices: {unit: 5},
     tags: ["complemento"]
-  }
+  },
+  {
+    id: "comp-9",
+    title: "Cheescake",
+    description: "Agrega un toque de picante a tu pizza",
+    imageUrl: "",
+    prices: {unit: 45},
+    tags: ["postre"]
+  },
+  {
+    id: "comp-10",
+    title: "Galleta con Chispas de Chocolate",
+    description: "Agrega un toque de picante a tu pizza",
+    imageUrl: "",
+    prices: {unit: 20},
+    tags: ["postre"]
+  },
+  {
+    id: "comp-11",
+    title: "Pan de Platano",
+    description: "Agrega un toque de picante a tu pizza",
+    imageUrl: "",
+    prices: {unit: 5},
+    tags: ["postre"]
+  },
+  {
+    id: "comp-12",
+    title: "Refresco de 600ml",
+    description: "Agrega un toque de picante a tu pizza",
+    imageUrl: "",
+    prices: {unit: 25},
+    tags: ["bebida"]
+  },
+  {
+    id: "comp-13",
+    title: "Refresco de 2L",
+    description: "Agrega un toque de picante a tu pizza",
+    imageUrl: "",
+    prices: {unit: 50},
+    tags: ["bebida"]
+  },
 ]
 
 export const ingredients = [

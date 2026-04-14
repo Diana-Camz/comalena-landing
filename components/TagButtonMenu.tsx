@@ -5,7 +5,7 @@ type TagButtonProps = {
   onClick: () => void;
 };
 
-export default function TagButton({ label, active, type,onClick }: TagButtonProps) {
+export default function TagButton({ label, active, type, onClick }: TagButtonProps) {
   const isSubmenu = type === "submenu"
   return (
     <div>
