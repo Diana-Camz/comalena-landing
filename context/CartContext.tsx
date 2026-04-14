@@ -1,7 +1,7 @@
 "use client"
 
 import React, { createContext, useContext, useState, useMemo } from "react"
-import type { AnySize, OrderItem, CustomerInfo, Pizza } from "@/types/types";
+import type { AnySize, OrderItem, CustomerInfo } from "@/types/types";
 
 type CartContextType = {
     order: OrderItem[];
@@ -21,8 +21,8 @@ type CartContextType = {
 
 const CartContext = createContext<CartContextType | null>(null);
 
-function makeKey(itemId: string, size: AnySize, ingredients: string[] = []) {
-  return `${itemId}-${size}-${ingredients.slice().sort().join("-")}`;
+function makeKey(itemId: string, size: AnySize, ingredients: string[] = [], selectedPizzas: string[] = []) {
+  return `${itemId}-${size}-${ingredients.slice().sort().join("-")}-${selectedPizzas.slice().sort().join("-")}`;
 }
 
 export function CartProvider({children} : {children : React.ReactNode}) {
@@ -68,12 +68,12 @@ export function CartProvider({children} : {children : React.ReactNode}) {
   //Funcion que agrega una orden completa de acuerdo a los tamanos seleccionados por cada tipo de pizza.
   const addOrderItem = (orderItem: OrderItem) => {
     setOrder((prev) => {
-      const key = makeKey(orderItem.itemId, orderItem.size, orderItem?.selectedIngredients);
-      const existing = prev.find((it) => makeKey(it.itemId, it.size, it.selectedIngredients) === key);
+      const key = makeKey(orderItem.itemId, orderItem.size, orderItem?.selectedIngredients, orderItem?.selectedPizzas);
+      const existing = prev.find((it) => makeKey(it.itemId, it.size, it.selectedIngredients, it.selectedPizzas) === key);
 
       if (existing) {
         return prev.map((it) =>
-          makeKey(it.itemId, it.size, it.selectedIngredients) === key
+          makeKey(it.itemId, it.size, it.selectedIngredients, it.selectedPizzas) === key
             ? { ...it, quantity: it.quantity + orderItem.quantity }
             : it
         );
@@ -84,8 +84,8 @@ export function CartProvider({children} : {children : React.ReactNode}) {
   }
 
     //Funcion que cambia la cantidad, si qty <= 0, lo elimina.
-  const setQuantity = (pizzaId: string, size: AnySize, qty: number, selectedIngredients: string[]= []) => {
-    const key = makeKey(pizzaId, size, selectedIngredients);
+  const setQuantity = (pizzaId: string, size: AnySize, qty: number, selectedIngredients: string[]= [], selectedPizzas: string[]= []) => {
+    const key = makeKey(pizzaId, size, selectedIngredients, selectedPizzas);
 
     setOrder((prev) => {
       if (qty <= 0) return prev;;
@@ -96,9 +96,9 @@ export function CartProvider({children} : {children : React.ReactNode}) {
     });
   };
 
-  const removeItem = (pizzaId: string, size: AnySize, selectedIngredients: string[]= []) => {
-    const key = makeKey(pizzaId, size, selectedIngredients);
-    setOrder((prev) => prev.filter((it) => makeKey(it.itemId, it.size, it.selectedIngredients) !== key));
+  const removeItem = (pizzaId: string, size: AnySize, selectedIngredients: string[]= [], selectedPizzas: string[] = []) => {
+    const key = makeKey(pizzaId, size, selectedIngredients, selectedPizzas);
+    setOrder((prev) => prev.filter((it) => makeKey(it.itemId, it.size, it.selectedIngredients, it.selectedPizzas) !== key));
   }
 
   const setCustomerField = <K extends keyof CustomerInfo>(field: K, value: CustomerInfo[K]) => {

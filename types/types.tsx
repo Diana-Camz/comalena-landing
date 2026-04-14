@@ -77,6 +77,7 @@ export type PizzaOrderItem = {
     unitPrice: number;
     quantity: number;
     selectedIngredients?: string[];
+    selectedPizzas?: string[];
 }
 
 export type ComplementOrderItem = {
@@ -87,6 +88,7 @@ export type ComplementOrderItem = {
     unitPrice: number;
     quantity: number;
     selectedIngredients?: string[];
+    selectedPizzas?: string[];
 }
 export type OrderItem = PizzaOrderItem | ComplementOrderItem;
 
