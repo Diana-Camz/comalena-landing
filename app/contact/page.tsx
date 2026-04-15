@@ -13,8 +13,15 @@ export default function contactPage() {
                 </h1>
 
                 {/* Cómo ordenar */}
-                <div className="mb-10 flex flex-col items-center lg:mt-24">
+                <div className="mb-10 flex flex-col items-center lg:mt-20">
                     <h2 className="text-red  text-2xl lg:text-5xl mb-3">
+                    Horario
+                    </h2>
+                    <p className="font-medium font-gothic text-card-foreground/75 lg:text-3xl">
+                    Sábados y Domingos de 2:00 PM a 10:00 PM. 
+                    </p>
+
+                    <h2 className="text-red text-2xl lg:text-5xl mb-3 lg:mt-20">
                     ¿Cómo puedes realizar tu orden?
                     </h2>
 
@@ -29,7 +36,7 @@ export default function contactPage() {
 
                     <div  className="flex gap-4 items-center justify-center mt-10">
                         <Button className="cursor-pointer h-12 hover:bg-secondary/80">
-                            <Link href="/menu" className="lg:text-lg">Enviar WhatsApp</Link>
+                            <Link href="https://wa.me/523122703873" target="_blank" rel="noopener noreferrer" className="lg:text-lg">Enviar WhatsApp</Link>
                         </Button>
                     </div>
                 </div>
@@ -45,7 +52,7 @@ export default function contactPage() {
 
                     <div className="flex gap-6 text-center justify-center mt-8 ">
                     <a
-                        href="https://www.google.com/maps/place/Comaleña+Pizza" target="_blank"  rel="noopener noreferrer"
+                        href="https://maps.app.goo.gl/Qo6NxC7cw5obfC4R7" target="_blank"  rel="noopener noreferrer"
                         className="md:text-lg flex flex-col items-center text-card-foreground/70 hover:text-card-foreground transition lg:mr-12"
                     >
                         <Image src='/images/google_maps.svg' alt='Google Maps' width={60} height={60} className="inline-block mb-2"/>
@@ -71,7 +78,7 @@ export default function contactPage() {
 
                     <div className="flex gap-6 text-center justify-center mb-8 mt-8">
                     <a
-                        href="https://www.instagram.com/_u/comalena.pizza" target="_blank"  rel="noopener noreferrer"
+                        href="https://www.instagram.com/comalena.pizza" target="_blank"  rel="noopener noreferrer"
                         className="md:text-lg flex flex-col items-center text-card-foreground/70 hover:text-card-foreground transition lg:mr-12"
                     >
                         <Image src='/images/instagram.svg' alt='Instagram' width={60} height={60} className="inline-block mb-2"/>

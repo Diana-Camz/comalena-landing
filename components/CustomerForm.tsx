@@ -3,8 +3,11 @@ import { useState } from "react";
 import { ImCheckboxChecked, ImCheckboxUnchecked } from "react-icons/im";
 import PrivacyAdvertisment from "./PrivacyAdv";
 
+type CustomerFormProps= {
+    isOpenNow: () => boolean;
+}
 
-export default function CustomerForm () {
+export default function CustomerForm ({isOpenNow}: CustomerFormProps) {
     const [isCheckedPrivacy, setIsCheckedPrivacy] = useState(false);
     const [isActivePrivacy, setIsActivePrivacy] = useState(false);
     const {customerInfo, setCustomerField} = useCart();
@@ -74,7 +77,11 @@ export default function CustomerForm () {
                 </button>
                 <div>
                     <p className="text-sm md:text-lg font-gothic text-center text-red/80 leading-tight">
-                        Recuerda que al recibir tu orden, te indicaremos el tiempo de espera que tomara hacer tu pedido y el costo del servicio a domicilio (si aplica).
+                        {
+                        isOpenNow()
+                        ? "Recuerda que al recibir tu orden, te indicaremos el tiempo de espera que tomará hacer tu pedido y el costo del servicio a domicilio (si aplica)."
+                        :  "⚠️ Actualmente estamos cerrados. Nuestro horario es Sábados y Domingos de 2:00 PM a 10:00 PM. ⚠️"
+                        }
                     </p>
                 </div>
             </div>
