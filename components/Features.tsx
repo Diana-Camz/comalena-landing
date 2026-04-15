@@ -12,6 +12,13 @@ export default function Features() {
         <div>
             <Reveal className="text-center mt-10"> {/* Presentacion de Comalena */}
                 <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl text-red">CONOCE EL SABOR DE COMALEÑA</h2>
+                { 
+                    <div  className="flex gap-4 items-center justify-center mt-5 md:mt-15 min-[900px]:hidden">
+                        <Button className="cursor-pointer h-12 hover:bg-secondary/80">
+                            <Link href="/menu" className="text-md md:text-lg">Ver Menú Completo</Link>
+                        </Button>
+                    </div>
+                }
             </Reveal>
             <Reveal className="flex flex-col min-[1560px]:flex-row xl:px-20 items-center mt-8 md:mt-12 lg:mt-30 min-[1560px]:mt-40">
                <div className=' lg:mt-0 lg:mx-0 min-[1560px]:mr-8'>

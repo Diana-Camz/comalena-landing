@@ -78,7 +78,7 @@ export default function MenuPage() {
 
         
         const pricesToUse = isHalfPizza 
-            ? pricesForPizzas 
+            ? pricesForAllPizzas 
             : isBasicPizza
                 ? prices
                 : pricesForPizzas;
