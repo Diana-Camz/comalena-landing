@@ -27,6 +27,8 @@ export default function SizeSelectionComplementModal({
         unit: "unidades",
     };
 
+    const complementsWithSize = activeComplement?.complementId === "comp-1" || activeComplement?.complementId === "comp-5"
+
     const hasItems =
     (selectedComplementSizes.sm ?? 0) > 0 ||
     (selectedComplementSizes.md ?? 0) > 0 ||
@@ -80,7 +82,10 @@ export default function SizeSelectionComplementModal({
         </button>
     </div>
     <h3 className="text-[clamp(1.2rem,2.5vw,2rem)] text-red font-gothic mb-2 text-center">
-        Selecciona el tamaño de tu Complemento
+        { complementsWithSize
+              ? "Selecciona el tamaño de tu complemento"
+              : "Selecciona las unidades"
+        }
     </h3>
     <p className=" text-lg md:text-xl text-center font-medium text-card-foreground mb-4">{activeComplement?.title}</p>
     <div className="flex flex-col items-center gap-2">
