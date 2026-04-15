@@ -229,40 +229,88 @@ export const complementsMenu = [
   {
     id: "comp-9",
     title: "Cheescake",
-    description: "Agrega un toque de picante a tu pizza",
-    imageUrl: "",
+    description: "",
+    imageUrl: "/images/menu/complements/desserts/cheescake.webp",
     prices: {unit: 45},
     tags: ["postre"]
   },
   {
     id: "comp-10",
     title: "Galleta con Chispas de Chocolate",
-    description: "Agrega un toque de picante a tu pizza",
-    imageUrl: "",
+    description: "",
+    imageUrl: "/images/menu/complements/desserts/galleta.webp",
     prices: {unit: 20},
     tags: ["postre"]
   },
   {
     id: "comp-11",
-    title: "Pan de Platano",
-    description: "Agrega un toque de picante a tu pizza",
-    imageUrl: "",
-    prices: {unit: 5},
+    title: "Pan de Plátano",
+    description: "",
+    imageUrl: "/images/menu/complements/desserts/pan-de-platano.webp",
+    prices: {unit: 30},
     tags: ["postre"]
   },
   {
     id: "comp-12",
-    title: "Refresco de 600ml",
-    description: "Agrega un toque de picante a tu pizza",
-    imageUrl: "",
-    prices: {unit: 25},
+    title: "Coca-cola 600ml",
+    description: "",
+    imageUrl: "/images/menu/complements/drinks/coca600.webp",
+    prices: {unit: 30},
     tags: ["bebida"]
   },
   {
     id: "comp-13",
-    title: "Refresco de 2L",
-    description: "Agrega un toque de picante a tu pizza",
-    imageUrl: "",
+    title: "Fanta 600ml",
+    description: "",
+    imageUrl: "/images/menu/complements/drinks/fanta600.webp",
+    prices: {unit: 30},
+    tags: ["bebida"]
+  },
+  {
+    id: "comp-14",
+    title: "Sprite 600ml",
+    description: "",
+    imageUrl: "/images/menu/complements/drinks/sprite600.webp",
+    prices: {unit: 30},
+    tags: ["bebida"]
+  },
+  {
+    id: "comp-15",
+    title: "Mundet 600ml",
+    description: "",
+    imageUrl: "/images/menu/complements/drinks/mundet600.webp",
+    prices: {unit: 30},
+    tags: ["bebida"]
+  },
+  {
+    id: "comp-16",
+    title: "Coca-Cola 2L",
+    description: "",
+    imageUrl: "/images/menu/complements/drinks/coca2.webp",
+    prices: {unit: 50},
+    tags: ["bebida"]
+  },
+  {
+    id: "comp-17",
+    title: "Fanta 2L",
+    description: "",
+    imageUrl: "/images/menu/complements/drinks/fanta2.webp",
+    prices: {unit: 50},
+    tags: ["bebida"]
+  },
+  {
+    id: "comp-18",
+    title: "Sprite 2L",
+    description: "",
+    imageUrl: "/images/menu/complements/drinks/sprite2.webp",
+    prices: {unit: 50},
+    tags: ["bebida"]
+  },
+  {
+    id: "comp-19",
+    title: "Mundet 2L",
+    description: "",
+    imageUrl: "/images/menu/complements/drinks/mundet2.webp",
     prices: {unit: 50},
     tags: ["bebida"]
   },
@@ -328,36 +376,36 @@ export const featuredPizzas = [
 
 export const testimonials = [
   {
-    id: "guillermo-2024-05-15",
-    client: "Guillermo",
+    id: "francisco-2025-05-15",
+    client: "Francisco",
     testimonial:
-      "Excelente variedad!! Mi favorita la pizza es doggo. Mil veces mejor que la de Adobe Pizza.",
+      "Muy rica pizza y muy buena variedad. Sólo tienen servicio los sábados y domingos, para llevar o entrega a domicilio solamente.",
     rate: 5,
-    date: "2024-05-15",
+    date: "2025-05-15",
   },
   {
-    id: "luis-2024-05-15",
+    id: "luis-2025-05-15",
     client: "Luis",
     testimonial:
       "Muy buen sabor de la pizza y un excelente servicio!",
     rate: 5,
-    date: "2024-05-15",
+    date: "2025-05-15",
   },
   {
-    id: "melina-2024-05-15",
+    id: "melina-2025-05-15",
     client: "Melina",
     testimonial:
       "Están super ricas las pizzas. Siempre son muy amables, de momento el servicio es solo para llevar, nos encanta pedir cada domingo.",
     rate: 5,
-    date: "2024-05-15",
+    date: "2025-05-15",
   },
   {
-    id: "gariel-2024-05-15",
+    id: "gariel-2025-05-15",
     client: "Gariel",
     testimonial:
       "Completamente y totalmente la mejor Pizza de Comala que he probado, excelente sabor, textura, super deliciosa, hemos ordenado 8 veces y 0 problemas. 10 de 10.",
     rate: 5,
-    date: "2024-05-15",
+    date: "2025-05-15",
   },
 ];
 
