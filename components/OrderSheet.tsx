@@ -8,6 +8,7 @@ import CustomerForm from "./CustomerForm";
 import { useState } from "react";
 import { ingredients, pizzaMenu } from "@/data/data";
 import AlertForClearCart from "./AlertForClearCart";
+import { useBusinessStatus } from "@/hooks/useBusinessStatus";
 
 type OrderSheetProps = {
     setActive: (active: boolean) => void;
@@ -15,20 +16,9 @@ type OrderSheetProps = {
 
 export default function OrderSheet({ setActive }: OrderSheetProps) {
     const {setQuantity, removeItem, buildWhatsAppMessage, order, total, customerInfo} = useCart();
+    const {isOpen} = useBusinessStatus();
     const [step, setStep] = useState<"order" | "form">("order");
     const [activeAlertForClearCart, setActiveAlertForClearCart] = useState(false);
-
-    const isOpenNow = () => {
-        const now = new Date();
-
-        const day = now.getDay(); // 0 = Domingo, 6 = Sábado
-        const hours = now.getHours(); // 0 - 23
-
-        const isWeekend = day === 0 || day === 6;
-        const isWithinHours = hours >= 14 && hours < 22;
-
-        return isWeekend && isWithinHours;
-    };
 
     const groupedOrder = order.reduce<Record<string, {title: string, ingredientLabel: string, pizzasLabel:string, items: OrderItem[]}>>((acc, item) => {
         const ingredientKey = (item.selectedIngredients ?? []).slice().sort().join("-");
@@ -63,12 +53,12 @@ export default function OrderSheet({ setActive }: OrderSheetProps) {
     };
 
     const handleSendWhatsApp = () => {
-        const url = buildWhatsAppMessage("523121096301");
+        const url = buildWhatsAppMessage("523122703873");
         window.open(url, "_blank");
     };
 
     const isFormValid =
-        !isOpenNow() &&
+        isOpen &&
         customerInfo.name.trim() !== "" &&
         customerInfo.address.trim() !== "" &&
         customerInfo.phone.trim() !== "";
@@ -189,7 +179,7 @@ export default function OrderSheet({ setActive }: OrderSheetProps) {
                                 <p className="font-medium text-xl md:text-2xl text-red">{total.toLocaleString('es-MX', {style: 'currency', currency: 'MXN'})}</p>
                             </div>
                             </>)}
-                        {step === "form" && <CustomerForm isOpenNow={isOpenNow}/>}
+                        {step === "form" && <CustomerForm/>}
                             <div  className="flex flex-col gap-2 items-center w-full justify-center mt-3">
                                 {step === "order" ? (
                                     <Button

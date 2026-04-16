@@ -3,14 +3,16 @@ import Image from "next/image";
 import Link from "next/link";
 import { IoMenuSharp } from "react-icons/io5";
 import { Sheet, SheetClose, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import BusinessStatusBanner from "./BusinessStatusBanner";
 
 
 type NavItem = { href: string; label: string };
 export default function Navbar ({ navLabels }: { navLabels: NavItem[] }) {
 
     return (
-        <header className="sticky top-0 z-50 px-4 md:px-0">
-            <div className="flex max-[900px]:justify-between max-[900px]:pr-4 items-center mx-auto max-w-6xl md:max-w-none md:mx-6 rounded-lg bg-background shadow-md shadow-gray-100 border-2">
+        <header className="sticky top-0 z-50">
+          <BusinessStatusBanner />
+            <div className="flex max-[900px]:justify-between max-[900px]:pr-4 items-center mx-auto max-w-6xl md:max-w-none md:mx-6 rounded-lg bg-background shadow-md shadow-gray-100 border-2 ">
               <div className="flex items-center justify-between px-4 py-3 md:py-2">
                 <Link href="/" className="shrink-0">
                  <Image 
