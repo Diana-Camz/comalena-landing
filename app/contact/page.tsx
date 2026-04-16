@@ -21,7 +21,7 @@ export default function contactPage() {
                     Sábados y Domingos de 2:00 PM a 10:00 PM. 
                     </p>
 
-                    <h2 className="text-red text-2xl lg:text-5xl mb-3 lg:mt-20">
+                    <h2 className="text-red text-2xl lg:text-5xl mb-3 mt-5 lg:mt-20">
                     ¿Cómo puedes realizar tu orden?
                     </h2>
 
