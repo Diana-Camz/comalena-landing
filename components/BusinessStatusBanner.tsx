@@ -1,9 +1,16 @@
 
 import { useBusinessStatus } from "@/hooks/useBusinessStatus";
+import { useEffect, useState } from "react";
 
 export default function BusinessStatusBanner() {
+    const [mounted, setMounted] = useState(false);
     const {isClosingSoon, diffToCloseMinutes, isOpen, isWeekend, openHours, openMinutes, hours} = useBusinessStatus();
 
+    useEffect(() => {
+        setMounted(true);
+    }, []);
+
+    if (!mounted) return null;
     return (
         <div className="w-full">
             {isClosingSoon && <p className="text-md md:text-xl text-center p-2 text-amber-100 flex justify-center items-center bg-thirdary">{`!Date prisa estamos a punto de cerrar! Ordena dentro de ${diffToCloseMinutes} minutos`}</p>}
