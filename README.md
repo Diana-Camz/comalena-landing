@@ -1,6 +1,9 @@
 # Comaleña Pizza Landing Page
+# Comaleña Pizza Landing Page
 
 ## Overview
+This repository contains the **Comalena landing page and ordering system**, built with a **mobile-first approach**.
+The platform is designed to improve customer accessibility, simplify the ordering process, and support business growth through a more modern digital experience.
 This repository contains the **Comalena landing page and ordering system**, built with a **mobile-first approach**.
 The platform is designed to improve customer accessibility, simplify the ordering process, and support business growth through a more modern digital experience.
 ---
@@ -21,10 +24,32 @@ https://dev-beta--comalena.netlify.app
 - **shadcn/ui** – Selected UI components adapted and customized to match the project’s design system.
 - **Context API** – Global state management for cart, customer data, and ordering flow.
 - **WhatsApp Integration** – Order submission directly through WhatsApp messaging.
+- **Context API** – Global state management for cart, customer data, and ordering flow.
+- **WhatsApp Integration** – Order submission directly through WhatsApp messaging.
 
 ---
 
 ## Key Features
+## Complete Ordering System
+
+### Shopping Cart
+
+- Dynamic cart system for managing customer orders
+- Add and remove products in real time
+- Support for personalized pizza orders
+- Order summary generation before sending
+
+### WhatsApp Order Integration
+
+- Orders are sent directly through WhatsApp
+- Automatic generation of a structured order message
+- Simplifies communication between customer and business
+
+### Business Hours Validation
+
+- Validation to check whether the business is currently **open or closed**
+- Prevents customers from sending orders outside operating hours
+- Improves order management and customer expectations
 ## Complete Ordering System
 
 ### Shopping Cart
@@ -53,10 +78,19 @@ https://dev-beta--comalena.netlify.app
 - Layouts are structured to support scalability and future feature additions.
 - Styling is centralized to keep consistency across the landing.
 - Context-based architecture improves state management across the ordering flow
+- Context-based architecture improves state management across the ordering flow
 
 ---
 
 ## Preview
+| Home | Menu |
+|----------|------|
+|<img width="343" height="696" alt="image" src="https://github.com/user-attachments/assets/6af6a264-c883-4bd2-9853-1a4c1cf852fe" />| <img width="343" height="696" alt="image" src="https://github.com/user-attachments/assets/befccf75-bef1-4221-81d7-53619a74b3d1" /> |
+
+
+| Pizza Selection | Cart View |
+|-------------------------|---------------------|
+| <img width="344" height="618" alt="image" src="https://github.com/user-attachments/assets/5ceccba8-28dc-4489-ad55-d6be077f6d94" /> | <img width="344" height="618" alt="image" src="https://github.com/user-attachments/assets/c83973fe-fb05-4c90-9e5d-7525789d9bdf" />
 | Home | Menu |
 |----------|------|
 |<img width="343" height="696" alt="image" src="https://github.com/user-attachments/assets/6af6a264-c883-4bd2-9853-1a4c1cf852fe" />| <img width="343" height="696" alt="image" src="https://github.com/user-attachments/assets/befccf75-bef1-4221-81d7-53619a74b3d1" /> |
