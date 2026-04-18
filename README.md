@@ -1,18 +1,17 @@
-# Comalena Landing Page
+# Comaleña Pizza Landing Page
 
 ## Overview
-This repository contains the **Comalena landing page**, built with a **mobile-first approach** to ensure an optimal experience on smartphones and smaller devices before scaling up to tablet and desktop screens.
-
-The landing focuses on clear product presentation, strong visual identity, and smooth navigation, aligned with Comalena’s brand.
-
+This repository contains the **Comalena landing page and ordering system**, built with a **mobile-first approach**.
+The platform is designed to improve customer accessibility, simplify the ordering process, and support business growth through a more modern digital experience.
 ---
 
 ## Live Demo
-🔗 **Deployed on Netlify:**  
+- 🌐 **Official Website:**  
+https://comalenapizza.com
+- 🔗 **Production Version (Netlify):**  
 https://comalena.netlify.app
-
-Beta version
-https://dev-beta--comalena.netlify.app/menu
+- 🧪 **Development Beta Version:**  
+https://dev-beta--comalena.netlify.app
 
 ---
 
@@ -20,26 +19,32 @@ https://dev-beta--comalena.netlify.app/menu
 - **Next.js** – Main framework for routing, rendering, and performance optimization.
 - **Tailwind CSS** – Utility-first CSS framework used to build a fully responsive, mobile-first layout.
 - **shadcn/ui** – Selected UI components adapted and customized to match the project’s design system.
+- **Context API** – Global state management for cart, customer data, and ordering flow.
+- **WhatsApp Integration** – Order submission directly through WhatsApp messaging.
 
 ---
 
 ## Key Features
+## Complete Ordering System
 
-### Mobile-First Design
-- Layouts are designed starting from mobile screens.
-- Progressive enhancements for larger breakpoints.
-- Improved readability, spacing, and touch-friendly interactions.
+### Shopping Cart
 
-### UI Components
-- Reusable components for:
-  - Cards
-  - Tags and labels
-- Selected **shadcn/ui components** adapted to match Comalena’s branding and layout needs.
+- Dynamic cart system for managing customer orders
+- Add and remove products in real time
+- Support for personalized pizza orders
+- Order summary generation before sending
 
-### Performance & UX
-- Optimized layout rendering across all screen sizes.
-- Clean and minimal structure focused on conversion and clarity.
-- Responsive behavior tested across mobile, tablet, and desktop.
+### WhatsApp Order Integration
+
+- Orders are sent directly through WhatsApp
+- Automatic generation of a structured order message
+- Simplifies communication between customer and business
+
+### Business Hours Validation
+
+- Validation to check whether the business is currently **open or closed**
+- Prevents customers from sending orders outside operating hours
+- Improves order management and customer expectations
 
 ---
 
@@ -47,17 +52,19 @@ https://dev-beta--comalena.netlify.app/menu
 - Components are modular and reusable.
 - Layouts are structured to support scalability and future feature additions.
 - Styling is centralized to keep consistency across the landing.
+- Context-based architecture improves state management across the ordering flow
 
 ---
 
 ## Preview
-| Home |
-|----------|
-|![alt text](preview-1.png)|
+| Home | Menu |
+|----------|------|
+|<img width="343" height="696" alt="image" src="https://github.com/user-attachments/assets/6af6a264-c883-4bd2-9853-1a4c1cf852fe" />| <img width="343" height="696" alt="image" src="https://github.com/user-attachments/assets/befccf75-bef1-4221-81d7-53619a74b3d1" /> |
 
-| Menu |
-|------|
-|![alt text](preview-2.png)|
+
+| Pizza Selection | Cart View |
+|-------------------------|---------------------|
+| <img width="344" height="618" alt="image" src="https://github.com/user-attachments/assets/5ceccba8-28dc-4489-ad55-d6be077f6d94" /> | <img width="344" height="618" alt="image" src="https://github.com/user-attachments/assets/c83973fe-fb05-4c90-9e5d-7525789d9bdf" />
 
 ## Running the Project Locally
 
@@ -76,23 +83,9 @@ http://localhost:3000
 ```
 
 ## Current Development (dev-beta)
+The project continues evolving with new features focused on improving the digital ordering experience and customer interaction.
+**Planned Features**
 
-The project is currently under active development in the **`dev-beta`** branch, where new features are being implemented to enable **order placement via WhatsApp**.
+- Payment integration
+- Promotions and discount systems
 
-### Planned Features
-
-#### WhatsApp Order Integration
-- Allow users to place orders directly through WhatsApp.
-- Generate a structured message with the order details.
-- Send the message to the pizzeria’s phone number.
-
-#### Shopping Cart
-- Implement a **cart system** where users can:
-  - Review their order before sending.
-
-#### 💬 Order Summary via WhatsApp
-- The cart will generate a message including:
-  - Selected pizzas
-  - Quantities
-  - Total summary
-  - Delivery information if needed
