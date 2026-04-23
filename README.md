@@ -10,8 +10,9 @@ The platform is designed to improve customer accessibility, simplify the orderin
 https://comalenapizza.com
 - 🔗 **Production Version (Netlify):**  
 https://comalena.netlify.app
-- 🧪 **Development Beta Version:**  
-https://dev-beta--comalena.netlify.app
+
+Beta version
+https://dev-beta--comalena.netlify.app/menu
 
 ---
 
