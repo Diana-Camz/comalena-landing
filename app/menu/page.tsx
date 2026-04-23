@@ -3,7 +3,7 @@ import Layout from "@/components/Layout";
 import MenuCard from "@/components/MenuCard";
 import { complementsMenu, pizzaMenu, ingredients } from "@/data/data";
 import Image from "next/image";
-import { useMemo, useState } from "react";
+import { useMemo, useState, useEffect, useRef } from "react";
 import type { ComplementForModal, ComplementItem, ComplementSize, PizzaForModal, PizzaItem, PizzaSize } from "@/types/types";
 import { useCart } from "@/context/CartContext";
 import SizeSelectionPizzaModal from "@/components/SizeSelectionPizzaModal";
@@ -13,6 +13,7 @@ import ComplementCard from "@/components/ComplementCard";
 import SizeSelectionComplementModal from "@/components/SizeSelectionComplementModal";
 
 export default function MenuPage() {
+   const filtersRef = useRef<HTMLDivElement | null>(null);
    const [tagsPizzaSelected, setTagsPizzaSelected] = useState<string[]>([]);
    const [tagsSubmenuSelected, setTagsSubmenuSelected] = useState<string[]>([]);
    const [activeDetails, setActiveDetails] = useState<PizzaItem | null>(null);
@@ -26,6 +27,17 @@ export default function MenuPage() {
    const pizzasWithSingleIngredient = ["pizza-20", "pizza-21"]
    const isBasicPizza = activeSizeSelection?.pizzaId === "pizza-1";
    const isHalfPizza = activeSizeSelection?.pizzaId === "pizza-2";
+
+   useEffect(() => {
+    const isMobile = window.innerWidth < 768;
+
+    if (isMobile && filtersRef.current) {
+      filtersRef.current.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    }
+  }, []);
     
    const toggleTag = (tag: string, checked: boolean, type?: string ) => {
     if(type === "submenu"){
@@ -158,13 +170,13 @@ export default function MenuPage() {
         <Layout>
             <section className="py-8">
                 <div className="flex justify-center flex-col md:flex-row mb-8">
-                    <div className="w-full flex justify-center items-center flex-col mb-8 ">
+                    <div className="w-full flex justify-center items-center flex-col mb-8 mt--20">
                         <p className="lg:mt-2 font-medium text-lg sm:text-2xl md:text-3xl lg:text-4xl text-red/90 ">Conoce nuestros tamaños</p>
                         <div className="relative md:mt-6 w-full max-w-[370px] md:max-w-[360px] lg:max-w-[460px] aspect-[3.5/2]">
                             <Image src='/images/menu/tamanos.svg' alt='tamanos de pizza' fill sizes="(max-width: 640px) 220px, (max-width: 768px) 280px, (max-width: 1024px) 500px, 420px" className="object-contain"/>
                         </div>
                     </div>
-                    <div className="w-full flex items-center flex-col">
+                    <div ref={filtersRef} className="w-full flex items-center flex-col scroll-mt-40">
                         <p className="lg:mt-2 font-medium text-lg sm:text-2xl md:text-3xl lg:text-4xl text-red/90">Filtra según tu antojo</p>
                         <div className="mt-3 md:mt-8 flex flex-wrap gap-3 justify-center lg:justify-start max-w-[720px]">
                             <TagButton

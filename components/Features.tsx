@@ -15,7 +15,7 @@ export default function Features() {
                 { 
                     <div  className="flex gap-4 items-center justify-center mt-5 md:mt-15 min-[900px]:hidden">
                         <Button className="cursor-pointer h-12 hover:bg-secondary/80">
-                            <Link href="/menu" className="text-md md:text-lg">Ver Menú Completo</Link>
+                            <Link href="/menu" className="text-md md:text-lg">Quiero ordenar una pizza</Link>
                         </Button>
                     </div>
                 }
