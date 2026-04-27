@@ -58,7 +58,7 @@ export default function OrderSheet({ setActive }: OrderSheetProps) {
     };
 
     const isFormValid =
-        isOpen &&
+        //isOpen &&
         customerInfo.name.trim() !== "" &&
         customerInfo.address.trim() !== "" &&
         customerInfo.phone.trim() !== "";
