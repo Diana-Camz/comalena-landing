@@ -68,12 +68,12 @@ export default function OrderSheet({ setActive }: OrderSheetProps) {
             method: "POST",
             body: JSON.stringify(order),
             headers: {
-                "Contet-type": "application/json"
+                "Content-type": "application/json"
             }
         });
 
         const session = await res.json()
-        window.location = session.url
+        window.location.href = session.url
     }
 
 
