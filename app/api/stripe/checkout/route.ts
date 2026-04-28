@@ -5,37 +5,26 @@ import Stripe from "stripe";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!)
 
-export async function POST(){
+export async function POST(req: Request){
     try {
-        //const {items} = await req.json();
+        const items: OrderItem[] = await req.json();
         const session = await stripe.checkout.sessions.create({
         line_items: [
-            // ...items.map((item: OrderItem) => ({
-            //     price_data: {
-            //         currency: "mxn",
-            //         product_data: {
-            //             name: item.title,
-            //         },
-            //         unit_amount: item.unitPrice * 100,
-            //     },
-            //     quantity: item.quantity,
-            // }))
-            {
+            ...items.map((item: OrderItem) => ({
                 price_data: {
-                    currency: "usd",
+                    currency: "mxn",
                     product_data: {
-                        name: "Mexicana",
+                        name: item.title,
                     },
-                    unit_amount: 2000
+                    unit_amount: item.unitPrice * 100,
                 },
-                quantity: 1,
-            }
+                quantity: item.quantity,
+            }))
         ],
         mode: "payment",
         success_url: `${process.env.NEXT_PUBLIC_BASE_URL}/success`,
         cancel_url: `${process.env.NEXT_PUBLIC_BASE_URL}/failed`,
         })
-        console.log(session)
     return NextResponse.json({url: session.url})
     } catch (error) {
         console.error(error)

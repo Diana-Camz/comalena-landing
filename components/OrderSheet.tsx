@@ -63,6 +63,19 @@ export default function OrderSheet({ setActive }: OrderSheetProps) {
         customerInfo.address.trim() !== "" &&
         customerInfo.phone.trim() !== "";
 
+    const tryBackend = async (order: OrderItem) => {
+        const res = await fetch('api/stripe/checkout', {
+            method: "POST",
+            body: JSON.stringify(order),
+            headers: {
+                "Contet-type": "application/json"
+            }
+        });
+
+        const session = await res.json()
+        window.location = session.url
+    }
+
 
   return (
     <section className="mx-auto w-full px-4 sm:px-6 lg:px-8 flex flex-col">
@@ -184,7 +197,8 @@ export default function OrderSheet({ setActive }: OrderSheetProps) {
                                 {step === "order" ? (
                                     <Button
                                     type="button" 
-                                    onClick={() => setStep("form")}
+                                    //onClick={() => setStep("form")}
+                                    onClick={() => tryBackend(order)}
                                     className="w-1/2 cursor-pointer h-12 bg-red/95 hover:bg-red/80 active:bg-red/80 active:scale-97 transition duration-120 text-background text-lg font-medium">
                                     <p className="text-md md:text-lg">Continuar</p>
                                     </Button>
