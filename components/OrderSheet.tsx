@@ -63,7 +63,7 @@ export default function OrderSheet({ setActive }: OrderSheetProps) {
         customerInfo.address.trim() !== "" &&
         customerInfo.phone.trim() !== "";
 
-    const tryBackend = async (order: OrderItem) => {
+    const tryBackend = async (order: OrderItem[]) => {
         const res = await fetch('api/stripe/checkout', {
             method: "POST",
             body: JSON.stringify(order),
