@@ -52,10 +52,12 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${geistChicle.variable} ${geistMono.variable} ${anton.variable} ${gothic.variable}`}>
       <body
-      className="bg-background text-card-foreground font-sans antialiased">
+      className="min-h-screen flex flex-col bg-background text-card-foreground font-sans antialiased">
        <CartProvider>
           <Navbar navLabels={navLabels} />
-          {children}
+          <main className="flex-1">
+            {children}
+          </main>
           <Footer />
        </CartProvider>
       </body>
