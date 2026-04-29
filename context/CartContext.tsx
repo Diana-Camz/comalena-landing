@@ -1,14 +1,14 @@
 "use client"
 
-import React, { createContext, useContext, useState, useMemo } from "react"
+import React, { createContext, useContext, useState, useMemo, useEffect } from "react"
 import type { AnySize, OrderItem, CustomerInfo } from "@/types/types";
 import { ingredients, pizzaMenu } from "@/data/data";
 
 type CartContextType = {
+    phone: string;
     order: OrderItem[];
     customerInfo: CustomerInfo;
     total: number;
-    //addItem: (pizza: Pizza, size: Size) => void;
     addOrderItem: (orderItem: OrderItem) => void;
     setQuantity: (pizzaId: string, size: AnySize, quantity: number, selectedIngredients: string[]) => void;
     removeItem: (pizzaId: string, size: AnySize, selectedIngredients: string[]) => void;
@@ -16,7 +16,7 @@ type CartContextType = {
 
     setCustomerField: <K extends keyof CustomerInfo>(field: K, value: CustomerInfo[K]) => void;
 
-    buildWhatsAppMessage: (phone: string) => string;
+    buildWhatsAppMessage: () => string;
 }
 
 const CartContext = createContext<CartContextType | null>(null);
@@ -26,7 +26,20 @@ function makeKey(itemId: string, size: AnySize, ingredients: string[] = [], sele
 }
 
 export function CartProvider({children} : {children : React.ReactNode}) {
-    const [order, setOrder] = useState<OrderItem[]>([]);
+    const phone = "523122703873";
+    const [order, setOrder] = useState<OrderItem[]>(() => {
+      if (typeof window === "undefined") return [];
+
+      const savedOrder = localStorage.getItem("pendingOrder");
+
+      if (!savedOrder) return [];
+
+      try {
+        return JSON.parse(savedOrder) as OrderItem[];
+      } catch {
+        return [];
+      }
+    });
     const [customerInfo, setCustomerInfo] = useState<CustomerInfo>({
         name: "",
         address: "",
@@ -36,34 +49,9 @@ export function CartProvider({children} : {children : React.ReactNode}) {
         acceptedPrivacy: false
     });
 
-    //Funcion que Agrega pizza + tamaño, si ya existe, aumenta la cantidad, si no, la agrega al carrito
-  // const addItem = (pizza: Pizza, size: Size) => {
-  //   const unitPrice = pizza.prices[size];
-
-  //   setOrder((prev) => {
-  //     const key = makeKey(pizza.id, size);
-  //     const existing = prev.find((it) => makeKey(it.itemId, it.size) === key);
-
-  //     if (existing) {
-  //       return prev.map((it) =>
-  //         makeKey(it.itemId, it.size) === key
-  //           ? { ...it, quantity: it.quantity + 1 }
-  //           : it
-  //       );
-  //     }
-
-  //     return [
-  //       ...prev,
-  //       {
-  //         pizzaId: pizza.id,
-  //         title: pizza.title,
-  //         size,
-  //         unitPrice,
-  //         quantity: 1,
-  //       },
-  //     ];
-  //   });
-  // };
+  useEffect(() => {
+  localStorage.setItem("pendingOrder", JSON.stringify(order));
+}, [order]);
 
   //Funcion que agrega una orden completa de acuerdo a los tamanos seleccionados por cada tipo de pizza.
   const addOrderItem = (orderItem: OrderItem) => {
@@ -110,6 +98,7 @@ export function CartProvider({children} : {children : React.ReactNode}) {
 
   const clearCart = () => {
     setOrder([]);
+    localStorage.removeItem("orderPending")
     setCustomerInfo({
         name: "",
         address: "",
@@ -125,7 +114,7 @@ export function CartProvider({children} : {children : React.ReactNode}) {
   }, [order]);
 
   //Funcion que va a construir el mensaje que sera enviado por WhatsApp
-  const buildWhatsAppMessage = (phone:string): string => {
+  const buildWhatsAppMessage = (): string => {
     const lines: string[] = [];
     const sizesLabel = [
                           {key: "sm", label: "Chica"},
@@ -178,9 +167,9 @@ export function CartProvider({children} : {children : React.ReactNode}) {
   }
 
     const value = {
+        phone,
         order,
         customerInfo,
-        //addItem,
         addOrderItem,
         setQuantity,
         removeItem,
