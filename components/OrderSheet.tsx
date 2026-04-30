@@ -53,8 +53,10 @@ export default function OrderSheet({ setActive }: OrderSheetProps) {
     };
 
     const handleSendWhatsApp = () => {
-        const url = buildWhatsAppMessage("523122703873");
-        window.open(url, "_blank");
+        const message = buildWhatsAppMessage();
+        window.open(message, "_blank");
+        localStorage.removeItem("pendingOrder")
+        localStorage.removeItem("customerInfo")
     };
 
     const isFormValid =
@@ -63,7 +65,13 @@ export default function OrderSheet({ setActive }: OrderSheetProps) {
         customerInfo.address.trim() !== "" &&
         customerInfo.phone.trim() !== "";
 
-    const tryBackend = async (order: OrderItem[]) => {
+    const isValidCardPayment = 
+        total <= 1800 &&
+        isFormValid ;
+
+    const payWithCard = async (order: OrderItem[]) => {
+        localStorage.setItem("pendingOrder", JSON.stringify(order))
+        localStorage.setItem("customerInfo", JSON.stringify(customerInfo))
         const res = await fetch('api/stripe/checkout', {
             method: "POST",
             body: JSON.stringify(order),
@@ -197,23 +205,35 @@ export default function OrderSheet({ setActive }: OrderSheetProps) {
                                 {step === "order" ? (
                                     <Button
                                     type="button" 
-                                    //onClick={() => setStep("form")}
-                                    onClick={() => tryBackend(order)}
+                                    onClick={() => setStep("form")}
                                     className="w-1/2 cursor-pointer h-12 bg-red/95 hover:bg-red/80 active:bg-red/80 active:scale-97 transition duration-120 text-background text-lg font-medium">
                                     <p className="text-md md:text-lg">Continuar</p>
                                     </Button>
                                 ) : (
+                                    <div className="flex justify-evenly w-full px-2">
+                                        <Button
+                                        type="button" 
+                                        disabled={!isFormValid}
+                                        onClick={handleSendWhatsApp}
+                                        className={`h-12 bg-red/95 mb-2 transition duration-120 text-lg font-medium
+                                            ${isFormValid 
+                                                ? "cursor-pointer bg-red/95 hover:bg-red/80 active:bg-red/80 active:scale-97 text-background"
+                                                :  "bg-gray-300 text-gray-500 cursor-not-allowed"}`}
+                                        >
+                                        <p className="text-md md:text-lg">Enviar mi orden</p>
+                                    </Button>
                                     <Button
-                                    type="button" 
-                                    disabled={!isFormValid}
-                                    onClick={handleSendWhatsApp}
-                                    className={`w-1/2 h-12 bg-red/95  transition duration-120 text-lg font-medium
-                                        ${isFormValid 
-                                            ? "cursor-pointer bg-red/95 hover:bg-red/80 active:bg-red/80 active:scale-97 text-background"
-                                            :  "bg-gray-300 text-gray-500 cursor-not-allowed"}`}
-                                    >
-                                    <p className="text-md md:text-lg">Enviar mi orden</p>
-                                </Button>
+                                        type="button" 
+                                        disabled={!isValidCardPayment}
+                                        onClick={() => payWithCard(order)}
+                                        className={`h-12 bg-red/95  transition duration-120 text-lg font-medium
+                                            ${isValidCardPayment 
+                                                ? "cursor-pointer bg-secondary/95 hover:bg-secondary/80 active:bg-red/80 active:scale-97 text-background"
+                                                :  "bg-gray-300 text-gray-500 cursor-not-allowed"}`}
+                                        >
+                                        <p className="text-md md:text-lg">Pagar con tarjeta</p>
+                                    </Button>
+                                    </div>
                                 )}
                                 <Button
                                     type="button" 
