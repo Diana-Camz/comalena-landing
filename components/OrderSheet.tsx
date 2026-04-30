@@ -72,7 +72,7 @@ export default function OrderSheet({ setActive }: OrderSheetProps) {
     const payWithCard = async (order: OrderItem[]) => {
         localStorage.setItem("pendingOrder", JSON.stringify(order))
         localStorage.setItem("customerInfo", JSON.stringify(customerInfo))
-        const res = await fetch('api/stripe/checkout', {
+        const res = await fetch('/api/stripe/checkout', {
             method: "POST",
             body: JSON.stringify(order),
             headers: {
