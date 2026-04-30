@@ -1,36 +1,24 @@
-"use client"
-import { Button } from '@/components/ui/button';
-import { PiSealCheckDuotone } from "react-icons/pi";
-import { useCart } from '@/context/CartContext'
-import { useRouter } from 'next/navigation';
+import {redirect} from 'next/navigation';
+import Stripe from 'stripe';
+import SuccessContent from '@/components/SuccessContent';
+
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!)
 
 
-function Success() {
-  const { buildWhatsAppMessage, clearCart } = useCart();
-  const router = useRouter();
+async function Success({searchParams}: {searchParams: Promise<{session_id?: string}>}) {
+  const {session_id} = await searchParams;
 
-  const handleSendWhatsApp = () => {
-    const message = buildWhatsAppMessage();
-    if (!message) return;
-    window.open(message, "_blank");
-    clearCart()
-    router.push("/menu")
+  if(!session_id){
+    redirect("/menu")
+  }
+
+  const session = await stripe.checkout.sessions.retrieve(session_id)
+
+  if(session.payment_status !== "paid"){
+    redirect("/menu")
   }
   return (
-      <section className="min-h-[60vh] flex flex-col text-center items-center justify-center gap-6 px-4">
-        <div className='flex items-center justify-center'>
-          <PiSealCheckDuotone className='w-20 h-20 md:w-30 md:h-30 lg:w-50 lg:h-50 text-[#3cb15f]'/>
-        </div>
-        <h2 className="text-[clamp(1.5rem,2.5vw,2.5rem)] text-black/80 ">Pago realizado correctamente</h2>
-        <div className='flex justify-center items-center '>
-          <Button
-          type="button" 
-          onClick={handleSendWhatsApp}
-          className="cursor-pointer h-12 bg-red/95 hover:bg-red/80 active:bg-red/80 active:scale-97 transition duration-120 text-background text-lg font-medium">
-          <p className="text-md md:text-lg">Enviar mi orden y mi comprobante de pago</p>
-        </Button>
-        </div>
-      </section>
+      <SuccessContent />
   )
 }
 
