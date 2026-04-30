@@ -17,8 +17,15 @@ async function Success({searchParams}: {searchParams: Promise<{session_id?: stri
   if(session.payment_status !== "paid"){
     redirect("/menu")
   }
+
+  const paymentId =
+  typeof session.payment_intent === "string"
+    ? session.payment_intent
+    : session.id;
+
+    
   return (
-      <SuccessContent />
+      <SuccessContent paymentId={paymentId}/>
   )
 }
 

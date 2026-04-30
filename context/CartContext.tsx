@@ -16,7 +16,7 @@ type CartContextType = {
 
     setCustomerField: <K extends keyof CustomerInfo>(field: K, value: CustomerInfo[K]) => void;
 
-    buildWhatsAppMessage: () => string;
+    buildWhatsAppMessage: (paymentId?: string) => string;
 }
 
 const CartContext = createContext<CartContextType | null>(null);
@@ -26,7 +26,7 @@ function makeKey(itemId: string, size: AnySize, ingredients: string[] = [], sele
 }
 
 export function CartProvider({children} : {children : React.ReactNode}) {
-    const phone = "523122703873";
+    const phone = "523121096301";
     const getInitialCustomer = (): CustomerInfo => ({
       name: "",
       address: "",
@@ -129,7 +129,7 @@ useEffect(() => {
   }, [order]);
 
   //Funcion que va a construir el mensaje que sera enviado por WhatsApp
-  const buildWhatsAppMessage = (): string => {
+  const buildWhatsAppMessage = (paymentId?: string): string => {
     const lines: string[] = [];
     const sizesLabel = [
                           {key: "sm", label: "Chica"},
@@ -143,7 +143,9 @@ useEffect(() => {
     if (customerInfo.name.trim()) lines.push(`Nombre: ${customerInfo.name.trim()}`) ;
     if (customerInfo.phone.trim()) lines.push(`Teléfono: ${customerInfo.phone.trim()}`);
     if (customerInfo.address.trim()) lines.push(`Domicilio: ${customerInfo.address.trim()}`);
-    //if (sessionId) lines.push("Id de mi pago: " + sessionId);
+    if (paymentId)  lines.push('Pagado con Stripe');
+    if (!paymentId) lines.push('Pago aún no realizado');
+    if (paymentId) lines.push("ID de mi pago: " + paymentId);
     lines.push("");
     lines.push("Orden:");
 
@@ -175,7 +177,8 @@ useEffect(() => {
     }
 
     lines.push("");
-    lines.push('Quedo en espera de la confirmación de mi pedido, el tiempo de preparación y el total con envío a domicilio (en caso de aplicar)');
+    if (paymentId) lines.push('Quedo en espera de la confirmación de mi pedido, el tiempo de preparación y el costo del envío a domicilio (en caso de aplicar)');
+    if (!paymentId) lines.push('Quedo en espera de la confirmación de mi pedido, el tiempo de preparación y el total a pagar con el envío a domicilio (en caso de aplicar)');
 
     const text = encodeURIComponent(lines.join("\n"));
     return `https://wa.me/${phone}?text=${text}`;

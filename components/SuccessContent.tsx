@@ -4,13 +4,17 @@ import { useCart } from '@/context/CartContext';
 import { useRouter } from 'next/navigation';
 import { PiSealCheckDuotone } from "react-icons/pi";
 
-function SuccessContent() {
+type SuccessContentProps = {
+  paymentId: string;
+}
+
+function SuccessContent({paymentId}: SuccessContentProps) {
 
   const { buildWhatsAppMessage, clearCart } = useCart();
   const router = useRouter();
 
   const handleSendWhatsApp = () => {
-    const message = buildWhatsAppMessage();
+    const message = buildWhatsAppMessage(paymentId);
     if (!message) return;
     window.open(message, "_blank");
     clearCart()
