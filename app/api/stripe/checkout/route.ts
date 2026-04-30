@@ -22,8 +22,8 @@ export async function POST(req: Request){
             }))
         ],
         mode: "payment",
-        success_url: `${process.env.NEXT_PUBLIC_BASE_URL}/success`,
-        cancel_url: `${process.env.NEXT_PUBLIC_BASE_URL}/failed`,
+        success_url: `${process.env.NEXT_PUBLIC_BASE_URL}/success?session_id={CHECKOUT_SESSION_ID}`,
+        cancel_url: `${process.env.NEXT_PUBLIC_BASE_URL}/menu`,
         })
     return NextResponse.json({url: session.url})
     } catch (error) {
