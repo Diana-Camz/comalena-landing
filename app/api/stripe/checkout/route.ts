@@ -2,10 +2,13 @@ import { OrderItem } from "@/types/types";
 import { NextResponse } from "next/server";
 import Stripe from "stripe";
 
-
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!)
+const stripeKey = process.env.STRIPE_SECRET_KEY;
+const stripe = stripeKey ? new Stripe(stripeKey) : null;
 
 export async function POST(req: Request){
+    if (!stripe) {
+        return NextResponse.json({ error: "Stripe not configured" }, { status: 500 });
+    }
     try {
         const items: OrderItem[] = await req.json();
         const session = await stripe.checkout.sessions.create({

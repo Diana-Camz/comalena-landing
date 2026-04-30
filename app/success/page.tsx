@@ -1,8 +1,8 @@
 import {redirect} from 'next/navigation';
 import Stripe from 'stripe';
 import SuccessContent from '@/components/SuccessContent';
-
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!)
+const stripeKey = process.env.STRIPE_SECRET_KEY;
+const stripe = stripeKey ? new Stripe(stripeKey) : null;
 
 
 async function Success({searchParams}: {searchParams: Promise<{session_id?: string}>}) {
@@ -10,6 +10,10 @@ async function Success({searchParams}: {searchParams: Promise<{session_id?: stri
 
   if(!session_id){
     redirect("/menu")
+  }
+
+  if (!stripe) {
+    return redirect("/menu")
   }
 
   const session = await stripe.checkout.sessions.retrieve(session_id)
@@ -23,7 +27,7 @@ async function Success({searchParams}: {searchParams: Promise<{session_id?: stri
     ? session.payment_intent
     : session.id;
 
-    
+
   return (
       <SuccessContent paymentId={paymentId}/>
   )

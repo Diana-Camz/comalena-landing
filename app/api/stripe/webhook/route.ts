@@ -3,15 +3,29 @@ import {headers} from "next/headers"
 import Stripe from "stripe";
 import {Resend} from 'resend'
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!)
-const whsec = process.env.STRIPE_WEBHOOK_SECRET!;
-const resend = new Resend(process.env.RESEND_API_SECRET!)
+const stripeKey = process.env.STRIPE_SECRET_KEY;
+const whsecKey = process.env.STRIPE_WEBHOOK_SECRET;
+const resendKey = process.env.RESEND_API_SECRET;
+
+const stripe = stripeKey ? new Stripe(stripeKey) : null;
+const whsec = whsecKey ? whsecKey : null;
+const resend = resendKey ? new Resend(resendKey) : null;
 
 export async function POST(request: Request){
     const body = await request.text();
     const headersList = headers();
     const sig = (await headersList).get('stripe-signature');
     let event;
+
+    if (!stripe) {
+    return NextResponse.json({ error: "Stripe not configured" }, { status: 500 });
+    }
+    if (!whsec) {
+  return NextResponse.json({ error: "Webhook secret not configured" }, { status: 500 });
+}
+    if (!resend) {
+  return NextResponse.json({ error: "Resend not configured" }, { status: 500 });
+}
 
     if(!sig){
         return NextResponse.json({error: "Missing stripe-signature header"}, {status: 400})
