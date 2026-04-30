@@ -27,31 +27,45 @@ function makeKey(itemId: string, size: AnySize, ingredients: string[] = [], sele
 
 export function CartProvider({children} : {children : React.ReactNode}) {
     const phone = "523122703873";
+    const getInitialCustomer = (): CustomerInfo => ({
+      name: "",
+      address: "",
+      phone: "",
+      notes: "",
+      isPickup: false,
+      acceptedPrivacy: false,
+    });
     const [order, setOrder] = useState<OrderItem[]>(() => {
       if (typeof window === "undefined") return [];
-
       const savedOrder = localStorage.getItem("pendingOrder");
-
       if (!savedOrder) return [];
-
       try {
         return JSON.parse(savedOrder) as OrderItem[];
       } catch {
         return [];
       }
     });
-    const [customerInfo, setCustomerInfo] = useState<CustomerInfo>({
-        name: "",
-        address: "",
-        phone: "",
-        notes: "",
-        isPickup: false,
-        acceptedPrivacy: false
+    const [customerInfo, setCustomerInfo] = useState<CustomerInfo>(() => {
+        if (typeof window === "undefined") {
+            return getInitialCustomer();
+        }
+
+        const savedCustomer = localStorage.getItem("customerInfo");
+        if (!savedCustomer) return getInitialCustomer();
+        try {
+          return JSON.parse(savedCustomer) as CustomerInfo;
+        } catch {
+          return getInitialCustomer();
+        }
     });
 
   useEffect(() => {
   localStorage.setItem("pendingOrder", JSON.stringify(order));
 }, [order]);
+
+useEffect(() => {
+  localStorage.setItem("pendingCustomerInfo", JSON.stringify(customerInfo));
+}, [customerInfo]);
 
   //Funcion que agrega una orden completa de acuerdo a los tamanos seleccionados por cada tipo de pizza.
   const addOrderItem = (orderItem: OrderItem) => {
@@ -98,15 +112,16 @@ export function CartProvider({children} : {children : React.ReactNode}) {
 
   const clearCart = () => {
     setOrder([]);
-    localStorage.removeItem("orderPending")
     setCustomerInfo({
-        name: "",
-        address: "",
-        phone: "",
-        notes: "",
-        isPickup: false,
-        acceptedPrivacy: false
+      name: "",
+      address: "",
+      phone: "",
+      notes: "",
+      isPickup: false,
+      acceptedPrivacy: false
     });
+    localStorage.removeItem("orderPending");
+    localStorage.removeItem("customerInfo");
   }
 
   const total = useMemo(() => {
@@ -128,6 +143,7 @@ export function CartProvider({children} : {children : React.ReactNode}) {
     if (customerInfo.name.trim()) lines.push(`Nombre: ${customerInfo.name.trim()}`) ;
     if (customerInfo.phone.trim()) lines.push(`Teléfono: ${customerInfo.phone.trim()}`);
     if (customerInfo.address.trim()) lines.push(`Domicilio: ${customerInfo.address.trim()}`);
+    //if (sessionId) lines.push("Id de mi pago: " + sessionId);
     lines.push("");
     lines.push("Orden:");
 
