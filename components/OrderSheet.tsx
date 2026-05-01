@@ -80,7 +80,13 @@ export default function OrderSheet({ setActive }: OrderSheetProps) {
             }
         });
 
-        const session = await res.json()
+        const session = await res.json();
+        if (!res.ok || !session.url) {
+        console.error("Checkout failed:", session);
+        return;
+        }
+
+
         window.location.href = session.url
     }
 
