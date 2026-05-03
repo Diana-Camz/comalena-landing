@@ -11,7 +11,7 @@ https://comalenapizza.com
 - 🔗 **Production Version (Netlify):**  
 https://comalena.netlify.app
 
-Beta version
+- 💵 **Beta Version: Stripe Payment Integration**
 https://dev-beta--comalena.netlify.app/menu
 
 ---
@@ -83,10 +83,10 @@ npm run dev
 http://localhost:3000
 ```
 
-## Current Development (dev-beta)
-The project continues evolving with new features focused on improving the digital ordering experience and customer interaction.
-**Planned Features**
+## New Features (dev-beta)
+ **Stripe Payment Integration**
+- Secure online payments using Stripe Checkout
+- Order persistence using local storage before payment
+- Post-payment flow ready for order confirmation and processing
 
-- Payment integration
-- Promotions and discount systems
 
