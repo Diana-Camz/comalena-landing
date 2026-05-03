@@ -89,4 +89,8 @@ http://localhost:3000
 - Order persistence using local storage before payment
 - Post-payment flow ready for order confirmation and processing
 
+ **Stripe Webhook Integration**
+  - Backend endpoint to securely handle Stripe events
+  - Listens for successful payment events (`checkout.session.completed`)
+
 
