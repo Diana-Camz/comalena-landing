@@ -216,7 +216,7 @@ export default function OrderSheet({ setActive }: OrderSheetProps) {
                                     <p className="text-md md:text-lg">Continuar</p>
                                     </Button>
                                 ) : (
-                                    <div className="flex justify-evenly w-full px-2">
+                                    <div className="flex flex-col justify-evenly w-full px-2">
                                         <Button
                                         type="button" 
                                         disabled={!isFormValid}
