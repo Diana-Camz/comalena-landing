@@ -276,7 +276,7 @@ export default function MenuPage() {
                                     )
                                 }
                             />
-                            <div className="flex flex-wrap mt-3 gap-3">
+                            <div className="flex flex-wrap mt-3 gap-3 w-full justify-center">
                             <TagButton
                                 label="Complementos"
                                 type={"submenu"}
@@ -289,7 +289,7 @@ export default function MenuPage() {
                                      )
                                 }
                             />
-                            <TagButton
+                            {/* <TagButton
                                 label="Postres"
                                 type={"submenu"}
                                 active={tagsSubmenuSelected.includes("postre")}
@@ -312,7 +312,7 @@ export default function MenuPage() {
                                     "submenu"
                                     )
                                 }
-                            />
+                            /> */}
                             </div>
                         </div>
                     </div>

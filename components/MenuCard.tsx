@@ -33,7 +33,16 @@ export default function MenuCard({title, ingredients, imageUrl, prices, onOpenDe
           <h3 className="text-[clamp(.90rem,3.2vw,2rem)] min-[731px]:text-[clamp(1.1rem,1.1vw,1.15rem)] min-[900px]:text-[clamp(1.5rem,1.2vw,1.25rem)] text-red text-start">{title}</h3>
           <p className="text-card-foreground/70 font-gothic text-[clamp(0.80rem,3.1vw,1.3rem)]  min-[731px]:text-[clamp(0.84rem,1.1vw,1.15rem)] min-[900px]:text-[clamp(.90rem,1.2vw,1.25rem)] mt-2 text-start min-h-14 leading-snug">{ingredients}</p>
         </button>
-        <div className="mt-auto pt-3">
+          <div className="mt-auto pt-3 flex">
+        {title !== "Mitad y mitad" && title !== "Arma tu pizza" 
+        ?
+          (<div className="md:hidden text-[clamp(0.95rem,3.1vw,1.3rem)] flex gap-3 place-items-end ml-2 text-card-foreground/82">
+            <span>${prices.sm}</span>
+            <span>${prices.md}</span>
+            <span>${prices.lg}</span>
+          </div>)
+          : null
+        }
           <div className="flex w-full justify-end pr-1.5">
               <button 
                   type="button"
